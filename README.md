@@ -8,9 +8,17 @@
 
 PLAN NA NEXT DAY
 - Dopisat schemu
-- Zacat pripravovat databazu
+
   
 ------------------------------------------------------------------------------------------------------------------------
 
+15. 10 (2 day)
+- Zacali sme kodit, urobili sme triedy atd.
+- Dohodnuli sme sa ako to budeme robit
+- Riesili problemu s DAtabazamy (robime NoSQL)
+
+PLAN NA NEXT DAY
+- Zacat pisat logiku
+- Pridat DAO
 
 
