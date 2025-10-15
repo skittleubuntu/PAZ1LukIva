@@ -11,8 +11,6 @@ public class Quiz {
     private Note correctAnswer;
     private QuestionType type;
 
-    private List<Note> n;
-
     public Set<Note> getNotes() {
         return  new HashSet<Note>(notes);
     }
