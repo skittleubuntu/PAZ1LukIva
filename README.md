@@ -7,5 +7,10 @@
 - Dohodnuli sme sa o planach a ulohach kazdeho
 
 PLAN NA NEXT DAY
-- Zacat robit GUI
+- Dopisat schemu
+- Zacat pripravovat databazu
+  
+------------------------------------------------------------------------------------------------------------------------
+
+
 
