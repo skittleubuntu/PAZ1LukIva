@@ -28,6 +28,7 @@ PLAN NA NEXT DAY
 - Class Note, Lesson, Quiz
 - NoteDAO
 - Random generacia
+  
 PLAN NA NEXT DAY
 - Urobit moznost ulozit Lessons v databazu
 - Pocet tlacidiel v zavislosti od pocetu Not na Hodine
