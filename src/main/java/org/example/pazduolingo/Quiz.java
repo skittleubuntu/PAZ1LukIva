@@ -1,9 +1,6 @@
 package org.example.pazduolingo;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Quiz {
 
@@ -23,16 +20,14 @@ public class Quiz {
         return type;
     }
 
-    public Quiz(QuestionType type) {
+    public Quiz(QuestionType type, Set<Note> notes) {
         pickNote();
+        this.notes = notes;
         this.type = type;
     }
 
 
-    public void loadNotes(Set<Note> selectedNotes){
-        Set<Note> notes = new HashSet<>();
-        this.notes = notes;
-    }
+
 
     //neviem ci to ma byt v tejto triede
     public void options(){
@@ -41,11 +36,13 @@ public class Quiz {
         }
     }
 
-    public void pickNote(){
-        for(Note note : notes){
-            this.correctAnswer = note;
-            return;
-        }
+    //choose random note
+    public void pickNote() {
+        if (notes == null || notes.isEmpty()) return;
+        List<Note> noteList = new ArrayList<>(notes);
+        Random random = new Random();
+        int index = random.nextInt(noteList.size());
+        this.correctAnswer = noteList.get(index);
     }
 
     //neviem ci je potrebne ked som implementoval equals a hash v triede Note
@@ -54,6 +51,27 @@ public class Quiz {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("type: ").append(type).append("\n");
+        sb.append("notes: ");
+
+        // Перебираємо всі ноти у Set
+        int i = 0;
+        for (Note note : notes) {
+            sb.append(note.getName()).append(note.getOctave());
+            if (i < notes.size() - 1) sb.append(", ");
+            i++;
+        }
+
+        // Можна показати правильну відповідь (опціонально)
+        // sb.append("\nПравильна відповідь: ").append(correctAnswer.getName()).append(correctAnswer.getOctave());
+
+        return sb.toString();
     }
 
 }

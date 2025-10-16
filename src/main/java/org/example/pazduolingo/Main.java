@@ -6,16 +6,22 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import javax.sound.midi.MidiUnavailableException;
+import java.util.List;
 
 public class Main {
 
 
 
     public static void main(String[] args){
-        Sounder player = new Sounder();
-        player.play(60, 100);
-        player.play(65, 100);
-        player.play(70, 100);
+
+        Lesson lesson = new Lesson();
+        lesson.generateLesson(4,4);
+
+        System.out.println(lesson.toString());
+        List<Quiz> quizList = lesson.getQuestions();
+        for(Quiz q: quizList){
+            System.out.println(q.toString());
+        }
 
     }
 
