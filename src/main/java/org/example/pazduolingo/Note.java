@@ -7,10 +7,12 @@ public class Note {
     private String name;
     private int octave;
     private int id;
+    private int midiNumber;
 
-    public Note(String name, int octave, int id) {
+    public Note( int id, int midiNumber,  String name,int octave) {
         this.name = name;
         this.octave = octave;
+        this.midiNumber = midiNumber;
         this.id = id;
     }
 
@@ -42,4 +44,13 @@ public class Note {
     public int hashCode() {
         return Objects.hash(name, octave, id);
     }
+
+    public int getMidiNumber() {
+        return midiNumber;
+    }
+
+    public String toString() {
+        return name + octave + " (MIDI: " + midiNumber + ", ID: " + id + ")";
+    }
+
 }
