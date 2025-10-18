@@ -40,4 +40,13 @@ PLAN NA NEXT DAY
 - prepojili sme GUI s javou
 - spravili sme controller pre main scene (na ovladanie tlacidiel)
 
+PLAN NA NEXT DAY
+- Urobit controler na traning
+- Urobit samozrejme traning
+- Dopisat do dabazy noty
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
 
