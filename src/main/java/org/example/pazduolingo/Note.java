@@ -21,8 +21,10 @@ public class Note {
     }
 
     public String getName() {
-        return name;
+        return name + octave;
     }
+
+
 
     public int getOctave() {
         return octave;

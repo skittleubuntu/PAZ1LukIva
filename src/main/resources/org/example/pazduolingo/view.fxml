@@ -15,6 +15,7 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -24,6 +25,7 @@
             <Button fx:id="editorButton" minWidth="100.0" mnemonicParsing="false" text="Quiz editor" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Button fx:id="statsButton" minWidth="100.0" mnemonicParsing="false" text="Stats" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
             <Button fx:id="settingsButton" minWidth="100.0" mnemonicParsing="false" text="Settings" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+            <Button fx:id="trainingButton" minWidth="100.0" mnemonicParsing="false" text="Training" GridPane.columnIndex="4" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />

@@ -1,12 +1,11 @@
 package org.example.pazduolingo;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class MainSceneController {
 
@@ -23,11 +22,30 @@ public class MainSceneController {
     private Button statsButton;
 
     @FXML
+    private Button trainingButton;
+
+    @FXML
     void initialize() {
         lessonButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 System.out.println("Lessons");
+            }
+        });
+
+        trainingButton.setOnAction(event -> {
+            System.out.println("Opening Training window...");
+
+
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            try {
+                TrainingWindow trainingApp = new TrainingWindow();
+                Stage trainingStage = new Stage();
+                trainingApp.start(trainingStage);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
