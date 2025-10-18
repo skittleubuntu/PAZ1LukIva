@@ -7,28 +7,27 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <GridPane>
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <Button minWidth="100.0" mnemonicParsing="false" text="Lessons" GridPane.halignment="CENTER" />
-                <Button minWidth="100.0" mnemonicParsing="false" text="Quiz editor" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                <Button minWidth="100.0" mnemonicParsing="false" text="Stats" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                <Button minWidth="100.0" mnemonicParsing="false" text="Settings" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-            </children>
-            <VBox.margin>
-                <Insets bottom="10.0" top="10.0" />
-            </VBox.margin>
-        </GridPane>
-    </children>
+   <children>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="lessonButton" minWidth="100.0" mnemonicParsing="false" text="Lessons" GridPane.halignment="CENTER" />
+            <Button fx:id="editorButton" minWidth="100.0" mnemonicParsing="false" text="Quiz editor" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="statsButton" minWidth="100.0" mnemonicParsing="false" text="Stats" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Button fx:id="settingsButton" minWidth="100.0" mnemonicParsing="false" text="Settings" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </GridPane>
+   </children>
 </VBox>

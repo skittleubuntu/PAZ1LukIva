@@ -27,7 +27,7 @@ public class Quiz {
     }
 
 
-
+    //TODO: RELATIVE_PITCH quiz potrebuje reference note
 
     //neviem ci to ma byt v tejto triede
     public void options(){
