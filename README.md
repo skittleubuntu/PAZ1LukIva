@@ -47,6 +47,19 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#18.10 (5 day)
+- Urobili sme training mode
+- Dopisali sme databazu not na pianino
+- Riesili sme ulohu "Dynamic buttons" (pocet tlacidiel v zavislosti od parametra)
+  
+PLAN NA NEXT DAY
+- Riesit problemu spustenia dvoch a viac not
+- Multiprocesing na Sounder.java
+- Zlepsit dizajn na Training
+
+------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
