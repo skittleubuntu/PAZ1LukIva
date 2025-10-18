@@ -56,6 +56,7 @@ public class NoteDAO {
 
 
 
+
     public String getNoteNameById(int id) {
         for (Note n : notes) {
             if (n.getId() == id) {

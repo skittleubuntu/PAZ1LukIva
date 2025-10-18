@@ -14,10 +14,10 @@ public class Lesson {
 
         NoteDAO notedao = new NoteDAO();
 
-        questions = new ArrayList<>(); // очищаємо старі питання
+        questions = new ArrayList<>();
 
         for (int i = 0; i < sizeOfLesson; i++) {
-            // Випадковий тип питання для кожного Quiz
+
             QuestionType type;
             int type_n = 1 + (int)(Math.random() * 4);
 
