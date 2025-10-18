@@ -35,6 +35,9 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#17.10 (4 day)
 
+- prepojili sme GUI s javou
+- spravili sme controller pre main scene (na ovladanie tlacidiel)
 
 
