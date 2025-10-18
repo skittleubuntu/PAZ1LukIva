@@ -24,7 +24,7 @@ public class NoteDAO {
     }
 
     private void loadNotes() {
-        // Відкриваємо файл як ресурс з папки resources/database
+
         InputStream is = getClass().getResourceAsStream("/database/notes.csv");
         if (is == null) {
             System.err.println("file not found in resources/database/notes.csv");
