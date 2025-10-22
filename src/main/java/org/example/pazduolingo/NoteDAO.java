@@ -8,7 +8,7 @@ import java.util.*;
 public class NoteDAO {
 
     private final InputStream db_notes = getClass().getResourceAsStream("/database/notes.csv");
-    private Set<Note> notes = new HashSet<>();
+    private List<Note> notes = new ArrayList<>();
 
     public NoteDAO() {
         loadNotes();
@@ -86,7 +86,7 @@ public class NoteDAO {
     }
 
     //all notes
-    public Set<Note> getAllNotes() {
+    public List<Note> getAllNotes() {
         return notes;
     }
 }

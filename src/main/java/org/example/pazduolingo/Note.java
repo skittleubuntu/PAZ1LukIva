@@ -2,7 +2,7 @@ package org.example.pazduolingo;
 
 import java.util.Objects;
 
-public class Note {
+public class Note implements Comparable<Note>{
 
     private String name;
     private int octave;
@@ -16,15 +16,13 @@ public class Note {
         this.id = id;
     }
 
-    public void play(Sounder sounder){
-        sounder.play(id, 100);
+    public void play(){
+        Sounder.play(id, 100);
     }
 
     public String getName() {
         return name + octave;
     }
-
-
 
     public int getOctave() {
         return octave;
@@ -55,4 +53,8 @@ public class Note {
         return name + octave + " (MIDI: " + midiNumber + ", ID: " + id + ")";
     }
 
+    @Override
+    public int compareTo(Note o) {
+        return Integer.compare(midiNumber, o.midiNumber);
+    }
 }
