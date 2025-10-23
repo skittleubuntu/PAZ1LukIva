@@ -4,6 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.List;
 import java.util.Set;
 
 public class TrainingWindow {
@@ -11,7 +13,7 @@ public class TrainingWindow {
     //TODO!!!!!!!V FXML NEPRIDAVAME CONTROLLER!!!!!!!!!!!
     public void start(Stage stage) throws Exception {
         NoteDAO noteDAO = new NoteDAO();
-        Set<Note> notes = noteDAO.getAllNotes();
+        List<Note> notes = noteDAO.getAllNotes();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("train_view.fxml"));
         Parent rootPane = fxmlLoader.load();

@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 
-import java.util.Set;
+import java.util.*;
 
 public class TrainingController {
 
@@ -15,12 +15,13 @@ public class TrainingController {
     @FXML
     private ScrollPane scrollPane;
 
-    private Set<Note> notes;
+    private List<Note> notes;
 
     private final int MAX_COLUMNS = 10;
 
-    public void setNotes(Set<Note> notes) {
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
+        Collections.sort(notes);
         if (buttonGrid != null) {
             createButtons();
         }
@@ -53,7 +54,6 @@ public class TrainingController {
 
     private void handleNoteClick(Note note) {
         System.out.println("Clicked: " + note.getName());
-        Sounder player = new Sounder();
-        player.play(note.getMidiNumber(), 100);
+        new Thread(() -> note.play()).start();
     }
 }
