@@ -2,6 +2,7 @@ package org.example.pazduolingo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 
@@ -12,6 +13,8 @@ public class TrainingController {
     @FXML
     private GridPane buttonGrid;
 
+
+
     @FXML
     private ScrollPane scrollPane;
 
@@ -19,6 +22,33 @@ public class TrainingController {
 
     private final int MAX_COLUMNS = 10;
 
+
+    //TODO
+    @FXML
+    private ChoiceBox<String> choiceFilter;
+
+    @FXML
+    private ChoiceBox<String> choiceOrder;
+
+    @FXML
+    public void initialize() {
+        choiceOrder.setValue("By Octave");
+        choiceOrder.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            onChoiceChanged(newVal);
+        });
+    }
+
+    private void onChoiceChanged(String newVal) {
+        if (newVal.equals("By Octave")) {
+            notes = Factory.orderByOctave(notes);
+            System.out.println("By octave");
+        } else if (newVal.equals("By Name")) {
+            notes = Factory.orderByName(notes);
+        }
+        createButtons();
+    }
+
+    //take notes from DAO
     public void setNotes(List<Note> notes) {
         this.notes = notes;
         Collections.sort(notes);

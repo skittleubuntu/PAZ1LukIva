@@ -9,7 +9,7 @@ public class Quiz {
     private QuestionType type;
 
     public Set<Note> getNotes() {
-        return  new HashSet<Note>(notes);
+        return notes;
     }
 
     public Note getCorrectAnswer() {

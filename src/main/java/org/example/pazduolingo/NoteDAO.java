@@ -15,7 +15,6 @@ public class NoteDAO {
     }
 
     public Note getRandomNote(){
-
         List<Note> noteList = new ArrayList<>(notes);
         Random random = new Random();
         int index = random.nextInt(noteList.size());
@@ -23,15 +22,17 @@ public class NoteDAO {
         return noteList.get(index);
     }
 
+
+
     private void loadNotes() {
 
-        InputStream is = getClass().getResourceAsStream("/database/notes.csv");
-        if (is == null) {
+
+        if (db_notes == null) {
             System.err.println("file not found in resources/database/notes.csv");
             return;
         }
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(db_notes))) {
             String line;
             boolean skipHeader = true;
             while ((line = br.readLine()) != null) {
@@ -54,36 +55,6 @@ public class NoteDAO {
 
 
 
-
-
-
-    public String getNoteNameById(int id) {
-        for (Note n : notes) {
-            if (n.getId() == id) {
-                return n.getName();
-            }
-        }
-        return null;
-    }
-
-    // 3️⃣ Отримати октаву за ID
-    public int getOctaveById(int id) {
-        for (Note n : notes) {
-            if (n.getId() == id) {
-                return n.getOctave();
-            }
-        }
-        return -1;
-    }
-
-    public int getMidiNumberById(int id) {
-        for (Note n : notes) {
-            if (n.getId() == id) {
-                return n.getMidiNumber();
-            }
-        }
-        return -1;
-    }
 
     //all notes
     public List<Note> getAllNotes() {
