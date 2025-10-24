@@ -17,7 +17,9 @@ public class Note implements Comparable<Note>{
     }
 
     public void play(){
+
         Sounder.play(midiNumber, 100);
+
     }
 
     public String getName() {
