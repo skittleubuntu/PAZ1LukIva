@@ -2,25 +2,56 @@ package org.example.pazduolingo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 
-import java.util.Set;
+import java.util.*;
 
 public class TrainingController {
 
     @FXML
     private GridPane buttonGrid;
 
+
+
     @FXML
     private ScrollPane scrollPane;
 
-    private Set<Note> notes;
+    private List<Note> notes;
 
     private final int MAX_COLUMNS = 10;
 
-    public void setNotes(Set<Note> notes) {
+
+    //TODO
+    @FXML
+    private ChoiceBox<String> choiceFilter;
+
+    @FXML
+    private ChoiceBox<String> choiceOrder;
+
+    @FXML
+    public void initialize() {
+        choiceOrder.setValue("By Octave");
+        choiceOrder.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            onChoiceChanged(newVal);
+        });
+    }
+
+    private void onChoiceChanged(String newVal) {
+        if (newVal.equals("By Octave")) {
+            notes = Factory.orderByOctave(notes);
+            System.out.println("By octave");
+        } else if (newVal.equals("By Name")) {
+            notes = Factory.orderByName(notes);
+        }
+        createButtons();
+    }
+
+    //take notes from DAO
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
+        Collections.sort(notes);
         if (buttonGrid != null) {
             createButtons();
         }
@@ -53,7 +84,6 @@ public class TrainingController {
 
     private void handleNoteClick(Note note) {
         System.out.println("Clicked: " + note.getName());
-        Sounder player = new Sounder();
-        player.play(note.getMidiNumber(), 100);
+        new Thread(() -> note.play()).start();
     }
 }

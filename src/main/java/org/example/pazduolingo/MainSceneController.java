@@ -37,8 +37,7 @@ public class MainSceneController {
             System.out.println("Opening Training window...");
 
 
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
 
             try {
                 TrainingWindow trainingApp = new TrainingWindow();

@@ -2,10 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -21,15 +26,29 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="lessonButton" minWidth="100.0" mnemonicParsing="false" text="Lessons" GridPane.halignment="CENTER" />
-            <Button fx:id="editorButton" minWidth="100.0" mnemonicParsing="false" text="Quiz editor" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Button fx:id="statsButton" minWidth="100.0" mnemonicParsing="false" text="Stats" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Button fx:id="settingsButton" minWidth="100.0" mnemonicParsing="false" text="Settings" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-            <Button fx:id="trainingButton" minWidth="100.0" mnemonicParsing="false" text="Training" GridPane.columnIndex="4" />
+             <Button fx:id="editorButton" minWidth="100.0" mnemonicParsing="false" text="Quiz editor" GridPane.halignment="CENTER" />
+             <Button fx:id="trainingButton" minWidth="100.0" mnemonicParsing="false" text="Training" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+             <Button fx:id="lessonButton" minWidth="100.0" mnemonicParsing="false" text="Lessons" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+             <Button fx:id="statsButton" minWidth="100.0" mnemonicParsing="false" text="Stats" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+             <Button fx:id="settingsButton" minWidth="100.0" mnemonicParsing="false" text="Settings" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </GridPane>
+      <AnchorPane prefHeight="370.0" prefWidth="600.0">
+         <children>
+            <ListView layoutX="174.0" layoutY="92.0" prefHeight="200.0" prefWidth="253.0" />
+            <ComboBox layoutX="174.0" layoutY="67.0" prefHeight="25.0" prefWidth="253.0" promptText="Downloaded" />
+            <Text layoutX="250.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lessons" textAlignment="CENTER" wrappingWidth="100.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button layoutX="266.0" layoutY="300.0" minWidth="70.0" mnemonicParsing="false" text="Start" />
+            <Button layoutX="357.0" layoutY="300.0" minWidth="70.0" mnemonicParsing="false" text="Create" />
+            <Button layoutX="174.0" layoutY="300.0" minWidth="70.0" mnemonicParsing="false" text="Delete" />
+         </children>
+      </AnchorPane>
    </children>
 </VBox>

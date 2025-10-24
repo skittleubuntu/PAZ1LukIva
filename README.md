@@ -35,6 +35,52 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#17.10 (4 day)
+
+- prepojili sme GUI s javou
+- spravili sme controller pre main scene (na ovladanie tlacidiel)
+
+PLAN NA NEXT DAY
+- Urobit controler na traning
+- Urobit samozrejme traning
+- Dopisat do dabazy noty
+
+------------------------------------------------------------------------------------------------------------------------
+
+#18.10 (5 day)
+- Urobili sme training mode
+- Dopisali sme databazu not na pianino
+- Riesili sme ulohu "Dynamic buttons" (pocet tlacidiel v zavislosti od parametra)
+  
+PLAN NA NEXT DAY
+- Riesit problemu spustenia dvoch a viac not
+- Multiprocesing na Sounder.java
+- Zlepsit dizajn na Training
+
+------------------------------------------------------------------------------------------------------------------------
+
+#19.10 - 21.10 (6-8 day)
+
+WEEKEND
+
+PLAN NA NEXT DAY
+- Factory a spravne DAO
+- Therads na noty
+  
+------------------------------------------------------------------------------------------------------------------------
+
+#22.10 (9 day)
+- Pridali sme Theards na hranie Not
+- Ine drobne zmeny
+
+PLAN NA NEXT DEN JE STALY
+- Factory a spravne DAO
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
 
 
 
