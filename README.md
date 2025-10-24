@@ -78,6 +78,24 @@ PLAN NA NEXT DEN JE STALY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#23.10 (10 day)
+
+SME LENIVI
+NA BUDUCE NE BUDEM PISAT WIKENDY
+
+------------------------------------------------------------------------------------------------------------------------
+
+#24.10 (11 day) 
+- Factory (nespravne)
+- Usporiadania not pomocou filtra
+- Nechame DAO ako je
+
+PLAN NA NEXT DAY
+- Zacat urobit jednoduchy kviz
+- Popratat bordel v suborach
+
+
+------------------------------------------------------------------------------------------------------------------------
 
 
 
