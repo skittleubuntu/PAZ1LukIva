@@ -93,7 +93,7 @@ NA BUDUCE NE BUDEM PISAT WIKENDY
 PLAN NA NEXT DAY
 - Zacat urobit jednoduchy kviz
 - Popratat bordel v suborach
-
+- Upravit sortovanie lebo sortuje zle -> (A#0, A0), ma byt takto -> (A0, A#0)
 
 ------------------------------------------------------------------------------------------------------------------------
 
