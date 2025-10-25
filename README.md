@@ -97,6 +97,25 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#Noc z 25.10 na 26.10 (12-13 day)
+- Spravne Factory.java
+- Vytvaranie roznych typov Sounder.java
+- Usporiadanie suborov
+- InstrumentType.java pridana, 2 enum
+- Training typov PIANINO, GUITAR, VIOLIN, FLUTE 
+- Noviy metod volanie zvuku
+- Normalne usporiadania not v trainingu
+
+PLAN NA NEXT DAY
+- Zacat urobit jednoduchy kviz
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
