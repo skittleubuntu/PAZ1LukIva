@@ -1,4 +1,4 @@
-package org.example.pazduolingo;
+package org.example.pazduolingo.QuizClass;
 
 import java.util.*;
 

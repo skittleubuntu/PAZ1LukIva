@@ -1,4 +1,6 @@
-package org.example.pazduolingo;
+package org.example.pazduolingo.QuizClass;
+
+import org.example.pazduolingo.DateAO.NoteDAO;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,13 +31,13 @@ public class Lesson {
                 default: type = QuestionType.NOTE_READING;
             }
 
-            // Створюємо набір нот для одного питання
+
             Set<Note> notesForQuiz = new HashSet<>();
             while (notesForQuiz.size() < notesPerQuestion) {
                 notesForQuiz.add(notedao.getRandomNote());
             }
 
-            // Додаємо нове питання у список
+
             questions.add(new Quiz(type, notesForQuiz));
         }
     }

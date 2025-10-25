@@ -1,11 +1,13 @@
-package org.example.pazduolingo;
+package org.example.pazduolingo.Utilites;
+
+import org.example.pazduolingo.QuizClass.Note;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Factory {
+public class Functions {
 
 
 

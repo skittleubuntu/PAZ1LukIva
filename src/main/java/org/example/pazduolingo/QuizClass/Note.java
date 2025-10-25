@@ -1,4 +1,6 @@
-package org.example.pazduolingo;
+package org.example.pazduolingo.QuizClass;
+
+import org.example.pazduolingo.Utilites.Sounder;
 
 import java.util.Objects;
 
@@ -16,11 +18,7 @@ public class Note implements Comparable<Note>{
         this.id = id;
     }
 
-    public void play(){
 
-        Sounder.play(midiNumber, 100);
-
-    }
 
     public String getName() {
         return name + octave;

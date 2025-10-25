@@ -1,11 +1,8 @@
-package org.example.pazduolingo;
+package org.example.pazduolingo.Main;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import org.example.pazduolingo.QuizClass.Lesson;
+import org.example.pazduolingo.QuizClass.Quiz;
 
-import javax.sound.midi.MidiUnavailableException;
 import java.util.List;
 
 public class Main {
