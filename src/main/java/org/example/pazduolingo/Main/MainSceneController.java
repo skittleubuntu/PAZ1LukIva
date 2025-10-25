@@ -1,4 +1,4 @@
-package org.example.pazduolingo;
+package org.example.pazduolingo.Main;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.example.pazduolingo.Training.TrainingWindow;
 
 public class MainSceneController {
 

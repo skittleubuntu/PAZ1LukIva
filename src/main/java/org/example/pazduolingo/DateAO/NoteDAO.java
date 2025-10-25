@@ -1,6 +1,6 @@
-package org.example.pazduolingo;
+package org.example.pazduolingo.DateAO;
 
-import org.example.pazduolingo.Note;
+import org.example.pazduolingo.QuizClass.Note;
 
 import java.io.*;
 import java.util.*;
@@ -8,7 +8,7 @@ import java.util.*;
 public class NoteDAO {
 
     private final InputStream db_notes = getClass().getResourceAsStream("/database/notes.csv");
-    private List<Note> notes = new ArrayList<>();
+    private static List<Note> notes = new ArrayList<>();
 
     public NoteDAO() {
         loadNotes();
@@ -57,7 +57,7 @@ public class NoteDAO {
 
 
     //all notes
-    public List<Note> getAllNotes() {
+    public static List<Note> getAllNotes() {
         return notes;
     }
 }

@@ -1,10 +1,16 @@
-package org.example.pazduolingo;
+package org.example.pazduolingo.Training;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.QuizClass.InstrumentType;
+import org.example.pazduolingo.Utilites.Factory;
+import org.example.pazduolingo.Utilites.Functions;
+import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.Utilites.Sounder;
 
 import java.util.*;
 
@@ -31,19 +37,25 @@ public class TrainingController {
     private ChoiceBox<String> choiceOrder;
 
     @FXML
+    private ChoiceBox<String> choiceInstrument;
+
+
+    @FXML
     public void initialize() {
         choiceOrder.setValue("By Octave");
         choiceOrder.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             onChoiceChanged(newVal);
         });
+        choiceInstrument.getItems().addAll("Piano", "Guitar", "Violin", "Flute");
+        choiceInstrument.setValue("Piano");
     }
 
     private void onChoiceChanged(String newVal) {
         if (newVal.equals("By Octave")) {
-            notes = Factory.orderByOctave(notes);
+            notes = NoteDAO.getAllNotes();
             System.out.println("By octave");
         } else if (newVal.equals("By Name")) {
-            notes = Factory.orderByName(notes);
+            notes = Functions.orderByName(notes);
         }
         createButtons();
     }
@@ -66,7 +78,7 @@ public class TrainingController {
         for (Note note : notes) {
             Button button = new Button(note.getName());
 
-            // Прив'язуємо розмір кнопки до ширини ScrollPane
+
             button.prefWidthProperty().bind(scrollPane.widthProperty().subtract((MAX_COLUMNS+1)*10).divide(MAX_COLUMNS));
             button.prefHeightProperty().bind(button.prefWidthProperty()); // квадрат
 
@@ -84,6 +96,13 @@ public class TrainingController {
 
     private void handleNoteClick(Note note) {
         System.out.println("Clicked: " + note.getName());
-        new Thread(() -> note.play()).start();
+
+        String selectedInstrument = choiceInstrument != null ? choiceInstrument.getValue() : "Piano";
+        InstrumentType type = InstrumentType.valueOf(selectedInstrument.toUpperCase());
+
+
+        Sounder sounder = Factory.createSounder(type);
+
+        new Thread(() -> sounder.play(note.getMidiNumber(), 100)).start();
     }
 }
