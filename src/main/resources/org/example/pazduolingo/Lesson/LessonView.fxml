@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.pazduolingo.QuizClass.LessonController"
+            prefWidth="900" prefHeight="600">
+
+    <children>
+        <VBox alignment="CENTER" spacing="40"
+              AnchorPane.topAnchor="30" AnchorPane.leftAnchor="30"
+              AnchorPane.rightAnchor="30" AnchorPane.bottomAnchor="30">
+
+            <Label fx:id="questionLabel"
+                   text="What is the note"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
+
+            <Button fx:id="noteQuestionButton"
+                    text="NoteQuestion"
+                    prefWidth="300" prefHeight="120"
+                    style="-fx-font-size: 22px;"/>
+
+            <HBox fx:id="answersContainer" alignment="CENTER" spacing="30"/>
+        </VBox>
+    </children>
+</AnchorPane>
