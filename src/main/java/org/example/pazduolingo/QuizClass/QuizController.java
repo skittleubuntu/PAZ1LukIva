@@ -11,7 +11,7 @@ import org.example.pazduolingo.Utilites.Sounder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LessonController {
+public class QuizController {
 
     @FXML
     private Label questionLabel;
@@ -22,8 +22,8 @@ public class LessonController {
     @FXML
     private HBox answersContainer;
 
-    private final Lesson lesson = new Lesson();
-    private Quiz currentQuiz;
+    private final Quiz quiz = new Quiz();
+    private Question currentQuestion;
 
     @FXML
     void initialize() {
@@ -32,8 +32,8 @@ public class LessonController {
 
     private void startNewQuiz() {
         //todo set number of notes
-        lesson.generateLesson(1, 4);
-        currentQuiz = lesson.getQuestions().get(0);
+        quiz.generateLesson(1, 4);
+        currentQuestion = quiz.getQuestions().get(0);
         showQuiz();
     }
 
@@ -41,11 +41,11 @@ public class LessonController {
 
     private void showQuiz() {
 
-        playQuestion(currentQuiz.getCorrectAnswer());
+        playQuestion(currentQuestion.getCorrectAnswer());
         noteQuestionButton.setText("PLAY");
         answersContainer.getChildren().clear();
-        noteQuestionButton.setOnAction(event -> playQuestion(currentQuiz.getCorrectAnswer()));
-        List<Note> noteList = new ArrayList<>(currentQuiz.getNotes());
+        noteQuestionButton.setOnAction(event -> playQuestion(currentQuestion.getCorrectAnswer()));
+        List<Note> noteList = new ArrayList<>(currentQuestion.getNotes());
 
         for (Note note : noteList) {
             Button answerButton = new Button(note.getName());
@@ -60,7 +60,7 @@ public class LessonController {
     }
 
     private void handleAnswer(Note note) {
-        if (currentQuiz.checkAnswer(note)) {
+        if (currentQuestion.checkAnswer(note)) {
             questionLabel.setText("✅ Correct! Next question...");
             startNewQuiz();
         } else {

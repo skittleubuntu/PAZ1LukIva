@@ -1,49 +1,47 @@
 package org.example.pazduolingo.QuizClass;
 
+import org.example.pazduolingo.DateAO.NoteDAO;
+
 import java.util.*;
 
 public class Quiz {
 
-    private final Set<Note> notes;
-    private final Note correctAnswer;
-    private final QuestionType type;
+    private final List<Question> questions = new ArrayList<>();
 
-    public Quiz(QuestionType type, Set<Note> notes) {
-        this.type = type;
-        this.notes = new HashSet<>(notes);
-        this.correctAnswer = pickRandomNote();
+
+
+    public void generateLesson(int sizeOfLesson, int notesPerQuestion) {
+        if (sizeOfLesson <= 0 || notesPerQuestion <= 0) return;
+
+        NoteDAO noteDAO = new NoteDAO();
+        questions.clear();
+
+        for (int i = 0; i < sizeOfLesson; i++) {
+
+            Set<Note> notesForQuiz = generateUniqueNotes(noteDAO, notesPerQuestion);
+            questions.add(new Question(notesForQuiz));
+        }
     }
 
-    private Note pickRandomNote() {
-        List<Note> list = new ArrayList<>(notes);
-        return list.get(new Random().nextInt(list.size()));
+
+
+    private Set<Note> generateUniqueNotes(NoteDAO noteDAO, int count) {
+        Set<Note> notes = new HashSet<>();
+        while (notes.size() < count) {
+            notes.add(noteDAO.getRandomNote());
+        }
+        return notes;
     }
 
-    public List<Note> getNotes() {
-        return new ArrayList<>(notes);
-    }
-
-    public Note getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public QuestionType getType() {
-        return type;
-    }
-
-    public boolean checkAnswer(Note answer) {
-        return correctAnswer.equals(answer);
+    public List<Question> getQuestions() {
+        return new ArrayList<>(questions);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("type: ").append(type).append("\nnotes: ");
-        int i = 0;
-        for (Note note : notes) {
-            sb.append(note.getName()).append(note.getOctave());
-            if (i < notes.size() - 1) sb.append(", ");
-            i++;
+        for (Question q : questions) {
+            sb.append(q).append("\n");
         }
         return sb.toString();
     }
