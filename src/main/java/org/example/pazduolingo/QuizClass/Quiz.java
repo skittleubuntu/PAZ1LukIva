@@ -4,12 +4,23 @@ import java.util.*;
 
 public class Quiz {
 
-    private Set<Note> notes;
-    private Note correctAnswer;
-    private QuestionType type;
+    private final Set<Note> notes;
+    private final Note correctAnswer;
+    private final QuestionType type;
 
-    public Set<Note> getNotes() {
-        return notes;
+    public Quiz(QuestionType type, Set<Note> notes) {
+        this.type = type;
+        this.notes = new HashSet<>(notes);
+        this.correctAnswer = pickRandomNote();
+    }
+
+    private Note pickRandomNote() {
+        List<Note> list = new ArrayList<>(notes);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public List<Note> getNotes() {
+        return new ArrayList<>(notes);
     }
 
     public Note getCorrectAnswer() {
@@ -20,58 +31,20 @@ public class Quiz {
         return type;
     }
 
-    public Quiz(QuestionType type, Set<Note> notes) {
-        pickNote();
-        this.notes = notes;
-        this.type = type;
-    }
-
-
-    //TODO: RELATIVE_PITCH quiz potrebuje reference note
-
-    //neviem ci to ma byt v tejto triede
-    public void options(){
-        for (Note note: notes){
-            //pre kazdu notu zo setu vytvori tlacidlo na stlacenie
-        }
-    }
-
-    //choose random note
-    public void pickNote() {
-        if (notes == null || notes.isEmpty()) return;
-        List<Note> noteList = new ArrayList<>(notes);
-        Random random = new Random();
-        int index = random.nextInt(noteList.size());
-        this.correctAnswer = noteList.get(index);
-    }
-
-    //neviem ci je potrebne ked som implementoval equals a hash v triede Note
-    public boolean result(Note answer){
-        if (answer == correctAnswer){
-            return true;
-        }
-        return false;
+    public boolean checkAnswer(Note answer) {
+        return correctAnswer.equals(answer);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
-        sb.append("type: ").append(type).append("\n");
-        sb.append("notes: ");
-
-        // Перебираємо всі ноти у Set
+        sb.append("type: ").append(type).append("\nnotes: ");
         int i = 0;
         for (Note note : notes) {
             sb.append(note.getName()).append(note.getOctave());
             if (i < notes.size() - 1) sb.append(", ");
             i++;
         }
-
-        // Можна показати правильну відповідь (опціонально)
-        // sb.append("\nПравильна відповідь: ").append(correctAnswer.getName()).append(correctAnswer.getOctave());
-
         return sb.toString();
     }
-
 }

@@ -17,4 +17,6 @@ module org.example.pazduolingo {
     exports org.example.pazduolingo.Utilites;
     opens org.example.pazduolingo.Utilites to javafx.fxml;
     exports org.example.pazduolingo;
+
+    opens org.example.pazduolingo.Lesson to javafx.fxml;
 }
