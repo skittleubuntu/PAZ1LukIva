@@ -111,6 +111,20 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#1.11 (14 day)
+- Prvy jednoduchy kviz
+- Figma projekt https://www.figma.com/design/JK86CwmlSRggJLxtku6fsS/Prezentacia-LukIva?node-id=0-1&t=A0wvit0VUzHDLp0Q-1
+- LessonWindow a LessonController triedy
+- Premenovania Quiz -> Question | Lesson -> Quiz
+- DOHODA MEDZI LUKASOM A IVANOM
+
+PLAN NA NEXT DAY
+- Databse
+- LessonCreator view a logiku
+- ZLEPSIT KOD!! 
+
+------------------------------------------------------------------------------------------------------------------------
+
 
 
 
