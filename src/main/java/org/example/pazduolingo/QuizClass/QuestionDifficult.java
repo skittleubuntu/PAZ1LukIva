@@ -1,6 +1,6 @@
 package org.example.pazduolingo.QuizClass;
 
-public enum QuizType {
+public enum QuestionDifficult {
 
 
 }

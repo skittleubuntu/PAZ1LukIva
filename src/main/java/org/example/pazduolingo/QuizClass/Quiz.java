@@ -10,32 +10,15 @@ public class Quiz {
 
 
 
-    public void generateLesson(int sizeOfLesson, int notesPerQuestion) {
-        if (sizeOfLesson <= 0 || notesPerQuestion <= 0) return;
-
-        NoteDAO noteDAO = new NoteDAO();
-        questions.clear();
-
-        for (int i = 0; i < sizeOfLesson; i++) {
-
-            Set<Note> notesForQuiz = generateUniqueNotes(noteDAO, notesPerQuestion);
-            questions.add(new Question(notesForQuiz));
-        }
-    }
 
 
 
-    private Set<Note> generateUniqueNotes(NoteDAO noteDAO, int count) {
-        Set<Note> notes = new HashSet<>();
-        while (notes.size() < count) {
-            notes.add(noteDAO.getRandomNote());
-        }
-        return notes;
-    }
+
 
     public List<Question> getQuestions() {
         return new ArrayList<>(questions);
     }
+
 
     @Override
     public String toString() {

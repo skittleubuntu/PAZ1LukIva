@@ -32,7 +32,7 @@ public class QuizController {
 
     private void startNewQuiz() {
         //todo set number of notes
-        quiz.generateLesson(1, 4);
+
         currentQuestion = quiz.getQuestions().get(0);
         showQuiz();
     }

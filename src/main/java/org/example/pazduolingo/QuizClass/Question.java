@@ -1,22 +1,24 @@
 package org.example.pazduolingo.QuizClass;
 
+import org.example.pazduolingo.DateAO.NoteDAO;
+
 import java.util.*;
 
 public class Question {
 
-    private final Set<Note> notes;
+    private final List<Note> notes;
     private final Note correctAnswer;
 
 
-    public Question(Set<Note> notes) {
-
-        this.notes = new HashSet<>(notes);
-        this.correctAnswer = pickRandomNote();
+    public Question(List<Note> notes) {
+        this.notes = new ArrayList<>(notes);
+        this.correctAnswer = NoteDAO.getRandomNote();
     }
 
+
+
     private Note pickRandomNote() {
-        List<Note> list = new ArrayList<>(notes);
-        return list.get(new Random().nextInt(list.size()));
+        return notes.get(new Random().nextInt(notes.size()));
     }
 
     public List<Note> getNotes() {
