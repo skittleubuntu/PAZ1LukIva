@@ -1,6 +1,7 @@
 package org.example.pazduolingo.DateAO;
 
 import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.QuizClass.Question;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class NoteDAO {
 
     public static Note getNoteByID(int id){
 
+        if (notes.isEmpty()) {
+            loadNotes();
+        }
         for (Note note : notes){
             if(note.getId() == id){
                 return note;
@@ -38,6 +42,43 @@ public class NoteDAO {
 
     }
 
+
+    public static void linkNotesToQuestion(Connection conn, int questionId, Question question) throws SQLException {
+        String insertQuestionNoteSQL = "INSERT INTO questions_has_notes (questions_id, notes_id) VALUES (?, ?)";
+
+        try (PreparedStatement pstmtQN = conn.prepareStatement(insertQuestionNoteSQL)) {
+            for (Note note : question.getNotes()) {
+                pstmtQN.setInt(1, questionId);
+                pstmtQN.setInt(2, note.getId());
+                pstmtQN.addBatch();
+            }
+            pstmtQN.executeBatch();
+        }
+    }
+
+
+    public static List<Note> loadNotesForQuestion(Connection conn, int qID){
+        String sql = "SELECT notes_id FROM questions_has_notes WHERE questions_id = ?;";
+        List<Note> notes = new ArrayList<>();
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,qID);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                int noteId = rs.getInt("notes_id");
+                Note note = getNoteByID(noteId);
+                notes.add(note);
+
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(notes.size());
+        return notes;
+    }
 
 
     private static void loadNotes() {

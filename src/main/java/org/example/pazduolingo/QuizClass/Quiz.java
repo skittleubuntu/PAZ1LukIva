@@ -6,25 +6,42 @@ import java.util.*;
 
 public class Quiz {
 
-    private final List<Question> questions = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
+    private String name;
+    private String description;
 
 
 
+    public Quiz(List<Question> questions, String name, String description){
+        this.questions = questions;
+        this.name = name;
+        this.description = description;
+    }
 
 
 
+    public String getName(){
+        return name;
+    }
 
+    public String getDescription(){
+        return description;
+    }
 
     public List<Question> getQuestions() {
         return new ArrayList<>(questions);
     }
 
 
-    @Override
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
+
+        sb.append("Name: ").append(name).append("\n");
+        sb.append("Des: ").append(description).append("\n");
+
         for (Question q : questions) {
-            sb.append(q).append("\n");
+            sb.append(q.toString()).append("\n");
         }
         return sb.toString();
     }

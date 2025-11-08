@@ -10,9 +10,6 @@ import java.util.List;
 public class Functions {
 
 
-
-
-
     public static List<Note> orderByName(List<Note> notes) {
         if (notes == null) {
             return Collections.emptyList();
@@ -24,15 +21,8 @@ public class Functions {
         return sortedNotes;
     }
 
-    public static List<Note> orderByOctave(List<Note> notes) {
-        if (notes == null) {
-            return Collections.emptyList();
-        }
 
 
-        List<Note> sortedNotes = new ArrayList<>(notes);
-        sortedNotes.sort(Comparator.comparing(Note::getOctave));
-        return sortedNotes;
-    }
+
 
 }

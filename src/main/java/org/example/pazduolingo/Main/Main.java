@@ -1,8 +1,10 @@
 package org.example.pazduolingo.Main;
 
-import org.example.pazduolingo.QuizClass.Quiz;
-import org.example.pazduolingo.QuizClass.Question;
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.QuizClass.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -10,13 +12,56 @@ public class Main {
 
 
     public static void main(String[] args){
+//        System.out.println(true);
+//        Note a = NoteDAO.getNoteByID(1);
+//        Note b = NoteDAO.getNoteByID(2);
+//        Note c = NoteDAO.getNoteByID(3);
+//        Note d = NoteDAO.getNoteByID(4);
+//
+//        List<Note> notes = new ArrayList<>() ;
+//        notes.add(a);
+//        notes.add(b);
+//        notes.add(c);
+//        notes.add(d);
+//
+//
+//        Note a1 = NoteDAO.getNoteByID(11);
+//        Note b2 = NoteDAO.getNoteByID(21);
+//        Note c3 = NoteDAO.getNoteByID(31);
+//        Note d4 = NoteDAO.getNoteByID(41);
+//        List<Note> notes1 = new ArrayList<>() ;
+//
+//
+//
+//
+//        notes1.add(a1);
+//        notes1.add(b2);
+//        notes1.add(c3);
+//        notes1.add(d4);
+//
+//        Question question1 = new Question(notes, QuestionDifficult.EASY, InstrumentType.GUITAR, NoteDAO.getRandomNote());
+//        Question question2 = new Question(notes, QuestionDifficult.MEDIUM, InstrumentType.VIOLIN,NoteDAO.getRandomNote());
+//
+//
+//
+//        List<Question> questions = new ArrayList<>();
+//
+//        questions.add(question1);
+//        questions.add(question2);
+//
+//        System.out.println("Questions count: " + questions.size());
+//
+//        Quiz quiz = new Quiz(questions, "Name", "Des");
+//
+//
+//        System.out.println(quiz);
+//        QuizDAO.saveQuiz(quiz);
 
-        Quiz quiz = new Quiz();
+
+        List<Quiz> quizzes = QuizDAO.loadQuiz();
 
 
-        System.out.println(quiz.toString());
-        List<Question> questionList = quiz.getQuestions();
-        for(Question q: questionList){
+        for (Quiz q : quizzes){
             System.out.println(q.toString());
         }
 

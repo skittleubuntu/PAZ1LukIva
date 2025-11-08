@@ -22,20 +22,15 @@ public class QuizController {
     @FXML
     private HBox answersContainer;
 
-    private final Quiz quiz = new Quiz();
+    private Quiz quiz;
     private Question currentQuestion;
 
     @FXML
     void initialize() {
-        startNewQuiz();
+
     }
 
-    private void startNewQuiz() {
-        //todo set number of notes
 
-        currentQuestion = quiz.getQuestions().get(0);
-        showQuiz();
-    }
 
 
 
@@ -62,7 +57,7 @@ public class QuizController {
     private void handleAnswer(Note note) {
         if (currentQuestion.checkAnswer(note)) {
             questionLabel.setText("✅ Correct! Next question...");
-            startNewQuiz();
+           //todo
         } else {
             questionLabel.setText("❌ Wrong! Try again...");
         }
@@ -71,16 +66,10 @@ public class QuizController {
 
     private void playQuestion(Note note){
 
-
-
             System.out.println("Clicked: " + note.getName());
-
             //todo setting type of instrumental
             InstrumentType type = InstrumentType.valueOf("PIANO".toUpperCase());
-
-
             Sounder sounder = Factory.createSounder(type);
-
             new Thread(() -> sounder.play(note.getMidiNumber(), 100)).start();
 
     }

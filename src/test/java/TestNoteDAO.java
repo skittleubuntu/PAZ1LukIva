@@ -33,4 +33,12 @@ class TestNoteDAO {
 
     }
 
+    @Test
+    void testGetNoteByID(){
+        Note noteID52 = NoteDAO.getNoteByID(52);
+        assert noteID52 != null;
+        assertEquals(52, noteID52.getId());
+
+    }
+
 }
