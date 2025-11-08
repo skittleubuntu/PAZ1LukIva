@@ -125,6 +125,20 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#8.11 (15) day
+- Zlepseniy kod
+- NoteDAO ma novy funkcii
+- QuestionDAO, QuizDAO save and load
+- Fungujuca databaza
+- Spraveny melky chyby
+
+PLAN NA NEXT DAY
+- Fix main okienka
+- QuizCreator view a logiku
+- Statistika pre Noty
+
+------------------------------------------------------------------------------------------------------------------------
+
 
 
 
