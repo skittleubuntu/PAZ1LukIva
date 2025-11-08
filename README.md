@@ -28,7 +28,7 @@ PLAN NA NEXT DAY
 - Class Note, Lesson, Quiz
 - NoteDAO
 - Random generacia
-  
+
 PLAN NA NEXT DAY
 - Urobit moznost ulozit Lessons v databazu
 - Pocet tlacidiel v zavislosti od pocetu Not na Hodine
@@ -51,7 +51,7 @@ PLAN NA NEXT DAY
 - Urobili sme training mode
 - Dopisali sme databazu not na pianino
 - Riesili sme ulohu "Dynamic buttons" (pocet tlacidiel v zavislosti od parametra)
-  
+
 PLAN NA NEXT DAY
 - Riesit problemu spustenia dvoch a viac not
 - Multiprocesing na Sounder.java
@@ -66,7 +66,7 @@ WEEKEND
 PLAN NA NEXT DAY
 - Factory a spravne DAO
 - Therads na noty
-  
+
 ------------------------------------------------------------------------------------------------------------------------
 
 #22.10 (9 day)
@@ -77,6 +77,71 @@ PLAN NA NEXT DEN JE STALY
 - Factory a spravne DAO
 
 ------------------------------------------------------------------------------------------------------------------------
+
+#23.10 (10 day)
+
+SME LENIVI
+NA BUDUCE NE BUDEM PISAT WIKENDY
+
+------------------------------------------------------------------------------------------------------------------------
+
+#24.10 (11 day)
+- Factory (nespravne)
+- Usporiadania not pomocou filtra
+- Nechame DAO ako je
+
+PLAN NA NEXT DAY
+- Zacat urobit jednoduchy kviz
+- Popratat bordel v suborach
+- Upravit sortovanie lebo sortuje zle -> (A#0, A0), ma byt takto -> (A0, A#0)
+
+------------------------------------------------------------------------------------------------------------------------
+
+#Noc z 25.10 na 26.10 (12-13 day)
+- Spravne Factory.java
+- Vytvaranie roznych typov Sounder.java
+- Usporiadanie suborov
+- InstrumentType.java pridana, 2 enum
+- Training typov PIANINO, GUITAR, VIOLIN, FLUTE
+- Noviy metod volanie zvuku
+- Normalne usporiadania not v trainingu
+
+PLAN NA NEXT DAY
+- Zacat urobit jednoduchy kviz
+
+------------------------------------------------------------------------------------------------------------------------
+
+#1.11 (14 day)
+- Prvy jednoduchy kviz
+- Figma projekt https://www.figma.com/design/JK86CwmlSRggJLxtku6fsS/Prezentacia-LukIva?node-id=0-1&t=A0wvit0VUzHDLp0Q-1
+- LessonWindow a LessonController triedy
+- Premenovania Quiz -> Question | Lesson -> Quiz
+- DOHODA MEDZI LUKASOM A IVANOM
+
+PLAN NA NEXT DAY
+- Databse
+- LessonCreator view a logiku
+- ZLEPSIT KOD!!
+
+------------------------------------------------------------------------------------------------------------------------
+
+#8.11 (15) day
+- Zlepseniy kod
+- NoteDAO ma novy funkcii
+- QuestionDAO, QuizDAO save and load
+- Fungujuca databaza
+- Spraveny melky chyby
+
+PLAN NA NEXT DAY
+- Fix main okienka
+- QuizCreator view a logiku
+- Statistika pre Noty
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
 
 
 
