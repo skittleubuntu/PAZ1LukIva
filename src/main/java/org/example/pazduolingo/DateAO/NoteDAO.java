@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class NoteDAO {
 
-    private static final String DB_URL = "jdbc:sqlite:database";
+    private static final String DB_URL = "jdbc:sqlite:database.db";
     private static List<Note> notes = new ArrayList<>();
 
 

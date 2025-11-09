@@ -14,7 +14,7 @@ public class QuestionDAO {
 
 
 
-    private static final String DB_URL = "jdbc:sqlite:database";
+    private static final String DB_URL = "jdbc:sqlite:database.db";
 
 
 

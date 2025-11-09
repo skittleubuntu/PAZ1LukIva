@@ -11,7 +11,7 @@ import java.util.List;
 public class QuizDAO {
 
 
-    private static final String DB_URL = "jdbc:sqlite:database";
+    private static final String DB_URL = "jdbc:sqlite:database.db";
 
 
     public static void saveQuiz(Quiz quiz) {
