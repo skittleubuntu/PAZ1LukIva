@@ -85,7 +85,7 @@ NA BUDUCE NE BUDEM PISAT WIKENDY
 
 ------------------------------------------------------------------------------------------------------------------------
 
-#24.10 (11 day)
+#24.10 (11 day) 
 - Factory (nespravne)
 - Usporiadania not pomocou filtra
 - Nechame DAO ako je
@@ -102,7 +102,7 @@ PLAN NA NEXT DAY
 - Vytvaranie roznych typov Sounder.java
 - Usporiadanie suborov
 - InstrumentType.java pridana, 2 enum
-- Training typov PIANINO, GUITAR, VIOLIN, FLUTE
+- Training typov PIANINO, GUITAR, VIOLIN, FLUTE 
 - Noviy metod volanie zvuku
 - Normalne usporiadania not v trainingu
 
@@ -121,7 +121,7 @@ PLAN NA NEXT DAY
 PLAN NA NEXT DAY
 - Databse
 - LessonCreator view a logiku
-- ZLEPSIT KOD!!
+- ZLEPSIT KOD!! 
 
 ------------------------------------------------------------------------------------------------------------------------
 
