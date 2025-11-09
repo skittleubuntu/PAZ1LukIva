@@ -28,7 +28,7 @@ PLAN NA NEXT DAY
 - Class Note, Lesson, Quiz
 - NoteDAO
 - Random generacia
-  
+
 PLAN NA NEXT DAY
 - Urobit moznost ulozit Lessons v databazu
 - Pocet tlacidiel v zavislosti od pocetu Not na Hodine
@@ -51,7 +51,7 @@ PLAN NA NEXT DAY
 - Urobili sme training mode
 - Dopisali sme databazu not na pianino
 - Riesili sme ulohu "Dynamic buttons" (pocet tlacidiel v zavislosti od parametra)
-  
+
 PLAN NA NEXT DAY
 - Riesit problemu spustenia dvoch a viac not
 - Multiprocesing na Sounder.java
@@ -66,7 +66,7 @@ WEEKEND
 PLAN NA NEXT DAY
 - Factory a spravne DAO
 - Therads na noty
-  
+
 ------------------------------------------------------------------------------------------------------------------------
 
 #22.10 (9 day)

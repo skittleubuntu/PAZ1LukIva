@@ -4,8 +4,8 @@ import javax.sound.midi.*;
 
 public class Sounder {
 
-    private final int instrument; // номер MIDI-інструмента (0 = піаніно)
-    private final int durationMs; // тривалість нот
+    private final int instrument;
+    private final int durationMs;
 
     public Sounder(int instrument, int durationMs) {
         this.instrument = instrument;

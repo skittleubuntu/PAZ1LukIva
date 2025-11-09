@@ -19,15 +19,12 @@ public class TrainingController {
     @FXML
     private GridPane buttonGrid;
 
-
-
     @FXML
     private ScrollPane scrollPane;
 
-    private List<Note> notes;
+    private List<Note> notes = new ArrayList<>();
 
     private final int MAX_COLUMNS = 10;
-
 
     //TODO
     @FXML
@@ -39,31 +36,36 @@ public class TrainingController {
     @FXML
     private ChoiceBox<String> choiceInstrument;
 
-
     @FXML
     public void initialize() {
+        choiceOrder.getItems().addAll("By Octave", "By Name");
         choiceOrder.setValue("By Octave");
         choiceOrder.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             onChoiceChanged(newVal);
         });
+
         choiceInstrument.getItems().addAll("Piano", "Guitar", "Violin", "Flute");
         choiceInstrument.setValue("Piano");
+
+        notes = NoteDAO.getAllNotes();
+        Collections.sort(notes);
+        createButtons();
     }
 
     private void onChoiceChanged(String newVal) {
         if (newVal.equals("By Octave")) {
             notes = NoteDAO.getAllNotes();
-            System.out.println("By octave");
+            Collections.sort(notes);
         } else if (newVal.equals("By Name")) {
+            notes = NoteDAO.getAllNotes();
             notes = Functions.orderByName(notes);
         }
         createButtons();
     }
 
-    //take notes from DAO
     public void setNotes(List<Note> notes) {
-        this.notes = notes;
-        Collections.sort(notes);
+        this.notes = new ArrayList<>(notes);
+        Collections.sort(this.notes);
         if (buttonGrid != null) {
             createButtons();
         }
@@ -77,15 +79,11 @@ public class TrainingController {
 
         for (Note note : notes) {
             Button button = new Button(note.getName());
-
-
-            button.prefWidthProperty().bind(scrollPane.widthProperty().subtract((MAX_COLUMNS+1)*10).divide(MAX_COLUMNS));
-            button.prefHeightProperty().bind(button.prefWidthProperty()); // квадрат
-
+            button.prefWidthProperty().bind(scrollPane.widthProperty().subtract((MAX_COLUMNS + 1) * 10).divide(MAX_COLUMNS));
+            button.prefHeightProperty().bind(button.prefWidthProperty());
             button.setOnAction(event -> handleNoteClick(note));
 
             buttonGrid.add(button, col, row);
-
             col++;
             if (col >= MAX_COLUMNS) {
                 col = 0;
@@ -96,13 +94,9 @@ public class TrainingController {
 
     private void handleNoteClick(Note note) {
         System.out.println("Clicked: " + note.getName());
-
         String selectedInstrument = choiceInstrument != null ? choiceInstrument.getValue() : "Piano";
         InstrumentType type = InstrumentType.valueOf(selectedInstrument.toUpperCase());
-
-
         Sounder sounder = Factory.createSounder(type);
-
         new Thread(() -> sounder.play(note.getMidiNumber(), 100)).start();
     }
 }

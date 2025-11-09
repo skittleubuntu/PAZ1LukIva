@@ -1,49 +1,47 @@
 package org.example.pazduolingo.QuizClass;
 
+import org.example.pazduolingo.DateAO.NoteDAO;
+
 import java.util.*;
 
 public class Quiz {
 
-    private final Set<Note> notes;
-    private final Note correctAnswer;
-    private final QuestionType type;
+    private List<Question> questions = new ArrayList<>();
+    private String name;
+    private String description;
 
-    public Quiz(QuestionType type, Set<Note> notes) {
-        this.type = type;
-        this.notes = new HashSet<>(notes);
-        this.correctAnswer = pickRandomNote();
+
+
+    public Quiz(List<Question> questions, String name, String description){
+        this.questions = questions;
+        this.name = name;
+        this.description = description;
     }
 
-    private Note pickRandomNote() {
-        List<Note> list = new ArrayList<>(notes);
-        return list.get(new Random().nextInt(list.size()));
+
+
+    public String getName(){
+        return name;
     }
 
-    public List<Note> getNotes() {
-        return new ArrayList<>(notes);
+    public String getDescription(){
+        return description;
     }
 
-    public Note getCorrectAnswer() {
-        return correctAnswer;
+    public List<Question> getQuestions() {
+        return new ArrayList<>(questions);
     }
 
-    public QuestionType getType() {
-        return type;
-    }
 
-    public boolean checkAnswer(Note answer) {
-        return correctAnswer.equals(answer);
-    }
 
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("type: ").append(type).append("\nnotes: ");
-        int i = 0;
-        for (Note note : notes) {
-            sb.append(note.getName()).append(note.getOctave());
-            if (i < notes.size() - 1) sb.append(", ");
-            i++;
+
+        sb.append("Name: ").append(name).append("\n");
+        sb.append("Des: ").append(description).append("\n");
+
+        for (Question q : questions) {
+            sb.append(q.toString()).append("\n");
         }
         return sb.toString();
     }

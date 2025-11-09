@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.example.pazduolingo.Training.TrainingWindow;
-import org.example.pazduolingo.Lesson.LessonWindow;
+import org.example.pazduolingo.Lesson.QuizWindow;
 
 
 public class MainSceneController {
@@ -33,7 +33,7 @@ public class MainSceneController {
             System.out.println("Opening Lesson window...");
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             try {
-                LessonWindow lessonApp = new LessonWindow();
+                QuizWindow lessonApp = new QuizWindow();
                 Stage lessonStage = new Stage();
                 lessonApp.start(lessonStage);
             } catch (Exception e) {

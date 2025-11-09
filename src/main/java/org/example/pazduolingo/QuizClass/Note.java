@@ -53,7 +53,7 @@ public class Note implements Comparable<Note>{
         return name + octave + " (MIDI: " + midiNumber + ", ID: " + id + ")";
     }
 
-    @Override
+
     public int compareTo(Note o) {
         return Integer.compare(midiNumber, o.midiNumber);
     }

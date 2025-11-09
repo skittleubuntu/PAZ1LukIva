@@ -11,7 +11,7 @@ import org.example.pazduolingo.Utilites.Sounder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LessonController {
+public class QuizController {
 
     @FXML
     private Label questionLabel;
@@ -22,30 +22,25 @@ public class LessonController {
     @FXML
     private HBox answersContainer;
 
-    private final Lesson lesson = new Lesson();
-    private Quiz currentQuiz;
+    private Quiz quiz;
+    private Question currentQuestion;
 
     @FXML
     void initialize() {
-        startNewQuiz();
+
     }
 
-    private void startNewQuiz() {
-        //todo set number of notes
-        lesson.generateLesson(1, 4);
-        currentQuiz = lesson.getQuestions().get(0);
-        showQuiz();
-    }
+
 
 
 
     private void showQuiz() {
 
-        playQuestion(currentQuiz.getCorrectAnswer());
+        playQuestion(currentQuestion.getCorrectAnswer());
         noteQuestionButton.setText("PLAY");
         answersContainer.getChildren().clear();
-        noteQuestionButton.setOnAction(event -> playQuestion(currentQuiz.getCorrectAnswer()));
-        List<Note> noteList = new ArrayList<>(currentQuiz.getNotes());
+        noteQuestionButton.setOnAction(event -> playQuestion(currentQuestion.getCorrectAnswer()));
+        List<Note> noteList = new ArrayList<>(currentQuestion.getNotes());
 
         for (Note note : noteList) {
             Button answerButton = new Button(note.getName());
@@ -60,9 +55,9 @@ public class LessonController {
     }
 
     private void handleAnswer(Note note) {
-        if (currentQuiz.checkAnswer(note)) {
+        if (currentQuestion.checkAnswer(note)) {
             questionLabel.setText("✅ Correct! Next question...");
-            startNewQuiz();
+           //todo
         } else {
             questionLabel.setText("❌ Wrong! Try again...");
         }
@@ -71,16 +66,10 @@ public class LessonController {
 
     private void playQuestion(Note note){
 
-
-
             System.out.println("Clicked: " + note.getName());
-
             //todo setting type of instrumental
             InstrumentType type = InstrumentType.valueOf("PIANO".toUpperCase());
-
-
             Sounder sounder = Factory.createSounder(type);
-
             new Thread(() -> sounder.play(note.getMidiNumber(), 100)).start();
 
     }

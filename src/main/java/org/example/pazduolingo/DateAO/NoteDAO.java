@@ -1,63 +1,117 @@
 package org.example.pazduolingo.DateAO;
 
 import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.QuizClass.Question;
 
-import java.io.*;
-import java.util.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class NoteDAO {
 
-    private final InputStream db_notes = getClass().getResourceAsStream("/database/notes.csv");
+    private static final String DB_URL = "jdbc:sqlite:database.db";
     private static List<Note> notes = new ArrayList<>();
 
-    public NoteDAO() {
-        loadNotes();
-    }
 
-    public Note getRandomNote(){
-        List<Note> noteList = new ArrayList<>(notes);
+
+    public static Note getRandomNote() {
+        if (notes.isEmpty()) {
+            loadNotes();
+        }
         Random random = new Random();
-        int index = random.nextInt(noteList.size());
-        System.out.println(noteList.get(index).toString());
-        return noteList.get(index);
+        int index = random.nextInt(notes.size());
+        Note randomNote = notes.get(index);
+        System.out.println(randomNote.toString());
+        return randomNote;
     }
 
 
+    public static Note getNoteByID(int id){
 
-    private void loadNotes() {
-
-
-        if (db_notes == null) {
-            System.err.println("file not found in resources/database/notes.csv");
-            return;
+        if (notes.isEmpty()) {
+            loadNotes();
         }
-
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(db_notes))) {
-            String line;
-            boolean skipHeader = true;
-            while ((line = br.readLine()) != null) {
-                if (skipHeader) { skipHeader = false; continue; }
-
-                String[] parts = line.split(",");
-                if (parts.length >= 4) {
-                    int id = Integer.parseInt(parts[0].trim());
-                    int midiNumber = Integer.parseInt(parts[1].trim());
-                    String name = parts[2].trim();
-                    int octave = Integer.parseInt(parts[3].trim());
-
-                    notes.add(new Note(id, midiNumber, name, octave));
-                }
+        for (Note note : notes){
+            if(note.getId() == id){
+                return note;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        }
+        return null;
+
+    }
+
+
+    public static void linkNotesToQuestion(Connection conn, int questionId, Question question) throws SQLException {
+        String insertQuestionNoteSQL = "INSERT INTO questions_has_notes (questions_id, notes_id) VALUES (?, ?)";
+
+        try (PreparedStatement pstmtQN = conn.prepareStatement(insertQuestionNoteSQL)) {
+            for (Note note : question.getNotes()) {
+                pstmtQN.setInt(1, questionId);
+                pstmtQN.setInt(2, note.getId());
+                pstmtQN.addBatch();
+            }
+            pstmtQN.executeBatch();
         }
     }
 
 
+    public static List<Note> loadNotesForQuestion(Connection conn, int qID){
+        String sql = "SELECT notes_id FROM questions_has_notes WHERE questions_id = ?;";
+        List<Note> notes = new ArrayList<>();
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,qID);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                int noteId = rs.getInt("notes_id");
+                Note note = getNoteByID(noteId);
+                notes.add(note);
+
+            }
 
 
-    //all notes
-    public static List<Note> getAllNotes() {
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(notes.size());
         return notes;
     }
+
+
+    private static void loadNotes() {
+        notes.clear();
+        String sql = "SELECT id, midiNumber, name, octave FROM notes";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int midiNumber = rs.getInt("midiNumber");
+                String name = rs.getString("name");
+                int octave = rs.getInt("octave");
+
+                notes.add(new Note(id, midiNumber, name, octave));
+            }
+
+
+
+        } catch (SQLException e) {
+            System.err.println("ERR TO CONNECT");
+        }
+    }
+
+    public static List<Note> getAllNotes() {
+        if (notes.isEmpty()) {
+            new NoteDAO().loadNotes();
+        }
+        return notes;
+    }
+
+
+
 }
