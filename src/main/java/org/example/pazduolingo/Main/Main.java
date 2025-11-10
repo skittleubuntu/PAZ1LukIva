@@ -69,6 +69,11 @@ public class Main {
         Quiz q = QuizDAO.loadQuizByID(1);
         System.out.println(q);
 
+
+
+
+
+
     }
 
 

@@ -22,7 +22,9 @@ public class NoteDAO {
         Random random = new Random();
         int index = random.nextInt(notes.size());
         Note randomNote = notes.get(index);
-        System.out.println(randomNote.toString());
+
+
+
         return randomNote;
     }
 
@@ -76,7 +78,7 @@ public class NoteDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(notes.size());
+
         return notes;
     }
 
@@ -107,7 +109,7 @@ public class NoteDAO {
 
     public static List<Note> getAllNotes() {
         if (notes.isEmpty()) {
-            new NoteDAO().loadNotes();
+            loadNotes();
         }
         return notes;
     }
