@@ -12,23 +12,20 @@ import java.util.List;
 public class QuestionDAO {
 
 
-
-
     private static final String DB_URL = "jdbc:sqlite:database.db";
 
 
-
-    public static List<Question> loadQuestionForQuiz(int quizId){
+    public static List<Question> loadQuestionForQuiz(int quizId) {
         List<Question> questions = new ArrayList<>();
         String sql = "SELECT id, idFreq, question_duficult, instrumentType FROM questions WHERE quizes_id = ?;";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL)){
+        try (Connection conn = DriverManager.getConnection(DB_URL)) {
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            pstmt.setInt(1,quizId);
+            pstmt.setInt(1, quizId);
             ResultSet rs = pstmt.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 int questionId = rs.getInt("id");
                 Integer idFreq = rs.getInt("idFreq");
                 if (rs.wasNull()) {
@@ -54,7 +51,6 @@ public class QuestionDAO {
             }
 
 
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -63,33 +59,32 @@ public class QuestionDAO {
     }
 
 
-    public static void saveQuestion(Connection conn, Question q, int quizId) throws SQLException {
-        String insertQuestionSQL = "INSERT INTO questions (quizes_id, idFreq, question_duficult, instrumentType) VALUES (?, ?, ?, ?)";
-        int questionId;
 
-        try (PreparedStatement pstmtQ = conn.prepareStatement(insertQuestionSQL, Statement.RETURN_GENERATED_KEYS)) {
-            pstmtQ.setInt(1, quizId);
-            pstmtQ.setInt(2, q.getFreqNote().getId());
-            pstmtQ.setString(3, q.getDifficult().toString());
-            pstmtQ.setString(4, q.getInstrumentType().toString());
-            pstmtQ.executeUpdate();
 
-            try (ResultSet rs = pstmtQ.getGeneratedKeys()) {
-                if (rs.next()) {
-                    questionId = rs.getInt(1);
-                } else {
-                    throw new SQLException();
+
+        public static void saveQuestion (Connection conn, Question q,int quizId) throws SQLException {
+            String insertQuestionSQL = "INSERT INTO questions (quizes_id, idFreq, question_duficult, instrumentType) VALUES (?, ?, ?, ?)";
+            int questionId;
+
+            try (PreparedStatement pstmtQ = conn.prepareStatement(insertQuestionSQL, Statement.RETURN_GENERATED_KEYS)) {
+                pstmtQ.setInt(1, quizId);
+                pstmtQ.setInt(2, q.getFreqNote().getId());
+                pstmtQ.setString(3, q.getDifficult().toString());
+                pstmtQ.setString(4, q.getInstrumentType().toString());
+                pstmtQ.executeUpdate();
+
+                try (ResultSet rs = pstmtQ.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        questionId = rs.getInt(1);
+                    } else {
+                        throw new SQLException();
+                    }
                 }
             }
+
+
+            NoteDAO.linkNotesToQuestion(conn, questionId, q);
         }
-
-
-        NoteDAO.linkNotesToQuestion(conn, questionId, q);
-    }
-
-
-
-
 
 
 

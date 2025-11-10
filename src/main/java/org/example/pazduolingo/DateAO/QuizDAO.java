@@ -41,10 +41,39 @@ public class QuizDAO {
             }
 
             conn.commit();
-            System.out.println("Quiz '" + quiz.getName() + "' збережено!");
+            System.out.println("Quiz '" + quiz.getName() + "' saved!");
 
         } catch (SQLException e) {
 
+        }
+    }
+
+    public static Quiz loadQuizByID(int id){
+
+        String sql = "SELECT id, name, description FROM quizes WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (!rs.next()) {
+                System.out.println("Quiz with ID=" + id + " not found");
+                return null;
+            }
+
+            int quizId = rs.getInt("id");
+            String name = rs.getString("name");
+            String desc = rs.getString("description");
+
+
+            List<Question> questions = QuestionDAO.loadQuestionForQuiz(quizId);
+
+            return new Quiz(questions, name, desc);
+
+        } catch (SQLException e) {
+            throw new RuntimeException();
         }
     }
 
@@ -91,7 +120,7 @@ public class QuizDAO {
                 "DELETE FROM note_stats;",
                 "DELETE FROM questions;",
                 "DELETE FROM quizes;",
-                "DELETE FROM notes;",
+                "DELETE FROM sqlite_sequence;",
                 "COMMIT;",
                 "PRAGMA foreign_keys = ON;"
         };
@@ -109,6 +138,17 @@ public class QuizDAO {
         }
 
     }
+
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(DB_URL);
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+    }
+
+
+
 
 
 }

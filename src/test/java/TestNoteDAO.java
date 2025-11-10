@@ -17,6 +17,7 @@ class TestNoteDAO {
         assertFalse(notes.isEmpty(), "List must be full");
     }
 
+
     @Test
     void testGetRandomNote_ExistsInList() {
         Note random = NoteDAO.getRandomNote();
@@ -35,6 +36,7 @@ class TestNoteDAO {
 
     @Test
     void testGetNoteByID(){
+
         Note noteID52 = NoteDAO.getNoteByID(52);
         assert noteID52 != null;
         assertEquals(52, noteID52.getId());

@@ -16,8 +16,7 @@ public class MainSceneController {
     @FXML
     private Button editorButton;
 
-    @FXML
-    private Button lessonButton;
+
 
     @FXML
     private Button settingsButton;
@@ -30,17 +29,7 @@ public class MainSceneController {
 
     @FXML
     void initialize() {
-//        lessonButton.setOnAction(event -> {
-//            System.out.println("Opening Lesson window...");
-//            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            try {
-//                QuizWindow lessonApp = new QuizWindow();
-//                Stage lessonStage = new Stage();
-//                lessonApp.start(lessonStage);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
+
 
         trainingButton.setOnAction(event -> {
             System.out.println("Opening Training window...");
@@ -70,6 +59,7 @@ public class MainSceneController {
             }
         });
 
+
         settingsButton.setOnAction(event -> {
             System.out.println("Settings");
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
@@ -80,6 +70,7 @@ public class MainSceneController {
                 settingsWindow.start(settingsStage);
             } catch (Exception e) {
                 e.printStackTrace();
+
             }
         });
     }

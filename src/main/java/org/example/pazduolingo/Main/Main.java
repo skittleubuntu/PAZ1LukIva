@@ -61,9 +61,18 @@ public class Main {
         List<Quiz> quizzes = QuizDAO.loadQuiz();
 
 
+
         for (Quiz q : quizzes){
             System.out.println(q.toString());
         }
+
+        Quiz q = QuizDAO.loadQuizByID(1);
+        System.out.println(q);
+
+
+
+
+
 
     }
 
