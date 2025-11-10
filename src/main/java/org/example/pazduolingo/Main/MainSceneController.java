@@ -6,8 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.example.pazduolingo.Settings.SettingsWindow;
 import org.example.pazduolingo.Training.TrainingWindow;
-import org.example.pazduolingo.Lesson.QuizWindow;
+import org.example.pazduolingo.QuizClass.QuizWindow;
 
 
 public class MainSceneController {
@@ -33,7 +34,6 @@ public class MainSceneController {
         trainingButton.setOnAction(event -> {
             System.out.println("Opening Training window...");
 
-
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
 
             try {
@@ -58,11 +58,19 @@ public class MainSceneController {
                 System.out.println("Stats");
             }
         });
-        //todo
-        settingsButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.out.println("Settings");
+
+
+        settingsButton.setOnAction(event -> {
+            System.out.println("Settings");
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
+
+            try {
+                SettingsWindow settingsWindow = new SettingsWindow();
+                Stage settingsStage = new Stage();
+                settingsWindow.start(settingsStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+
             }
         });
     }
