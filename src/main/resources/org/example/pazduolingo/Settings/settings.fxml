@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pazduolingo.Settings.SettingsController">
    <children>
       <HBox alignment="CENTER" prefHeight="333.0" prefWidth="600.0">
          <children>
@@ -31,11 +31,11 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Dark">
+                        <RadioButton fx:id="darkRadioButton" mnemonicParsing="false" text="Dark">
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin></RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Light" />
+                        <RadioButton fx:id="lightRadioButton" mnemonicParsing="false" text="Light" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
@@ -50,11 +50,11 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="#">
+                        <RadioButton fx:id="sharpsRadioButton" mnemonicParsing="false" text="#">
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin></RadioButton>
-                        <RadioButton mnemonicParsing="false" text="♭" />
+                        <RadioButton fx:id="flatsRadioButton" mnemonicParsing="false" text="♭" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
@@ -64,7 +64,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <ComboBox prefWidth="150.0" />
+                        <ComboBox fx:id="languageComboBox" prefWidth="150.0" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
@@ -74,7 +74,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Slider />
+                        <Slider fx:id="volumeSlider" />
                      </children>
                   </VBox>
                </children>
@@ -85,7 +85,7 @@
          </VBox.margin>
       </HBox>
       <Region prefHeight="43.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
-      <Button minWidth="100.0" mnemonicParsing="false" text="Save">
+      <Button fx:id="saveButton" minWidth="100.0" mnemonicParsing="false" text="Save">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>

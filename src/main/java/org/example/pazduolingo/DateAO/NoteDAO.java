@@ -107,7 +107,7 @@ public class NoteDAO {
 
     public static List<Note> getAllNotes() {
         if (notes.isEmpty()) {
-            new NoteDAO().loadNotes();
+            loadNotes();
         }
         return notes;
     }

@@ -1,4 +1,4 @@
-package org.example.pazduolingo.Lesson;
+package org.example.pazduolingo.QuizClass;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
