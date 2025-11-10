@@ -48,6 +48,48 @@ public class QuizDAO {
         }
     }
 
+    public static Quiz loadQuizByID(int id){
+
+
+
+        String sql = "SELECT id, name, description FROM quizes WHERE id = ? ;";
+        try (Connection conn = DriverManager.getConnection(DB_URL)){
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+
+            if (!rs.next()) {
+                return null;
+            }
+
+
+
+            int Qid = rs.getInt("id");
+            String name = rs.getString("name");
+            String des = rs.getString("description");
+
+
+
+            List<Question> questions = QuestionDAO.loadQuestionForQuiz(Qid);
+
+            System.out.println(Qid);
+
+            return new Quiz(questions,name,des);
+
+
+
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 
     public static List<Quiz> loadQuiz(){
         List<Quiz> quizzes = new ArrayList<>();
