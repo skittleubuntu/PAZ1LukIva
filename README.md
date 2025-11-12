@@ -139,6 +139,18 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#10.11 (16 day)
+- Testy pre NoteDAO.java, QuizDAO.java a QuestionDAO.java
+- Fix okienok
+- Setting okienko (bez logiky)
+- Viac citatelniy kod, mini opravy
+PLAN NA NEXT DAY
+- QuizCreator view a logiku
+- Statistika pre Noty
+- Setting okienko logika
+- Database na setting a stats
+
+------------------------------------------------------------------------------------------------------------------------
 
 
 
