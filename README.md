@@ -144,6 +144,7 @@ PLAN NA NEXT DAY
 - Fix okienok
 - Setting okienko (bez logiky)
 - Viac citatelniy kod, mini opravy
+  
 PLAN NA NEXT DAY
 - QuizCreator view a logiku
 - Statistika pre Noty
