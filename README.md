@@ -153,7 +153,16 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#18.11(17 day)
+- QuizEditor s jednoduchym dizajnom
+- sme lenivy preto tak malo
 
+DOLEZITIY PLAN NA NEXT DAY
+- Note picker pre QuizEditor
+- FreqNote pre QuizEditor
+- Ulozenie Quiza do database od QuizEditora
+
+------------------------------------------------------------------------------------------------------------------------
 
 
 
