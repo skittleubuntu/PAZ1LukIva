@@ -10,11 +10,14 @@ public class QuizEditorWindow{
 
 
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pazduolingo/QuizEditor/QuizEditorView.fxml"));
-        Parent root = loader.load();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/pazduolingo/QuizEditor/QuizEditorView.fxml"));
+        Parent rootPane = fxmlLoader.load();
 
-        stage.setTitle("Quiz Editor");
-        stage.setScene(new Scene(root, 700, 600));
+//        SettingsController controller = fxmlLoader.getController();
+
+        Scene scene = new Scene(rootPane);
+        stage.setTitle("QuizEditor");
+        stage.setScene(scene);
         stage.show();
     }
 }
