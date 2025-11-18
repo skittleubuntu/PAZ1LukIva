@@ -10,8 +10,11 @@ import org.example.pazduolingo.QuizClass.Note;
 import java.util.List;
 
 public class TrainingWindow {
+
     //zaklad pre buduci okienka (ja som tam riesil chyby cca 1 hodinu)
     //TODO!!!!!!!V FXML NEPRIDAVAME CONTROLLER!!!!!!!!!!!
+
+
     public void start(Stage stage) throws Exception {
         NoteDAO noteDAO = new NoteDAO();
         List<Note> notes = noteDAO.getAllNotes();

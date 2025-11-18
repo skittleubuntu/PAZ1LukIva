@@ -5,11 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class QuizWindow extends Application {
+public class QuizWindow {
 
-    @Override
+
     public void start(Stage stage) throws Exception {
-        //TODO pred zaciatkom option window na vyber relativity
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pazduolingo/Lesson/LessonView.fxml"));
         Scene scene = new Scene(loader.load());
