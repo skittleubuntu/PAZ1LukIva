@@ -22,7 +22,6 @@ public class QuizEditorController {
 
     private void addQuestion() {
 
-
         questionContainer.setSpacing(5);
 
         VBox questionBox = new VBox(10);
