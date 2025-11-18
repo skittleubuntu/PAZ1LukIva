@@ -45,10 +45,14 @@ public class MainSceneController {
             }
         });
 
-        editorButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.out.println("Quiz editor");
+        editorButton.setOnAction(event -> {
+            System.out.println("Opening Quiz Editor...");
+            try {
+                org.example.pazduolingo.QuizEditor.QuizEditorWindow quizEditor = new org.example.pazduolingo.QuizEditor.QuizEditorWindow();
+                Stage quizStage = new Stage();
+                quizEditor.start(quizStage);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 

@@ -38,7 +38,7 @@ public class TrainingController {
 
     @FXML
     public void initialize() {
-        choiceOrder.getItems().addAll("By Octave", "By Name");
+
         choiceOrder.setValue("By Octave");
         choiceOrder.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             onChoiceChanged(newVal);
