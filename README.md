@@ -164,6 +164,22 @@ DOLEZITIY PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#19.11 (18 day)
+- Uprava okienok v QuizEditor
+- Moznost vymazania Questiona v QuizEditore
+- Dynamicke vytvaranie a premenovanie VBoxov
+- +1 Test pre NoteDAO getNoteFromQuiz
+- SqlDAO.java trieda pri prace z sql vseobecne (dropTables, getConnection)
+lebo pred tim tieto func. boli v triede QuizDAO.java
+
+DOLEZITIY PLAN NA NEXT DAY TAKY ISTY xD
+- Note picker pre QuizEditor
+- FreqNote pre QuizEditor
+- Ulozenie Quiza do database od QuizEditora
+- Functions todo
+
+------------------------------------------------------------------------------------------------------------------------
+
 
 
 

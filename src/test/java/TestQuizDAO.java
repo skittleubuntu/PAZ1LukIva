@@ -1,4 +1,5 @@
 import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.DateAO.SqlDAO;
 import org.example.pazduolingo.QuizClass.*;
 import org.junit.jupiter.api.*;
 
@@ -31,7 +32,7 @@ class TestQuizDAO {
     @BeforeEach
     void setup() {
 
-        QuizDAO.dropTables();
+        SqlDAO.dropTables();
 
 
     }
@@ -40,10 +41,10 @@ class TestQuizDAO {
     @Order(1)
     @DisplayName("Save quiz")
     void testSaveQuiz() {
-        QuizDAO.dropTables();
+        SqlDAO.dropTables();
         QuizDAO.saveQuiz(quiz);
         List<Quiz> quizzes = QuizDAO.loadQuiz();
-        assertEquals(1, quizzes.size(), "In database must be only 1 quiz");
+        assertEquals(1, quizzes.size(), "In database.db must be only 1 quiz");
         assertEquals("Test Quiz", quizzes.get(0).getName());
     }
 
@@ -99,7 +100,7 @@ class TestQuizDAO {
         assertFalse(before.isEmpty(), "Before drop must be 1 quiz");
 
 
-        QuizDAO.dropTables();
+        SqlDAO.dropTables();
 
 
         List<Quiz> after = QuizDAO.loadQuiz();
