@@ -177,6 +177,7 @@ DOLEZITIY PLAN NA NEXT DAY TAKY ISTY xD
 - FreqNote pre QuizEditor
 - Ulozenie Quiza do database od QuizEditora
 - Functions todo
+- Loggs
 
 ------------------------------------------------------------------------------------------------------------------------
 
