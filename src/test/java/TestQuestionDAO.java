@@ -2,6 +2,7 @@
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.DateAO.QuestionDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.DateAO.SqlDAO;
 import org.example.pazduolingo.QuizClass.*;
 import org.junit.jupiter.api.*;
 
@@ -30,7 +31,7 @@ class TestQuestionDAO {
 
     @BeforeEach
     void setup() {
-        QuizDAO.dropTables();
+        SqlDAO.dropTables();
 
         QuizDAO.saveQuiz(quiz);
     }
@@ -75,7 +76,7 @@ class TestQuestionDAO {
 
         Question q = new Question(notes, QuestionDifficult.EASY, InstrumentType.GUITAR, n2);
 
-        Connection conn = QuizDAO.getConnection();
+        Connection conn = SqlDAO.getConnection();
 
         try {
             QuestionDAO.saveQuestion(conn,q,1);
