@@ -1,0 +1,68 @@
+@font-face {
+    font-family: "Gidole";
+    src: url("fonts/Gidole-Regular.ttf");
+}
+
+.root{
+    -fx-font-family: "Gidole";
+    -fx-font-size: 14px;
+    /*-fx-background-color: white;*/
+}
+
+.button {
+  -fx-min-height: 30;
+    -fx-background-color: lightgrey;
+}
+
+.button:hover{
+    -fx-background-color: gold;
+}
+
+.combo-box {
+    -fx-background-color: lightgrey;
+}
+
+.combo-box:hover {
+    -fx-background-color: gold;
+}
+
+.text-area{
+    -fx-background-color: white;
+}
+
+.text-field{
+    -fx-background-color: white;
+}
+
+.radio-button > .radio{
+    -fx-background-color: lightgrey;
+    -fx-border-color: transparent;
+}
+
+.radio-button > .radio:hover{
+    -fx-background-color: gold;
+}
+
+.slider .track{
+    -fx-background-color: lightgrey;
+}
+
+.slider .thumb {
+    -fx-background-color: grey;
+}
+
+.scroll-pane {
+    -fx-background-color: white;
+}
+
+.scroll-bar{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .track{
+    -fx-background-color: lightgrey;
+}
+
+.scroll-bar .thumb{
+    -fx-background-color: grey;
+}
