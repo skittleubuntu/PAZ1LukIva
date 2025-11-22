@@ -26,12 +26,12 @@
     -fx-background-color: gold;
 }
 
-.text-area{
-    -fx-background-color: white;
+.text-area .content{
+    -fx-background-color: #e6e6e6;
 }
 
 .text-field{
-    -fx-background-color: white;
+    -fx-background-color: #e6e6e6;
 }
 
 .radio-button > .radio{

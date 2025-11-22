@@ -5,8 +5,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import org.example.pazduolingo.Settings.SettingsWindow;
+import org.example.pazduolingo.Stats.StatsWindow;
 import org.example.pazduolingo.Training.TrainingWindow;
 import org.example.pazduolingo.QuizClass.QuizWindow;
 
@@ -15,8 +17,6 @@ public class MainSceneController {
 
     @FXML
     private Button editorButton;
-
-
 
     @FXML
     private Button settingsButton;
@@ -28,8 +28,13 @@ public class MainSceneController {
     private Button trainingButton;
 
     @FXML
+    private ComboBox<String> quizFilter;
+
+    @FXML
     void initialize() {
 
+        quizFilter.getItems().addAll("Default", "Custom");
+        quizFilter.setValue("Default");
 
         trainingButton.setOnAction(event -> {
             System.out.println("Opening Training window...");
@@ -56,17 +61,21 @@ public class MainSceneController {
             }
         });
 
-        statsButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.out.println("Stats");
+        statsButton.setOnAction(event -> {
+            System.out.println("Stats");
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            try {
+                StatsWindow statsWindow = new StatsWindow();
+                Stage statsStage = new Stage();
+                statsWindow.start(statsStage);
+            } catch (Exception e){
+                e.printStackTrace();
             }
-        });
-
+                });
 
         settingsButton.setOnAction(event -> {
             System.out.println("Settings");
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             try {
                 SettingsWindow settingsWindow = new SettingsWindow();

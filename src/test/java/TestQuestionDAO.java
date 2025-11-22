@@ -1,5 +1,4 @@
 
-import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.DateAO.QuestionDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.SqlDAO;
@@ -22,8 +21,8 @@ class TestQuestionDAO {
     List<Note> notes = List.of(n1, n2, n3);
 
 
-    Question q1 = new Question(notes, QuestionDifficult.EASY, InstrumentType.GUITAR, n2);
-    Question q2 = new Question(notes, QuestionDifficult.MEDIUM, InstrumentType.VIOLIN, n1);
+    Question q1 = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n2);
+    Question q2 = new Question(notes, QuestionDifficulty.MEDIUM, InstrumentType.VIOLIN, n1);
     List<Question> questions = List.of(q1, q2);
 
 
@@ -74,7 +73,7 @@ class TestQuestionDAO {
         List<Note> notes = List.of(n1, n2, n3);
 
 
-        Question q = new Question(notes, QuestionDifficult.EASY, InstrumentType.GUITAR, n2);
+        Question q = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n2);
 
         Connection conn = SqlDAO.getConnection();
 

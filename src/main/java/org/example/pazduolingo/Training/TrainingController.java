@@ -3,6 +3,7 @@ package org.example.pazduolingo.Training;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import org.example.pazduolingo.DateAO.NoteDAO;
@@ -28,13 +29,13 @@ public class TrainingController {
 
     //TODO
     @FXML
-    private ChoiceBox<String> choiceFilter;
+    private ComboBox<String> choiceFilter;
 
     @FXML
-    private ChoiceBox<String> choiceOrder;
+    private ComboBox<String> choiceOrder;
 
     @FXML
-    private ChoiceBox<String> choiceInstrument;
+    private ComboBox<String> choiceInstrument;
 
     @FXML
     public void initialize() {
