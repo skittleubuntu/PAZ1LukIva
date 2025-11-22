@@ -3,7 +3,7 @@ package org.example.pazduolingo.DateAO;
 import org.example.pazduolingo.QuizClass.InstrumentType;
 import org.example.pazduolingo.QuizClass.Note;
 import org.example.pazduolingo.QuizClass.Question;
-import org.example.pazduolingo.QuizClass.QuestionDifficult;
+import org.example.pazduolingo.QuizClass.QuestionDifficulty;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class QuestionDAO {
 
                 List<Note> notes = NoteDAO.loadNotesForQuestion(conn, questionId);
 
-                QuestionDifficult difficult = QuestionDifficult.valueOf(difficultText);
+                QuestionDifficulty difficult = QuestionDifficulty.valueOf(difficultText);
                 InstrumentType instrumentType = InstrumentType.valueOf(instrumentText);
 
                 Question question = new Question(notes, difficult, instrumentType, freqNote);
