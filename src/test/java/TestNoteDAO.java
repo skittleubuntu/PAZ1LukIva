@@ -70,4 +70,11 @@ class TestNoteDAO {
 
     }
 
+    @Test
+    void testGetNoteByName(){
+        Note testNote = NoteDAO.getNoteByName("A0");
+        assertEquals(testNote,n1);
+
+    }
+
 }

@@ -15,25 +15,26 @@ public class Functions {
         if (notes == null) {
             return Collections.emptyList();
         }
-
-
         List<Note> sortedNotes = new ArrayList<>(notes);
         sortedNotes.sort(Comparator.comparing(Note::getName));
         return sortedNotes;
     }
 
 
-    public static List<Note> getListWithoutNote(List<Note> note, Note removedNote){
-        //todo
-        return note;
+    public static List<Note> getListWithoutNote(List<Note> notes, Note removedNote){
+        List<Note> result = new ArrayList<>();
+        for(Note note : notes){
+            if(!note.equals(removedNote)){
+                result.add(note);
+            }
+        }
+
+        return result;
     }
 
 
-    public static List<Note> getNotesInQuiz(Quiz quiz){
-        //todo
-        List<Note> note = new ArrayList<>();
-        return note;
-    }
+
+
 
 
 

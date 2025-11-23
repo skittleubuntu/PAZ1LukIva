@@ -171,20 +171,31 @@ DOLEZITIY PLAN NA NEXT DAY
 - +1 Test pre NoteDAO getNoteFromQuiz
 - SqlDAO.java trieda pri prace z sql vseobecne (dropTables, getConnection)
 lebo pred tim tieto func. boli v triede QuizDAO.java
+- pridanie css
 
 DOLEZITIY PLAN NA NEXT DAY TAKY ISTY xD
-- Note picker pre QuizEditor
+~~- Note picker pre QuizEditor~~
 - FreqNote pre QuizEditor
 - Ulozenie Quiza do database od QuizEditora
 - Functions todo
 - Loggs
+- Training.java usporiadanie not podla sharp a base
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#23.11 (19 day) IVAN
+- Na pol urobene QuizEditor
+- Pridanie ContainerBox<String> freqNote
+- Na pol kontrola pre spravny vytvoreny Quiz
+- Novy func. v Functions(not used) a v NoteDAO
+- Tests pre novy func.
 
+PLAN NA NEXT DAY
+- Loggs
+- Training.java usporiadanie not podla sharp a base
+- Uozenia quizov do main menu
+- Spravne Functions lebo mame tam zle!
+- Pridanije logiky "not used two times" v QuizEditor
 
-
-
-
-
+------------------------------------------------------------------------------------------------------------------------
 
