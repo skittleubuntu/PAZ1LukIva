@@ -174,6 +174,7 @@ lebo pred tim tieto func. boli v triede QuizDAO.java
 - pridanie css
 
 DOLEZITIY PLAN NA NEXT DAY TAKY ISTY xD
+
 ~~- Note picker pre QuizEditor~~
 - FreqNote pre QuizEditor
 - Ulozenie Quiza do database od QuizEditora
