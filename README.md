@@ -190,6 +190,7 @@ DOLEZITIY PLAN NA NEXT DAY TAKY ISTY xD
 - Na pol kontrola pre spravny vytvoreny Quiz
 - Novy func. v Functions(not used) a v NoteDAO
 - Tests pre novy func.
+- 23.11 trosku neskor bola najdena chyba pri ulozeni quiza s freqNote = null
 
 PLAN NA NEXT DAY
 - Loggs
@@ -197,6 +198,8 @@ PLAN NA NEXT DAY
 - Uozenia quizov do main menu
 - Spravne Functions lebo mame tam zle!
 - Pridanije logiky "not used two times" v QuizEditor
+- Moznost vybera freqNoty like null
+
 
 ------------------------------------------------------------------------------------------------------------------------
 
