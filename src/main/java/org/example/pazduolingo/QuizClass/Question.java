@@ -1,19 +1,17 @@
 package org.example.pazduolingo.QuizClass;
 
-import org.example.pazduolingo.DateAO.NoteDAO;
-
 import java.util.*;
 
 public class Question {
 
     private final List<Note> notes;
     private final Note correctAnswer;
-    private QuestionDifficult difficult;
+    private QuestionDifficulty difficult;
     private InstrumentType instrumentType;
     private Note freqNote;
 
 
-    public Question(List<Note> notes, QuestionDifficult difficult, InstrumentType instrumentType, Note freqNote) {
+    public Question(List<Note> notes, QuestionDifficulty difficult, InstrumentType instrumentType, Note freqNote) {
         this.notes = new ArrayList<>(notes);
         this.correctAnswer = pickRandomNote();
         this.difficult = difficult;
@@ -35,7 +33,7 @@ public class Question {
         return correctAnswer;
     }
 
-    public QuestionDifficult getDifficult(){
+    public QuestionDifficulty getDifficult(){
         return difficult;
     }
     public InstrumentType getInstrumentType(){
