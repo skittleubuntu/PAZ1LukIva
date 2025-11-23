@@ -23,6 +23,7 @@ public class Question {
     }
 
 
+
     public Note pickRandomNote() {
         return notes.get(new Random().nextInt(notes.size()));
     }

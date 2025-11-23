@@ -30,7 +30,6 @@ public class NoteDAO {
 
 
     public static Note getNoteByID(int id){
-
         if (notes.isEmpty()) {
             loadNotes();
         }
@@ -41,6 +40,24 @@ public class NoteDAO {
 
         }
         return null;
+
+    }
+
+    public static Note getNoteByName(String name){
+        if (notes.isEmpty()) {
+            loadNotes();
+        }
+        if (name == null){
+            return null;
+        }
+        for (Note note : notes){
+            if(note.getName().equals(name)){
+                return note;
+            }
+
+        }
+        return null;
+
 
     }
 

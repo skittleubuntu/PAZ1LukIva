@@ -7,7 +7,11 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.example.pazduolingo.DateAO.NoteDAO;
-import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.QuizClass.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuizEditorController {
 
@@ -15,13 +19,16 @@ public class QuizEditorController {
     @FXML private TextArea quizDescription;
     @FXML private VBox questionContainer;
     @FXML private Button addQuestionButton;
+    @FXML private Button saveButton;
 
     @FXML
     public void initialize() {
         addQuestionButton.setOnAction(e -> addQuestion());
+        saveButton.setOnAction(e -> onSave());
+
     }
 
-    private void removeQuestion(int questionIndex){
+    private void removeQuestion(int questionIndex) {
         questionContainer.getChildren().remove(questionIndex);
 
         for (int i = 0; i < questionContainer.getChildren().size(); i++) {
@@ -34,6 +41,7 @@ public class QuizEditorController {
             HBox options = (HBox) questionBox.getChildren().get(2);
             Button removeBtn = (Button) options.getChildren().get(2);
             int finalI = i;
+
             removeBtn.setOnAction(e -> removeQuestion(finalI));
         }
     }
@@ -41,7 +49,6 @@ public class QuizEditorController {
     private void addQuestion() {
 
         questionContainer.setSpacing(5);
-
         int index = questionContainer.getChildren().size();
 
         VBox questionBox = new VBox(20);
@@ -52,47 +59,115 @@ public class QuizEditorController {
 
         Label questionLabel = new Label("Question " + (index + 1));
 
-        ComboBox<String> note1 = new ComboBox<>();
-        ComboBox<String> note2 = new ComboBox<>();
-        ComboBox<String> note3 = new ComboBox<>();
-        ComboBox<String> note4 = new ComboBox<>();
 
-        for (Note note : NoteDAO.getAllNotes()){
-            note1.getItems().add(note.getName());
-            note2.getItems().add(note.getName());
-            note3.getItems().add(note.getName());
-            note4.getItems().add(note.getName());
+        ComboBox<String> note1Box = new ComboBox<>();
+        ComboBox<String> note2Box = new ComboBox<>();
+        ComboBox<String> note3Box = new ComboBox<>();
+        ComboBox<String> note4Box = new ComboBox<>();
+        ComboBox<String> freqNoteBox = new ComboBox<>();
+
+        for (Note n : NoteDAO.getAllNotes()) {
+            note1Box.getItems().add(n.getName());
+            note2Box.getItems().add(n.getName());
+            note3Box.getItems().add(n.getName());
+            note4Box.getItems().add(n.getName());
+            freqNoteBox.getItems().add(n.getName());
         }
 
-        note1.setMaxWidth(75);
-        note2.setMaxWidth(75);
-        note3.setMaxWidth(75);
-        note4.setMaxWidth(75);
+
 
         Button remove = new Button("Remove");
         remove.setMinWidth(80);
         remove.setOnAction(e -> removeQuestion(index));
 
+
         ComboBox<String> difficultyBox = new ComboBox<>();
         difficultyBox.getItems().addAll("Easy", "Medium", "Hard");
         difficultyBox.setValue("Easy");
         difficultyBox.setMinWidth(80);
-        difficultyBox.setMaxWidth(80);
+
 
         ComboBox<String> instrumentBox = new ComboBox<>();
         instrumentBox.getItems().addAll("Piano", "Guitar", "Violin", "Flute");
+        freqNoteBox.setPromptText("Freq note");
         instrumentBox.setValue("Piano");
         instrumentBox.setMinWidth(80);
-        instrumentBox.setMaxWidth(80);
 
-        HBox answers = new HBox(10, note1, note2, note3, note4);
+
+        HBox answers = new HBox(10, note1Box, note2Box, note3Box, note4Box);
         answers.setAlignment(Pos.CENTER);
 
-        HBox options = new HBox(10, difficultyBox, instrumentBox, remove);
+        HBox options = new HBox(10, difficultyBox, instrumentBox,freqNoteBox, remove);
         options.setAlignment(Pos.CENTER);
 
         questionBox.getChildren().addAll(questionLabel, answers, options);
-
         questionContainer.getChildren().add(questionBox);
+    }
+
+
+
+
+    private void onSave() {
+
+        Quiz quizToSave;
+        List<Question> questions = new ArrayList<>();
+        String name = quizTitle.getText();
+        String desc = quizDescription.getText();
+
+        if (name.isEmpty()){
+            System.out.println("Must be a name");
+            return;
+        }
+
+        if(questionContainer.getChildren().size() == 0){
+            System.out.println("Must be 1 question");
+            return;
+        }
+
+        for (Node node : questionContainer.getChildren()) {
+
+
+
+            VBox questionBox = (VBox) node;
+
+            HBox answers = (HBox) questionBox.getChildren().get(1);
+
+            ComboBox<String> note1 = (ComboBox<String>) answers.getChildren().get(0);
+            ComboBox<String> note2 = (ComboBox<String>) answers.getChildren().get(1);
+            ComboBox<String> note3 = (ComboBox<String>) answers.getChildren().get(2);
+            ComboBox<String> note4 = (ComboBox<String>) answers.getChildren().get(3);
+
+            HBox options = (HBox) questionBox.getChildren().get(2);
+            ComboBox<String> difficulty = (ComboBox<String>) options.getChildren().get(0);
+            ComboBox<String> instrument = (ComboBox<String>) options.getChildren().get(1);
+            ComboBox<String> freqNoteBox = (ComboBox<String>) options.getChildren().get(2);
+
+
+
+            List<Note> notes = new ArrayList<>();
+
+
+            if (note1.getValue() == null || note2.getValue() == null || note3.getValue() == null || note4.getValue() == null ){
+                return;
+            }
+
+            notes.add(NoteDAO.getNoteByName(note1.getValue()));
+            notes.add(NoteDAO.getNoteByName(note2.getValue()));
+            notes.add(NoteDAO.getNoteByName(note3.getValue()));
+            notes.add(NoteDAO.getNoteByName(note4.getValue()));
+            Note freqNote = NoteDAO.getNoteByName(freqNoteBox.getValue());
+            System.out.println(freqNoteBox.getValue());
+
+
+
+            Question question = new Question(notes, QuestionDifficult.valueOf(difficulty.getValue().toUpperCase()), InstrumentType.valueOf(instrument.getValue().toUpperCase()), freqNote);
+
+            questions.add(question);
+
+        }
+
+        quizToSave = new Quiz(questions, name, desc);
+        QuizDAO.saveQuiz(quizToSave);
+        System.out.println("Quiz saved");
     }
 }
