@@ -206,3 +206,19 @@ PLAN NA NEXT DAY
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#25.11 (20 day)
+- DisplayName Not podla Settingu (#->b)
+- SettingDAO a TestsSQL
+- Pridania triedy Settings
+
+PLANY SU TAKY ISTY
+- Loggs
+- Training.java usporiadanie not podla sharp a base
+- Uozenia quizov do main menu
+- Spravne Functions lebo mame tam zle!
+- Pridanije logiky "not used two times" v QuizEditor
+- Moznost vybera freqNoty like null
+- Urobeniy stats
+
+------------------------------------------------------------------------------------------------------------------------
+
