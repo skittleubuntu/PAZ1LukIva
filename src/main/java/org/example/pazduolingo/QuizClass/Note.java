@@ -23,21 +23,35 @@ public class Note implements Comparable<Note>{
     }
 
 
-    private void translate(Settings settings, List<Note> notes){
-        if (SettingsDAO.loadSettings().Type.equals("#")){
-            return;
-        }
-        else {
-            this.name = notes.get(id).getName() + "♭";
+
+    public String getDisplayName(Settings settings, List<Note> notes) {
+
+
+        if (settings.Type.equals("#")) {
+            return name + octave;
         }
 
+
+        if (name.contains("#")) {
+            int nextIndex = id;
+            if (nextIndex < notes.size()) {
+                String nextName = notes.get(nextIndex).getNameClear().replace("#", ""); // C -> Db
+                return nextName + "♭" + octave;
+            }
+        }
+
+
+        return name + octave;
     }
+
 
 
     public String getName() {
         return name + octave;
     }
-
+    public String getNameClear(){
+        return name;
+    }
     public int getOctave() {
         return octave;
     }

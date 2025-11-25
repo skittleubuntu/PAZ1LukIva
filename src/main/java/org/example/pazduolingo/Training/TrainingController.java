@@ -7,7 +7,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.DateAO.SettingsDAO;
 import org.example.pazduolingo.QuizClass.InstrumentType;
+import org.example.pazduolingo.Settings.Settings;
 import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.Functions;
 import org.example.pazduolingo.QuizClass.Note;
@@ -25,7 +27,7 @@ public class TrainingController {
 
     private List<Note> notes = new ArrayList<>();
 
-    private final int MAX_COLUMNS = 10;
+    private final int MAX_COLUMNS = 8;
 
     //TODO
     @FXML
@@ -64,22 +66,20 @@ public class TrainingController {
         createButtons();
     }
 
-    public void setNotes(List<Note> notes) {
-        this.notes = new ArrayList<>(notes);
-        Collections.sort(this.notes);
-        if (buttonGrid != null) {
-            createButtons();
-        }
-    }
+
 
     private void createButtons() {
+        notes = NoteDAO.getAllNotes();
         buttonGrid.getChildren().clear();
+        Settings settings = SettingsDAO.loadSettings();
+        System.out.println(settings.Type);
+
 
         int col = 0;
         int row = 0;
 
         for (Note note : notes) {
-            Button button = new Button(note.getName());
+            Button button = new Button(note.getDisplayName(settings,notes));
             button.prefWidthProperty().bind(scrollPane.widthProperty().subtract((MAX_COLUMNS + 1) * 10).divide(MAX_COLUMNS));
             button.prefHeightProperty().bind(button.prefWidthProperty());
             button.setOnAction(event -> handleNoteClick(note));
