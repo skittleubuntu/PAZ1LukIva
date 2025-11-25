@@ -2,7 +2,9 @@ package org.example.pazduolingo.Main;
 
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.DateAO.SqlDAO;
 import org.example.pazduolingo.QuizClass.*;
+import org.example.pazduolingo.Settings.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,16 +60,21 @@ public class Main {
 //        QuizDAO.saveQuiz(quiz);
 
 
-        List<Quiz> quizzes = QuizDAO.loadQuiz();
+
+        String Theme = "Light";
+        int Volume = 100;
+        String Type = "#";
+        String Language = "English";
+
+        Settings settings = new Settings();
+        settings.Theme = Theme;
+        settings.Volume = Volume;
+        settings.Type = Type;
+        settings.Language = Language;
 
 
-
-        for (Quiz q : quizzes){
-            System.out.println(q.toString());
-        }
-
-        Quiz q = QuizDAO.loadQuizByID(1);
-        System.out.println(q);
+        System.out.println(settings.Volume);
+        SqlDAO.dropTables();
 
 
 

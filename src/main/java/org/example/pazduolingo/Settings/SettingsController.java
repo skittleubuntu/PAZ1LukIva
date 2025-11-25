@@ -2,6 +2,7 @@ package org.example.pazduolingo.Settings;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.example.pazduolingo.DateAO.SettingsDAO;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +36,7 @@ public class SettingsController {
     private ToggleGroup themeGroup;
     private ToggleGroup notationGroup;
 
-    private String[] settings;
+    private Settings settings = new Settings();
 
     @FXML
     void initialize() {
@@ -77,39 +78,21 @@ public class SettingsController {
         System.out.println("Volume : " + volume);
 
 
-        //TODO: treba pridat ulozenie do tabulky settings z SQLite databazy
-        try (PrintWriter pw = new PrintWriter(new File("settings.csv"))){
-            pw.println(selectedTheme.getText() + "," + selectedNotation.getText() + "," + language + "," + volume);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        settings.Theme = selectedTheme.getText();
+        settings.Type = selectedNotation.getText();
+        settings.Language = language;
+        settings.Volume = volume;
+
+
+        SettingsDAO.saveSettings(settings);
 
     }
 
     void loadSettings() {
+        settings = SettingsDAO.loadSettings();
+        //todo
 
-        try(Scanner sc = new Scanner(new File("settings.csv"))){
-            settings = sc.next().split(",");
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String selectedTheme = settings[0];
-        String selectedNotation = settings[1];
-
-        //podla stringu v settings.csv nastavim ktory radio button ma byt aktivny
-        switch(selectedTheme){
-            case "Dark" -> themeGroup.selectToggle(darkRadioButton);
-            case "Light" -> themeGroup.selectToggle(lightRadioButton);
-        }
-
-        switch(selectedNotation){
-            case "#"  -> notationGroup.selectToggle(sharpsRadioButton);
-            case "♭"  -> notationGroup.selectToggle(flatsRadioButton);
-        }
-
-        languageComboBox.setValue(settings[2]);
-        volumeSlider.setValue(Integer.parseInt(settings[3]));
     }
+
+
 }

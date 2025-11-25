@@ -160,7 +160,7 @@ public class QuizEditorController {
 
 
 
-            Question question = new Question(notes, QuestionDifficult.valueOf(difficulty.getValue().toUpperCase()), InstrumentType.valueOf(instrument.getValue().toUpperCase()), freqNote);
+            Question question = new Question(notes, QuestionDifficulty.valueOf(difficulty.getValue().toUpperCase()), InstrumentType.valueOf(instrument.getValue().toUpperCase()), freqNote);
 
             questions.add(question);
 

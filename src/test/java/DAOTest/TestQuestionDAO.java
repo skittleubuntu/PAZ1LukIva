@@ -1,3 +1,4 @@
+package DAOTest;
 
 import org.example.pazduolingo.DateAO.QuestionDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
@@ -31,15 +32,8 @@ class TestQuestionDAO {
     @BeforeEach
     void setup() {
         SqlDAO.dropTables();
-
         QuizDAO.saveQuiz(quiz);
     }
-
-
-
-
-
-
 
 
     @Order(1)
@@ -89,7 +83,12 @@ class TestQuestionDAO {
         assertEquals(quiz.getQuestions().size(), 3);
 
 
+    }
 
+
+    @AfterAll
+    static void after(){
+        SqlDAO.dropTables();
     }
 
 

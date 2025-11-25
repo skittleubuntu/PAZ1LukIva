@@ -65,10 +65,15 @@ public class QuestionDAO {
         public static void saveQuestion (Connection conn, Question q,int quizId) throws SQLException {
             String insertQuestionSQL = "INSERT INTO questions (quizes_id, idFreq, question_duficult, instrumentType) VALUES (?, ?, ?, ?)";
             int questionId;
+            Note freqNote = q.getFreqNote();
+
 
             try (PreparedStatement pstmtQ = conn.prepareStatement(insertQuestionSQL, Statement.RETURN_GENERATED_KEYS)) {
                 pstmtQ.setInt(1, quizId);
-                pstmtQ.setInt(2, q.getFreqNote().getId());
+
+                if (q.getFreqNote() != null) {
+                    pstmtQ.setInt(2, q.getFreqNote().getId());
+                }
                 pstmtQ.setString(3, q.getDifficult().toString());
                 pstmtQ.setString(4, q.getInstrumentType().toString());
                 pstmtQ.executeUpdate();

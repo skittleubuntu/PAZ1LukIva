@@ -1,5 +1,8 @@
-package org.example.pazduolingo.DateAO;
+package DAOTest;
 
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.DateAO.SqlDAO;
 import org.example.pazduolingo.QuizClass.*;
 import org.junit.jupiter.api.*;
 

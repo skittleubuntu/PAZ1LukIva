@@ -20,6 +20,7 @@ public class SqlDAO {
                 "DELETE FROM questions;",
                 "DELETE FROM quizes;",
                 "DELETE FROM sqlite_sequence;",
+                "DELETE FROM settings",
                 "COMMIT;",
                 "PRAGMA foreign_keys = ON;"
         };
