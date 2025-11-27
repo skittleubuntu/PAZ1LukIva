@@ -3,6 +3,8 @@ package org.example.pazduolingo.Settings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.example.pazduolingo.DateAO.SettingsDAO;
+import org.example.pazduolingo.Utilites.Factory;
+import org.example.pazduolingo.Utilites.WindowManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,7 +51,6 @@ public class SettingsController {
 
         saveButton.setOnAction(event -> {
             saveSettings();
-
         });
 
         saveAndExitButton.setOnAction(event -> {
@@ -94,16 +95,15 @@ public class SettingsController {
         settings.Language = language;
         settings.Volume = volume;
 
-
         SettingsDAO.saveSettings(settings);
+
+        WindowManager.getInstance().setTheme();
 
     }
 
     void loadSettings() {
-        settings = SettingsDAO.loadSettings();
+        Settings settings = SettingsDAO.loadSettings();
         //todo
-
-
 
         switch(settings.Theme){
             case "Dark" -> themeGroup.selectToggle(darkRadioButton);

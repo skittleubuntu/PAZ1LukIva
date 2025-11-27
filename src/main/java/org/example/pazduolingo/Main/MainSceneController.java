@@ -11,6 +11,7 @@ import org.example.pazduolingo.Settings.SettingsWindow;
 import org.example.pazduolingo.Stats.StatsWindow;
 import org.example.pazduolingo.Training.TrainingWindow;
 import org.example.pazduolingo.QuizClass.QuizWindow;
+import org.example.pazduolingo.Utilites.WindowManager;
 
 
 public class MainSceneController {
@@ -55,6 +56,7 @@ public class MainSceneController {
             try {
                 org.example.pazduolingo.QuizEditor.QuizEditorWindow quizEditor = new org.example.pazduolingo.QuizEditor.QuizEditorWindow();
                 Stage quizStage = new Stage();
+
                 quizEditor.start(quizStage);
             } catch (Exception e) {
                 e.printStackTrace();

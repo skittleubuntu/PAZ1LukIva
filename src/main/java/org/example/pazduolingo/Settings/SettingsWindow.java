@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.pazduolingo.Utilites.WindowManager;
 
 public class SettingsWindow {
 
@@ -17,6 +18,10 @@ public class SettingsWindow {
         Scene scene = new Scene(rootPane);
         stage.setTitle("Settings");
         stage.setScene(scene);
+
+        WindowManager.getInstance().addStage(stage);
+        WindowManager.getInstance().setTheme();
+
         stage.show();
     }
 }

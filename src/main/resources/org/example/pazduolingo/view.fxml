@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane maxWidth="600.0">
             <columnConstraints>
@@ -18,16 +18,16 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="editorButton" minWidth="100.0" mnemonicParsing="false" text="Quiz editor" GridPane.halignment="CENTER" />
-                <Button fx:id="trainingButton" minWidth="100.0" mnemonicParsing="false" text="Training" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                <Button fx:id="statsButton" minWidth="100.0" mnemonicParsing="false" text="Stats" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                <Button fx:id="settingsButton" minWidth="100.0" mnemonicParsing="false" text="Settings" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                <Button fx:id="editorButton" minWidth="100.0" mnemonicParsing="false" text="%menu.quizEditor" GridPane.halignment="CENTER" />
+                <Button fx:id="trainingButton" minWidth="100.0" mnemonicParsing="false" text="%menu.training" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                <Button fx:id="statsButton" minWidth="100.0" mnemonicParsing="false" text="%menu.stats" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                <Button fx:id="settingsButton" minWidth="100.0" mnemonicParsing="false" text="%menu.settings" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
             </children>
             <VBox.margin>
                 <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
         </GridPane>
-        <Label style="-fx-font-size: 18px" text="Quizes">
+        <Label style="-fx-font-size: 18px" text="%menu.quizzes">
             <font>
                 <Font size="18.0" />
             </font>
@@ -43,17 +43,17 @@
         <ListView maxWidth="250.0" minWidth="250.0" prefHeight="200.0" prefWidth="200.0" />
         <HBox alignment="TOP_CENTER" prefHeight="93.0" prefWidth="426.0">
             <children>
-                <Button minWidth="70.0" mnemonicParsing="false" text="Add">
+                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.add">
                     <HBox.margin>
                         <Insets right="15.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button minWidth="70.0" mnemonicParsing="false" text="Start">
+                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.start">
                     <HBox.margin>
                         <Insets left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button minWidth="70.0" mnemonicParsing="false" text="Delete">
+                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.delete">
                     <HBox.margin>
                         <Insets left="15.0" top="5.0" />
                     </HBox.margin>

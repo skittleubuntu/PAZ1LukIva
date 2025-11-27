@@ -1,12 +1,12 @@
 @font-face {
     font-family: "Gidole";
-    src: url("fonts/Gidole-Regular.ttf");
+    src: url("../../../../fonts/Gidole-Regular.ttf");
 }
 
 .root{
     -fx-font-family: "Gidole";
     -fx-font-size: 14px;
-    /*-fx-background-color: white;*/
+    -fx-background-color: #f3f3f3;
 }
 
 .button {
