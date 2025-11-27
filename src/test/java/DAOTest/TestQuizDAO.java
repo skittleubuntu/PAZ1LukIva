@@ -40,11 +40,15 @@ class TestQuizDAO {
     @Order(1)
     @DisplayName("Save quiz")
     void testSaveQuiz() {
+
+
         SqlDAO.dropTables();
         QuizDAO.saveQuiz(quiz);
         List<Quiz> quizzes = QuizDAO.loadQuiz();
-        assertEquals(1, quizzes.size(), "In database.db must be only 1 quiz");
-        assertEquals("Test Quiz", quizzes.get(0).getName());
+
+            assertEquals(1, quizzes.size());
+            assertEquals("Test Quiz", quizzes.getFirst().getName());
+
     }
 
     @Test
@@ -61,10 +65,11 @@ class TestQuizDAO {
 
 
         List<Quiz> loaded = QuizDAO.loadQuiz();
+            assertFalse(loaded.isEmpty(), "Must be at least 1 quiz");
+            assertEquals("Another Quiz", loaded.getFirst().getName());
+            assertNotNull(loaded.getFirst().getQuestions());
 
-        assertFalse(loaded.isEmpty(), "Must be at least 1 quiz");
-        assertEquals("Another Quiz", loaded.get(0).getName());
-        assertNotNull(loaded.get(0).getQuestions());
+
     }
 
 
@@ -73,11 +78,15 @@ class TestQuizDAO {
     @Test
     @Order(3)
     void testLoadQuizByID(){
+
         QuizDAO.saveQuiz(quiz);
         //cuz we have only 1 quiz
         Quiz quiz1 = QuizDAO.loadQuizByID(1);
-        System.out.println(quiz1);
-        assertEquals(quiz1.getQuestions().get(0).getNotes(), quiz.getQuestions().get(0).getNotes());
+
+
+            assertNotNull(quiz1);
+            assertEquals(quiz1.getQuestions().getFirst().getNotes(), quiz.getQuestions().getFirst().getNotes());
+
     }
 
 

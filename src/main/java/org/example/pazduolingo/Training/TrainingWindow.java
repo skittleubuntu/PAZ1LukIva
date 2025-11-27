@@ -20,7 +20,7 @@ public class TrainingWindow {
 
 
         var url = getClass().getResource("/org/example/pazduolingo/Training/train_view.fxml");
-        System.out.println("FXML URL: " + url);
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent rootPane = fxmlLoader.load();

@@ -69,17 +69,30 @@ public class TrainingController {
 
 
     private void createButtons() {
-        notes = NoteDAO.getAllNotes();
+        notes = new ArrayList<>();
         buttonGrid.getChildren().clear();
         Settings settings = SettingsDAO.loadSettings();
-        System.out.println(settings.Type);
+
+
+        List<Note> allNotes = NoteDAO.getAllNotes();
+        for (int i = 0; i < allNotes.size(); i++) {
+            if (settings.Type.equals("#")) {
+                notes.add(allNotes.get(i));
+            }
+            else{
+                notes.add(Factory.getFloatNote(allNotes.get(i), allNotes));
+            }
+
+        }
+
+
 
 
         int col = 0;
         int row = 0;
 
         for (Note note : notes) {
-            Button button = new Button(note.getDisplayName(settings,notes));
+            Button button = new Button(note.getName());
             button.prefWidthProperty().bind(scrollPane.widthProperty().subtract((MAX_COLUMNS + 1) * 10).divide(MAX_COLUMNS));
             button.prefHeightProperty().bind(button.prefWidthProperty());
             button.setOnAction(event -> handleNoteClick(note));
@@ -94,10 +107,10 @@ public class TrainingController {
     }
 
     private void handleNoteClick(Note note) {
-        System.out.println("Clicked: " + note.getName());
+
         String selectedInstrument = choiceInstrument != null ? choiceInstrument.getValue() : "Piano";
         InstrumentType type = InstrumentType.valueOf(selectedInstrument.toUpperCase());
         Sounder sounder = Factory.createSounder(type);
-        new Thread(() -> sounder.play(note.getMidiNumber(), 100)).start();
+        new Thread(() -> sounder.play(note.getMidiNumber(), SettingsDAO.loadSettings().Volume)).start();
     }
 }

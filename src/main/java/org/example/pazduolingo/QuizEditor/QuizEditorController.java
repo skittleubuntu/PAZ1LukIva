@@ -115,12 +115,10 @@ public class QuizEditorController {
         String desc = quizDescription.getText();
 
         if (name.isEmpty()){
-            System.out.println("Must be a name");
             return;
         }
 
         if(questionContainer.getChildren().size() == 0){
-            System.out.println("Must be 1 question");
             return;
         }
 
@@ -156,7 +154,7 @@ public class QuizEditorController {
             notes.add(NoteDAO.getNoteByName(note3.getValue()));
             notes.add(NoteDAO.getNoteByName(note4.getValue()));
             Note freqNote = NoteDAO.getNoteByName(freqNoteBox.getValue());
-            System.out.println(freqNoteBox.getValue());
+
 
 
 
@@ -168,6 +166,6 @@ public class QuizEditorController {
 
         quizToSave = new Quiz(questions, name, desc);
         QuizDAO.saveQuiz(quizToSave);
-        System.out.println("Quiz saved");
+
     }
 }

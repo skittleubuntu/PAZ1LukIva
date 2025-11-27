@@ -18,8 +18,8 @@ public class SettingsDAO {
                 "Language = excluded.Language, " +
                 "Volume = excluded.Volume";
 
-
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
+           
 
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, settings.Theme);
@@ -30,10 +30,13 @@ public class SettingsDAO {
                 pstmt.executeUpdate();
 
             } catch (SQLException e) {
+              
                 throw new RuntimeException(e);
+
             }
 
         } catch (SQLException e) {
+          
             throw new RuntimeException(e);
         }
 
@@ -44,9 +47,11 @@ public class SettingsDAO {
         Settings settings = new Settings();
         String sql = "SELECT Theme, Type, Language, Volume FROM settings WHERE Id = 1";
 
+
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql)){
 
+               
 
             ResultSet rs = stmt.executeQuery();
 
@@ -63,6 +68,7 @@ public class SettingsDAO {
             return settings;
 
         } catch (SQLException e) {
+          
             throw new RuntimeException(e);
         }
 

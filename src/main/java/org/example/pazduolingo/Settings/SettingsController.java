@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.Set;
 
 public class SettingsController {
 
@@ -28,6 +29,9 @@ public class SettingsController {
     private Button saveButton;
 
     @FXML
+    private Button saveAndExitButton;
+
+    @FXML
     private RadioButton sharpsRadioButton;
 
     @FXML
@@ -45,7 +49,15 @@ public class SettingsController {
 
         saveButton.setOnAction(event -> {
             saveSettings();
+
         });
+
+        saveAndExitButton.setOnAction(event -> {
+            saveSettings();
+            saveAndExitButton.getScene().getWindow().hide();
+        });
+
+
 
         //nastavenie radio buttnoch do svojich skupin aby sa zaskrtol vzdy iba jeden zo skupiny
         themeGroup = new ToggleGroup();
@@ -66,16 +78,15 @@ public class SettingsController {
         RadioButton selectedNotation = (RadioButton) notationGroup.getSelectedToggle();
 
         //vrati text zvoleneho radio buttonu
-        System.out.println("Theme : " + selectedTheme.getText());
-        System.out.println("Notation : " + selectedNotation.getText());
+
 
         //ziskanie hodnoty language z comboboxu
         String language = languageComboBox.getValue();
-        System.out.println("Language : " + language);
+
 
         //ziskanie hodnoty pri volume slidery
         int volume = (int) volumeSlider.getValue();
-        System.out.println("Volume : " + volume);
+
 
 
         settings.Theme = selectedTheme.getText();
@@ -92,6 +103,20 @@ public class SettingsController {
         settings = SettingsDAO.loadSettings();
         //todo
 
+
+
+        switch(settings.Theme){
+            case "Dark" -> themeGroup.selectToggle(darkRadioButton);
+            case "Light" -> themeGroup.selectToggle(lightRadioButton);
+        }
+
+        switch(settings.Type){
+            case "#"  -> notationGroup.selectToggle(sharpsRadioButton);
+            case "♭"  -> notationGroup.selectToggle(flatsRadioButton);
+        }
+
+        languageComboBox.setValue(settings.Language);
+        volumeSlider.setValue(settings.Volume);
     }
 
 

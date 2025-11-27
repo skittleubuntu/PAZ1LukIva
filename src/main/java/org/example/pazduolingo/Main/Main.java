@@ -14,7 +14,7 @@ public class Main {
 
 
     public static void main(String[] args){
-//        System.out.println(true);
+//         t.println(true);
 //        Note a = NoteDAO.getNoteByID(1);
 //        Note b = NoteDAO.getNoteByID(2);
 //        Note c = NoteDAO.getNoteByID(3);
@@ -51,12 +51,12 @@ public class Main {
 //        questions.add(question1);
 //        questions.add(question2);
 //
-//        System.out.println("Questions count: " + questions.size());
+//         t.println("Questions count: " + questions.size());
 //
 //        Quiz quiz = new Quiz(questions, "Name", "Des");
 //
 //
-//        System.out.println(quiz);
+//         t.println(quiz);
 //        QuizDAO.saveQuiz(quiz);
 
 
@@ -73,7 +73,7 @@ public class Main {
         settings.Language = Language;
 
 
-        System.out.println(settings.Volume);
+
         SqlDAO.dropTables();
 
 

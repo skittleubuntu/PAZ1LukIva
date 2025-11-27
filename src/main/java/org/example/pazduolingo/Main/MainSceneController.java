@@ -37,7 +37,7 @@ public class MainSceneController {
         quizFilter.setValue("Default");
 
         trainingButton.setOnAction(event -> {
-            System.out.println("Opening Training window...");
+
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
 
@@ -51,7 +51,7 @@ public class MainSceneController {
         });
 
         editorButton.setOnAction(event -> {
-            System.out.println("Opening Quiz Editor...");
+
             try {
                 org.example.pazduolingo.QuizEditor.QuizEditorWindow quizEditor = new org.example.pazduolingo.QuizEditor.QuizEditorWindow();
                 Stage quizStage = new Stage();
@@ -62,7 +62,7 @@ public class MainSceneController {
         });
 
         statsButton.setOnAction(event -> {
-            System.out.println("Stats");
+
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             try {
                 StatsWindow statsWindow = new StatsWindow();
@@ -74,7 +74,7 @@ public class MainSceneController {
                 });
 
         settingsButton.setOnAction(event -> {
-            System.out.println("Settings");
+
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             try {

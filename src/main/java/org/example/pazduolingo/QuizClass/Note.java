@@ -24,26 +24,6 @@ public class Note implements Comparable<Note>{
 
 
 
-    public String getDisplayName(Settings settings, List<Note> notes) {
-
-
-        if (settings.Type.equals("#")) {
-            return name + octave;
-        }
-
-
-        if (name.contains("#")) {
-            int nextIndex = id;
-            if (nextIndex < notes.size()) {
-                String nextName = notes.get(nextIndex).getNameClear().replace("#", ""); // C -> Db
-                return nextName + "♭" + octave;
-            }
-        }
-
-
-        return name + octave;
-    }
-
 
 
     public String getName() {

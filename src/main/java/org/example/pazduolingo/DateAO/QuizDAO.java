@@ -1,6 +1,5 @@
 package org.example.pazduolingo.DateAO;
 
-import org.example.pazduolingo.QuizClass.Note;
 import org.example.pazduolingo.QuizClass.Question;
 import org.example.pazduolingo.QuizClass.Quiz;
 
@@ -17,7 +16,9 @@ public class QuizDAO {
     public static void saveQuiz(Quiz quiz) {
         String insertQuizSQL = "INSERT INTO quizes (name, description) VALUES (?, ?)";
 
+
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
+  
             conn.setAutoCommit(false);
 
             int quizId;
@@ -41,9 +42,10 @@ public class QuizDAO {
             }
 
             conn.commit();
-            System.out.println("Quiz '" + quiz.getName() + "' saved!");
+
 
         } catch (SQLException e) {
+          
 
         }
     }
@@ -51,15 +53,17 @@ public class QuizDAO {
     public static Quiz loadQuizByID(int id){
 
         String sql = "SELECT id, name, description FROM quizes WHERE id = ?";
-
+        
+   
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (!rs.next()) {
-                System.out.println("Quiz with ID=" + id + " not found");
+
                 return null;
             }
 
@@ -73,6 +77,7 @@ public class QuizDAO {
             return new Quiz(questions, name, desc);
 
         } catch (SQLException e) {
+          
             throw new RuntimeException();
         }
     }
@@ -84,7 +89,10 @@ public class QuizDAO {
         String getAllQuizes = "SELECT id, name , description FROM quizes";
 
 
+   
+
         try (Connection conn = DriverManager.getConnection(DB_URL)){
+           
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(getAllQuizes);
 
@@ -103,6 +111,7 @@ public class QuizDAO {
 
 
         } catch (SQLException e) {
+          
             throw new RuntimeException(e);
         }
 
