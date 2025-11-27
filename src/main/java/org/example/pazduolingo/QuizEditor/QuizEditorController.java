@@ -1,5 +1,6 @@
 package org.example.pazduolingo.QuizEditor;
 
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -55,12 +56,35 @@ public class QuizEditorController {
 
 
 
-    private void removeNoteFromList(List<Note> notes, Note note){
-        List<Note> result = NoteDAO.getAllNotes();
-        //todo
-
-
-    }
+//    private void updateComboBox(List<Note> notes, List<ComboBox<String>> comboBoxList){
+//
+//        //make result with settings
+//        List<Note> result = NoteDAO.getAllNotes();
+//        if (!settings.Type.equals("#")){
+//            result.replaceAll(note -> Factory.getFloatNote(note, NoteDAO.getAllNotes()));
+//        }
+//
+//
+//        //remove exists notes
+//        for (ComboBox<String> comboBox : comboBoxList){
+//            result.remove(NoteDAO.getNoteByName(comboBox.getValue()));
+//        }
+//
+//
+//
+//        //add for every combobox new list
+//        for (ComboBox<String> comboBox : comboBoxList) {
+//            String cur = comboBox.getValue();
+//            comboBox.getItems().clear();
+//
+//            for(Note n: result){
+//                comboBox.getItems().add(n.getName());
+//            }
+//
+//
+//        }
+//
+//    }
 
     private void addQuestion() {
 
@@ -82,10 +106,13 @@ public class QuizEditorController {
         ComboBox<String> note4Box = new ComboBox<>();
 
 
-        note1Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> removeNoteFromList(notes, NoteDAO.getNoteByName(newVal)));
-        note2Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> removeNoteFromList(notes, NoteDAO.getNoteByName(newVal)));
-        note3Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> removeNoteFromList(notes, NoteDAO.getNoteByName(newVal)));
-        note4Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> removeNoteFromList(notes, NoteDAO.getNoteByName(newVal)));
+        List<ComboBox<String>> comboBoxList = List.of(note1Box,note2Box,note3Box,note4Box);
+
+
+        //note1Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateComboBox(notes, comboBoxList));
+        //note2Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateComboBox(notes,comboBoxList));
+        //note3Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateComboBox(notes,comboBoxList));
+        //note4Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateComboBox(notes,comboBoxList));
 
         ComboBox<String> freqNoteBox = new ComboBox<>();
 

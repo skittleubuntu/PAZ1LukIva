@@ -2,6 +2,7 @@ package org.example.pazduolingo.DateAO;
 
 import org.example.pazduolingo.QuizClass.Note;
 import org.example.pazduolingo.QuizClass.Question;
+import org.example.pazduolingo.Utilites.Factory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -47,15 +48,27 @@ public class NoteDAO {
         if (notes.isEmpty()) {
             loadNotes();
         }
+        List<Note> floatNotes = new ArrayList<>();
         if (name == null || name.equals("None")){
             return null;
         }
         for (Note note : notes){
+            floatNotes.add(Factory.getFloatNote(note,notes));
             if(note.getName().equals(name)){
                 return note;
             }
 
         }
+
+        for (Note note : floatNotes){
+            if(note.getName().equals(name)){
+                return note;
+            }
+
+        }
+
+
+
         return null;
 
 
@@ -114,6 +127,7 @@ public class NoteDAO {
 
     private static void loadNotes() {
         notes.clear();
+
         String sql = "SELECT id, midiNumber, name, octave FROM notes";
 
 
@@ -127,6 +141,8 @@ public class NoteDAO {
                 int midiNumber = rs.getInt("midiNumber");
                 String name = rs.getString("name");
                 int octave = rs.getInt("octave");
+
+
 
                 notes.add(new Note(id, midiNumber, name, octave));
             }
