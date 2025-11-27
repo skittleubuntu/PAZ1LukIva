@@ -6,7 +6,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.pazduolingo.QuizClass.QuizController"
-            prefWidth="900" prefHeight="600" stylesheets="@../style.css">
+            prefWidth="900" prefHeight="600">
 
     <children>
         <VBox alignment="CENTER" spacing="40"

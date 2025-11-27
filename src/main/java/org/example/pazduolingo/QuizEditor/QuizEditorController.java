@@ -70,7 +70,7 @@ public class QuizEditorController {
         VBox questionBox = new VBox(20);
         questionBox.setAlignment(Pos.CENTER);
         questionBox.setPadding(new Insets(10));
-        questionBox.setStyle("-fx-border-color: gray; -fx-border-radius: 5; -fx-border-width: 1;");
+//        questionBox.setStyle("-fx-border-color: gray; -fx-border-radius: 5; -fx-border-width: 1;");
         questionBox.setUserData(index);
 
         Label questionLabel = new Label("Question " + (index + 1));

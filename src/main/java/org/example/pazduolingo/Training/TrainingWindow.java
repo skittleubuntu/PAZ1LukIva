@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.Utilites.WindowManager;
 
 import java.util.List;
 
@@ -32,6 +33,10 @@ public class TrainingWindow {
         Scene scene = new Scene(rootPane);
         stage.setTitle("Training");
         stage.setScene(scene);
+
+        WindowManager.getInstance().addStage(stage);
+        WindowManager.getInstance().setTheme();
+
         stage.show();
     }
 }
