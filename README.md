@@ -248,4 +248,6 @@ PLANY SU TAKY ISTY
 - Spravne Functions
 - Moznost vybera freqNote like None
 - QuizEditor zoznam podla settings
+- Snazili sme sa pridat metod "not used two time" v QuizEditor no to sa vobec nedari
+- NoteDAO.getNoteByName teraz vie najst aj notu ktora ma v nazov ♭
 
