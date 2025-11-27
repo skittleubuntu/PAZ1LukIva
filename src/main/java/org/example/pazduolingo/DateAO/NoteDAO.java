@@ -47,7 +47,7 @@ public class NoteDAO {
         if (notes.isEmpty()) {
             loadNotes();
         }
-        if (name == null){
+        if (name == null || name.equals("None")){
             return null;
         }
         for (Note note : notes){

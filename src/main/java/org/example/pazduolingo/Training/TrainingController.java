@@ -2,7 +2,6 @@ package org.example.pazduolingo.Training;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
@@ -29,7 +28,6 @@ public class TrainingController {
 
     private final int MAX_COLUMNS = 8;
 
-    //TODO
     @FXML
     private ComboBox<String> choiceFilter;
 
@@ -42,62 +40,76 @@ public class TrainingController {
     @FXML
     public void initialize() {
 
+
         choiceOrder.setValue("By Octave");
-        choiceOrder.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            onChoiceChanged(newVal);
-        });
+
+
+        choiceFilter.setValue("None");
 
         choiceInstrument.getItems().addAll("Piano", "Guitar", "Violin", "Flute");
         choiceInstrument.setValue("Piano");
 
+        choiceOrder.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateNotes());
+        choiceFilter.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateNotes());
+
         notes = NoteDAO.getAllNotes();
-        Collections.sort(notes);
-        createButtons();
+        updateNotes();
     }
 
-    private void onChoiceChanged(String newVal) {
-        if (newVal.equals("By Octave")) {
-            notes = NoteDAO.getAllNotes();
-            Collections.sort(notes);
-        } else if (newVal.equals("By Name")) {
-            notes = NoteDAO.getAllNotes();
-            notes = Functions.orderByName(notes);
+    private void updateNotes() {
+
+        List<Note> result = NoteDAO.getAllNotes();
+
+
+        String sortType = choiceOrder.getValue();
+        if (sortType.equals("By Octave")) {
+            Collections.sort(result);
+        } else if (sortType.equals("By Name")) {
+            result = Functions.orderByName(result);
         }
+
+
+        String filter = choiceFilter.getValue();
+        if (filter.equals("Standard")) {
+            result = Functions.filterStandard(result);
+        } else if (filter.equals("Dies")) {
+            result = Functions.filterDies(result);
+        }
+
+        notes = result;
         createButtons();
     }
-
-
 
     private void createButtons() {
-        notes = new ArrayList<>();
         buttonGrid.getChildren().clear();
         Settings settings = SettingsDAO.loadSettings();
-
-
         List<Note> allNotes = NoteDAO.getAllNotes();
-        for (int i = 0; i < allNotes.size(); i++) {
+        List<Note> finalNotes = new ArrayList<>();
+
+
+        for (Note n : notes) {
+            System.out.println(n.getName());
             if (settings.Type.equals("#")) {
-                notes.add(allNotes.get(i));
+                finalNotes.add(n);
+            } else {
+                finalNotes.add(Factory.getFloatNote(n, allNotes));
             }
-            else{
-                notes.add(Factory.getFloatNote(allNotes.get(i), allNotes));
-            }
-
         }
-
-
 
 
         int col = 0;
         int row = 0;
 
-        for (Note note : notes) {
+        for (Note note : finalNotes) {
             Button button = new Button(note.getName());
-            button.prefWidthProperty().bind(scrollPane.widthProperty().subtract((MAX_COLUMNS + 1) * 10).divide(MAX_COLUMNS));
+            button.prefWidthProperty().bind(
+                    scrollPane.widthProperty().subtract((MAX_COLUMNS + 1) * 10).divide(MAX_COLUMNS)
+            );
             button.prefHeightProperty().bind(button.prefWidthProperty());
             button.setOnAction(event -> handleNoteClick(note));
 
             buttonGrid.add(button, col, row);
+
             col++;
             if (col >= MAX_COLUMNS) {
                 col = 0;
@@ -107,10 +119,10 @@ public class TrainingController {
     }
 
     private void handleNoteClick(Note note) {
-
         String selectedInstrument = choiceInstrument != null ? choiceInstrument.getValue() : "Piano";
         InstrumentType type = InstrumentType.valueOf(selectedInstrument.toUpperCase());
         Sounder sounder = Factory.createSounder(type);
+        System.out.println("Played note: " + note.getName());
         new Thread(() -> sounder.play(note.getMidiNumber(), SettingsDAO.loadSettings().Volume)).start();
     }
 }

@@ -239,7 +239,13 @@ PLANY SU TAKY ISTY
 - Pridanije logiky "not used two times" v QuizEditor
 - Moznost vybera freqNoty like null
 - Urobeniy stats
+- QuizEditor zoznam not podla Settingu
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#27.11 (22 day)
+- Spravne usporiadania Not v training
+- Spravne Functions
+- Moznost vybera freqNote like None
+- QuizEditor zoznam podla settings
 
