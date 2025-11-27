@@ -66,7 +66,7 @@ public class QuizController {
 
     private void playQuestion(Note note){
 
-            System.out.println("Clicked: " + note.getName());
+
             //todo setting type of instrumental
             InstrumentType type = InstrumentType.valueOf("PIANO".toUpperCase());
             Sounder sounder = Factory.createSounder(type);

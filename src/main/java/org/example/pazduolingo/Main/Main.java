@@ -2,7 +2,9 @@ package org.example.pazduolingo.Main;
 
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.DateAO.SqlDAO;
 import org.example.pazduolingo.QuizClass.*;
+import org.example.pazduolingo.Settings.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class Main {
 
 
     public static void main(String[] args){
-//        System.out.println(true);
+//         t.println(true);
 //        Note a = NoteDAO.getNoteByID(1);
 //        Note b = NoteDAO.getNoteByID(2);
 //        Note c = NoteDAO.getNoteByID(3);
@@ -49,25 +51,30 @@ public class Main {
 //        questions.add(question1);
 //        questions.add(question2);
 //
-//        System.out.println("Questions count: " + questions.size());
+//         t.println("Questions count: " + questions.size());
 //
 //        Quiz quiz = new Quiz(questions, "Name", "Des");
 //
 //
-//        System.out.println(quiz);
+//         t.println(quiz);
 //        QuizDAO.saveQuiz(quiz);
 
 
-        List<Quiz> quizzes = QuizDAO.loadQuiz();
+
+        String Theme = "Light";
+        int Volume = 100;
+        String Type = "#";
+        String Language = "English";
+
+        Settings settings = new Settings();
+        settings.Theme = Theme;
+        settings.Volume = Volume;
+        settings.Type = Type;
+        settings.Language = Language;
 
 
 
-        for (Quiz q : quizzes){
-            System.out.println(q.toString());
-        }
-
-        Quiz q = QuizDAO.loadQuizByID(1);
-        System.out.println(q);
+        SqlDAO.dropTables();
 
 
 

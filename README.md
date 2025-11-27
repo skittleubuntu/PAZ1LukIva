@@ -191,6 +191,8 @@ DOLEZITIY PLAN NA NEXT DAY TAKY ISTY xD
 - Novy func. v Functions(not used) a v NoteDAO
 - Tests pre novy func.
 - 23.11 trosku neskor bola najdena chyba pri ulozeni quiza s freqNote = null
+- Rozsirenie okienka questionBox v QuizEditore
+
 
 PLAN NA NEXT DAY
 - Loggs
@@ -199,7 +201,51 @@ PLAN NA NEXT DAY
 - Spravne Functions lebo mame tam zle!
 - Pridanije logiky "not used two times" v QuizEditor
 - Moznost vybera freqNoty like null
-
+- Testy na settings
+- Urobeniy stats
 
 ------------------------------------------------------------------------------------------------------------------------
+
+#25.11 (20 day)
+- DisplayName Not podla Settingu (#->b)
+- SettingDAO a TestsSQL
+- Pridania triedy Settings
+- Ulozwnije settings a citanie Settings
+- Save and Exit button
+- Hlasitost podla settings
+
+PLANY SU TAKY ISTY
+- Loggs
+- Training.java usporiadanie not podla sharp a base
+- Uozenia quizov do main menu
+- Spravne Functions lebo mame tam zle!
+- Pridanije logiky "not used two times" v QuizEditor
+- Moznost vybera freqNoty like null
+- Urobeniy stats
+
+------------------------------------------------------------------------------------------------------------------------
+
+#26.11 (21 day or KATASTROFA)
+- Snazil som sa pridat Logs, prvy a posledny krat...
+- Nerobime Logs
+- Nikdy nebudu logs
+- Cely den som robil logs, vysledok 0
+- +1023 a -412 -> result = 0
+
+PLANY SU TAKY ISTY
+- Training.java usporiadanie not podla sharp a base
+- Uozenia quizov do main menu
+- Spravne Functions lebo mame tam zle!
+- Pridanije logiky "not used two times" v QuizEditor
+- Moznost vybera freqNoty like null
+- Urobeniy stats
+- QuizEditor zoznam not podla Settingu
+
+------------------------------------------------------------------------------------------------------------------------
+
+#27.11 (22 day)
+- Spravne usporiadania Not v training
+- Spravne Functions
+- Moznost vybera freqNote like None
+- QuizEditor zoznam podla settings
 

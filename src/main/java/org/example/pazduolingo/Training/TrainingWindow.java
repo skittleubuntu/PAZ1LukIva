@@ -17,17 +17,17 @@ public class TrainingWindow {
 
     public void start(Stage stage) throws Exception {
         NoteDAO noteDAO = new NoteDAO();
-        List<Note> notes = noteDAO.getAllNotes();
+
 
         var url = getClass().getResource("/org/example/pazduolingo/Training/train_view.fxml");
-        System.out.println("FXML URL: " + url);
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent rootPane = fxmlLoader.load();
 
 
         TrainingController controller = fxmlLoader.getController();
-        controller.setNotes(notes);
+
 
         Scene scene = new Scene(rootPane);
         stage.setTitle("Training");

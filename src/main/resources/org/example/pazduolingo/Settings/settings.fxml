@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pazduolingo.Settings.SettingsController" stylesheets="@../style.css">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pazduolingo.Settings.SettingsController">
    <children>
       <HBox alignment="CENTER" prefHeight="333.0" prefWidth="600.0">
          <children>
@@ -85,10 +85,11 @@
          </VBox.margin>
       </HBox>
       <Region prefHeight="43.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
-      <Button fx:id="saveButton" minWidth="100.0" mnemonicParsing="false" text="Save">
-         <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-         </VBox.margin>
-      </Button>
+      <HBox alignment="TOP_CENTER" prefHeight="68.0" prefWidth="463.0" spacing="25.0">
+         <children>
+            <Button fx:id="saveButton" minWidth="100.0" mnemonicParsing="false" text="Save" />
+            <Button fx:id="saveAndExitButton" minWidth="100.0" mnemonicParsing="false" text="Save &amp;  Exit" />
+         </children>
+      </HBox>
    </children>
 </VBox>

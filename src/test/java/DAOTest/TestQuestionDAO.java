@@ -1,3 +1,4 @@
+package DAOTest;
 
 import org.example.pazduolingo.DateAO.QuestionDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
@@ -31,38 +32,30 @@ class TestQuestionDAO {
     @BeforeEach
     void setup() {
         SqlDAO.dropTables();
-
         QuizDAO.saveQuiz(quiz);
     }
-
-
-
-
-
-
 
 
     @Order(1)
     @Test
     void testLoadQuestionForQuiz(){
 
-
         List<Question> questions2 = QuestionDAO.loadQuestionForQuiz(1);
+            assertEquals(questions2.size(), questions.size());
 
-        assertEquals(questions2.size(), questions.size());
+            for (int i = 0; i < questions2.size(); i++) {
+                assertEquals(questions.get(i).getNotes(), questions2.get(i).getNotes());
 
-        for (int i = 0; i < questions2.size(); i++) {
-            assertEquals(questions.get(i).getNotes(), questions2.get(i).getNotes());
-
-        }
-
+            }
 
 
     }
 
     @Order(2)
     @Test
-    void  testSaveQuestionToQuiz(){
+    void  testSaveQuestionToQuiz() throws SQLException {
+
+
         //we have rn only 2 questions for our quiz with id 1
         //lets create onather one question and save for our quiz
         //when we get questions for quiz we must take 3 questions
@@ -77,19 +70,22 @@ class TestQuestionDAO {
 
         Connection conn = SqlDAO.getConnection();
 
-        try {
-            QuestionDAO.saveQuestion(conn,q,1);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+
+        QuestionDAO.saveQuestion(conn,q,1);
 
         Quiz quiz = QuizDAO.loadQuizByID(1);
 
-        System.out.println("Size of Quiz: " + quiz.getQuestions().size());
-        assertEquals(quiz.getQuestions().size(), 3);
+
+            assertNotNull(quiz);
+            assertEquals(quiz.getQuestions().size(), notes.size());
+
+    }
 
 
-
+    @AfterAll
+    static void after(){
+        SqlDAO.dropTables();
     }
 
 

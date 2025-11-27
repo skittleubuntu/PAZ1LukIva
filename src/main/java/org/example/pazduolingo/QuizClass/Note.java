@@ -1,7 +1,11 @@
 package org.example.pazduolingo.QuizClass;
 
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.DateAO.SettingsDAO;
+import org.example.pazduolingo.Settings.Settings;
 import org.example.pazduolingo.Utilites.Sounder;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Note implements Comparable<Note>{
@@ -20,10 +24,14 @@ public class Note implements Comparable<Note>{
 
 
 
+
+
     public String getName() {
         return name + octave;
     }
-
+    public String getNameClear(){
+        return name;
+    }
     public int getOctave() {
         return octave;
     }

@@ -1,6 +1,11 @@
 package org.example.pazduolingo.Utilites;
 
 import org.example.pazduolingo.QuizClass.InstrumentType;
+import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.Settings.Settings;
+
+import java.util.List;
+import java.util.Set;
 
 public class Factory {
 
@@ -32,5 +37,25 @@ public class Factory {
         }
 
         return new Sounder(midiInstrument, duration);
+    }
+
+    public static Note getFloatNote(Note note, List<Note> notes){
+        String name = "";
+
+            if (note.getNameClear().contains("#")) {
+
+                int nextIndex = note.getId();
+                if (nextIndex < notes.size()) {
+                    name = notes.get(nextIndex).getNameClear().replace("#", "") + "♭";
+
+                }
+            }
+            else{
+                name = note.getNameClear();
+            }
+
+
+        return new Note(note.getId(), note.getMidiNumber(), name, note.getOctave());
+
     }
 }

@@ -8,7 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.DateAO.SettingsDAO;
 import org.example.pazduolingo.QuizClass.*;
+import org.example.pazduolingo.Settings.Settings;
+import org.example.pazduolingo.Utilites.Factory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +23,16 @@ public class QuizEditorController {
     @FXML private VBox questionContainer;
     @FXML private Button addQuestionButton;
     @FXML private Button saveButton;
+    private List<Note> notes;
+
+    private Settings settings;
 
     @FXML
     public void initialize() {
         addQuestionButton.setOnAction(e -> addQuestion());
         saveButton.setOnAction(e -> onSave());
-
+        settings = SettingsDAO.loadSettings();
+        notes = NoteDAO.getAllNotes();
     }
 
     private void removeQuestion(int questionIndex) {
@@ -46,6 +53,15 @@ public class QuizEditorController {
         }
     }
 
+
+
+    private void removeNoteFromList(List<Note> notes, Note note){
+        List<Note> result = NoteDAO.getAllNotes();
+        //todo
+
+
+    }
+
     private void addQuestion() {
 
         questionContainer.setSpacing(5);
@@ -64,15 +80,39 @@ public class QuizEditorController {
         ComboBox<String> note2Box = new ComboBox<>();
         ComboBox<String> note3Box = new ComboBox<>();
         ComboBox<String> note4Box = new ComboBox<>();
+
+
+        note1Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> removeNoteFromList(notes, NoteDAO.getNoteByName(newVal)));
+        note2Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> removeNoteFromList(notes, NoteDAO.getNoteByName(newVal)));
+        note3Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> removeNoteFromList(notes, NoteDAO.getNoteByName(newVal)));
+        note4Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> removeNoteFromList(notes, NoteDAO.getNoteByName(newVal)));
+
         ComboBox<String> freqNoteBox = new ComboBox<>();
 
-        for (Note n : NoteDAO.getAllNotes()) {
-            note1Box.getItems().add(n.getName());
-            note2Box.getItems().add(n.getName());
-            note3Box.getItems().add(n.getName());
-            note4Box.getItems().add(n.getName());
-            freqNoteBox.getItems().add(n.getName());
+        freqNoteBox.getItems().add("None");
+
+        for (Note n : notes) {
+
+            if(settings.Type.equals("#")) {
+
+                note1Box.getItems().add(n.getName());
+                note2Box.getItems().add(n.getName());
+                note3Box.getItems().add(n.getName());
+                note4Box.getItems().add(n.getName());
+                freqNoteBox.getItems().add(n.getName());
+            }
+            else{
+                Note nFloat = Factory.getFloatNote(n, notes);
+                note1Box.getItems().add(nFloat.getName());
+                note2Box.getItems().add(nFloat.getName());
+                note3Box.getItems().add(nFloat.getName());
+                note4Box.getItems().add(nFloat.getName());
+                freqNoteBox.getItems().add(nFloat.getName());
+            }
+
+
         }
+
 
 
 
@@ -115,12 +155,10 @@ public class QuizEditorController {
         String desc = quizDescription.getText();
 
         if (name.isEmpty()){
-            System.out.println("Must be a name");
             return;
         }
 
         if(questionContainer.getChildren().size() == 0){
-            System.out.println("Must be 1 question");
             return;
         }
 
@@ -155,8 +193,9 @@ public class QuizEditorController {
             notes.add(NoteDAO.getNoteByName(note2.getValue()));
             notes.add(NoteDAO.getNoteByName(note3.getValue()));
             notes.add(NoteDAO.getNoteByName(note4.getValue()));
+
             Note freqNote = NoteDAO.getNoteByName(freqNoteBox.getValue());
-            System.out.println(freqNoteBox.getValue());
+
 
 
 
@@ -168,6 +207,6 @@ public class QuizEditorController {
 
         quizToSave = new Quiz(questions, name, desc);
         QuizDAO.saveQuiz(quizToSave);
-        System.out.println("Quiz saved");
+
     }
 }

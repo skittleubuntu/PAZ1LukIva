@@ -23,13 +23,12 @@ public class NoteDAO {
         int index = random.nextInt(notes.size());
         Note randomNote = notes.get(index);
 
-
-
         return randomNote;
     }
 
 
     public static Note getNoteByID(int id){
+
         if (notes.isEmpty()) {
             loadNotes();
         }
@@ -44,10 +43,11 @@ public class NoteDAO {
     }
 
     public static Note getNoteByName(String name){
+
         if (notes.isEmpty()) {
             loadNotes();
         }
-        if (name == null){
+        if (name == null || name.equals("None")){
             return null;
         }
         for (Note note : notes){
@@ -65,22 +65,33 @@ public class NoteDAO {
     public static void linkNotesToQuestion(Connection conn, int questionId, Question question) throws SQLException {
         String insertQuestionNoteSQL = "INSERT INTO questions_has_notes (questions_id, notes_id) VALUES (?, ?)";
 
+
         try (PreparedStatement pstmtQN = conn.prepareStatement(insertQuestionNoteSQL)) {
+
             for (Note note : question.getNotes()) {
                 pstmtQN.setInt(1, questionId);
                 pstmtQN.setInt(2, note.getId());
                 pstmtQN.addBatch();
             }
             pstmtQN.executeBatch();
+
         }
+        catch (
+                SQLException e
+        )
+        {
+          
+        }
+
     }
 
 
     public static List<Note> loadNotesForQuestion(Connection conn, int qID){
         String sql = "SELECT notes_id FROM questions_has_notes WHERE questions_id = ?;";
         List<Note> notes = new ArrayList<>();
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+           
             pstmt.setInt(1,qID);
             ResultSet rs = pstmt.executeQuery();
 
@@ -93,6 +104,7 @@ public class NoteDAO {
 
 
         } catch (SQLException e) {
+          
             throw new RuntimeException(e);
         }
 
@@ -104,9 +116,11 @@ public class NoteDAO {
         notes.clear();
         String sql = "SELECT id, midiNumber, name, octave FROM notes";
 
+
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
+           
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -118,9 +132,9 @@ public class NoteDAO {
             }
 
 
-
+   
         } catch (SQLException e) {
-            System.err.println("ERR TO CONNECT");
+            
         }
     }
 

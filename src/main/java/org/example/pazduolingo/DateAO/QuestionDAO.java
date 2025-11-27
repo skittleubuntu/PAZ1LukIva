@@ -20,8 +20,9 @@ public class QuestionDAO {
         String sql = "SELECT id, idFreq, question_duficult, instrumentType FROM questions WHERE quizes_id = ?;";
 
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
 
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+           
             pstmt.setInt(1, quizId);
             ResultSet rs = pstmt.executeQuery();
 
@@ -52,6 +53,7 @@ public class QuestionDAO {
 
 
         } catch (SQLException e) {
+          
             throw new RuntimeException(e);
         }
 
@@ -66,9 +68,13 @@ public class QuestionDAO {
             String insertQuestionSQL = "INSERT INTO questions (quizes_id, idFreq, question_duficult, instrumentType) VALUES (?, ?, ?, ?)";
             int questionId;
 
+
             try (PreparedStatement pstmtQ = conn.prepareStatement(insertQuestionSQL, Statement.RETURN_GENERATED_KEYS)) {
                 pstmtQ.setInt(1, quizId);
-                pstmtQ.setInt(2, q.getFreqNote().getId());
+
+                if (q.getFreqNote() != null) {
+                    pstmtQ.setInt(2, q.getFreqNote().getId());
+                }
                 pstmtQ.setString(3, q.getDifficult().toString());
                 pstmtQ.setString(4, q.getInstrumentType().toString());
                 pstmtQ.executeUpdate();
@@ -77,8 +83,15 @@ public class QuestionDAO {
                     if (rs.next()) {
                         questionId = rs.getInt(1);
                     } else {
+
                         throw new SQLException();
                     }
+                }
+                catch (
+                        SQLException e
+                ){
+                  
+                    throw e;
                 }
             }
 

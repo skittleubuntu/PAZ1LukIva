@@ -23,14 +23,15 @@ public class SqlDAO {
                 "COMMIT;",
                 "PRAGMA foreign_keys = ON;"
         };
-
+   
         try(Connection conn = DriverManager.getConnection(DB_URL)){
+           
             Statement stmt = conn.createStatement();
             for (String query : sql) {
                 stmt.executeUpdate(query);
             }
 
-            System.out.println("Tables droped!");
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -39,9 +40,14 @@ public class SqlDAO {
     }
 
     public static Connection getConnection() {
+
+   
         try {
+
             return DriverManager.getConnection(DB_URL);
+
         } catch (SQLException e) {
+          
             throw new RuntimeException();
         }
     }

@@ -17,7 +17,7 @@ public class Sounder {
             synth.open();
             MidiChannel channel = synth.getChannels()[0];
 
-            channel.programChange(instrument); // обираємо інструмент
+            channel.programChange(instrument);
             channel.noteOn(note, velocity);
             Thread.sleep(durationMs);
             channel.noteOff(note);
