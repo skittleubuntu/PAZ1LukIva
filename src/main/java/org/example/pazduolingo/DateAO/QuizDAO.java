@@ -74,7 +74,7 @@ public class QuizDAO {
 
             List<Question> questions = QuestionDAO.loadQuestionForQuiz(quizId);
 
-            return new Quiz(questions, name, desc);
+            return new Quiz(id,questions, name, desc);
 
         } catch (SQLException e) {
           
@@ -89,7 +89,6 @@ public class QuizDAO {
         String getAllQuizes = "SELECT id, name , description FROM quizes";
 
 
-   
 
         try (Connection conn = DriverManager.getConnection(DB_URL)){
            
@@ -105,7 +104,7 @@ public class QuizDAO {
 
                 List<Question> questions = QuestionDAO.loadQuestionForQuiz(id);
 
-                quizzes.add(new Quiz(questions,name,desc));
+                quizzes.add(new Quiz(id,questions,name,desc));
 
             }
 

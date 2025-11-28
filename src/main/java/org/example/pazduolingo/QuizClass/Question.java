@@ -5,7 +5,7 @@ import java.util.*;
 public class Question {
 
     private final List<Note> notes;
-    private final Note correctAnswer;
+    private  Note correctAnswer;
     private QuestionDifficulty difficult;
     private InstrumentType instrumentType;
     private Note freqNote;
@@ -17,7 +17,6 @@ public class Question {
         this.difficult = difficult;
         this.instrumentType = instrumentType;
         this.freqNote = freqNote;
-
     }
 
 
@@ -25,6 +24,13 @@ public class Question {
     public Note pickRandomNote() {
         return notes.get(new Random().nextInt(notes.size()));
     }
+
+
+    public void setCorrectAnswer(){
+        this.correctAnswer = pickRandomNote();
+        System.out.println("New note: " + correctAnswer.getName());
+    }
+
 
     public List<Note> getNotes() {
         return notes;

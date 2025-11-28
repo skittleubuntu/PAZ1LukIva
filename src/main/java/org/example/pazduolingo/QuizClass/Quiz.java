@@ -6,19 +6,25 @@ import java.util.*;
 
 public class Quiz {
 
+
+    private int id;
     private List<Question> questions = new ArrayList<>();
     private String name;
     private String description;
 
 
 
-    public Quiz(List<Question> questions, String name, String description){
+    public Quiz(int id,List<Question> questions, String name, String description){
+        this.id = id;
         this.questions = questions;
         this.name = name;
         this.description = description;
     }
 
 
+    public int getID(){
+        return id;
+    }
 
     public String getName(){
         return name;
@@ -33,16 +39,8 @@ public class Quiz {
     }
 
 
-
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Name: ").append(name).append("\n");
-        sb.append("Des: ").append(description).append("\n");
-
-        for (Question q : questions) {
-            sb.append(q.toString()).append("\n");
-        }
-        return sb.toString();
+        return name;
     }
 }

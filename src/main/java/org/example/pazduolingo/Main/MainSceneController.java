@@ -1,18 +1,20 @@
 package org.example.pazduolingo.Main;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.QuizClass.Quiz;
+import org.example.pazduolingo.QuizClass.QuizWindow;
 import org.example.pazduolingo.Settings.SettingsWindow;
 import org.example.pazduolingo.Stats.StatsWindow;
 import org.example.pazduolingo.Training.TrainingWindow;
-import org.example.pazduolingo.QuizClass.QuizWindow;
-import org.example.pazduolingo.Utilites.WindowManager;
-
+import org.example.pazduolingo.QuizEditor.QuizEditorWindow;
 
 public class MainSceneController {
 
@@ -29,19 +31,47 @@ public class MainSceneController {
     private Button trainingButton;
 
     @FXML
+    private ListView<Quiz> quizListView;
+
+    @FXML
     private ComboBox<String> quizFilter;
+
+    private static MainSceneController instance;
+
+    @FXML
+    private Button startButton;
+
+    private static ObservableList<Quiz> quizzes = FXCollections.observableArrayList();
 
     @FXML
     void initialize() {
+        instance = this;
+        loadQuiz();
 
         quizFilter.getItems().addAll("Default", "Custom");
         quizFilter.setValue("Default");
 
+
+
+        startButton.setOnAction(event ->{
+
+            Quiz selected = quizListView.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+
+                return;
+            }
+           QuizWindow quizWindow = new QuizWindow();
+           Stage quizStage = new Stage();
+            try {
+                quizWindow.start(quizStage, selected.getID());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+
+
         trainingButton.setOnAction(event -> {
-
-
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
-
             try {
                 TrainingWindow trainingApp = new TrainingWindow();
                 Stage trainingStage = new Stage();
@@ -52,11 +82,9 @@ public class MainSceneController {
         });
 
         editorButton.setOnAction(event -> {
-
             try {
-                org.example.pazduolingo.QuizEditor.QuizEditorWindow quizEditor = new org.example.pazduolingo.QuizEditor.QuizEditorWindow();
+                QuizEditorWindow quizEditor = new QuizEditorWindow();
                 Stage quizStage = new Stage();
-
                 quizEditor.start(quizStage);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -64,30 +92,37 @@ public class MainSceneController {
         });
 
         statsButton.setOnAction(event -> {
-
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             try {
                 StatsWindow statsWindow = new StatsWindow();
                 Stage statsStage = new Stage();
                 statsWindow.start(statsStage);
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-                });
+        });
 
         settingsButton.setOnAction(event -> {
-
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             try {
                 SettingsWindow settingsWindow = new SettingsWindow();
                 Stage settingsStage = new Stage();
                 settingsWindow.start(settingsStage);
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
         });
+
+
+
     }
 
+    public static void reloadQuiz() {
+        if (instance != null) {
+            instance.loadQuiz();
+        }
+    }
+
+    public void loadQuiz(){
+        quizzes = FXCollections.observableArrayList(QuizDAO.loadQuiz());
+        quizListView.setItems(quizzes);
+    }
 }

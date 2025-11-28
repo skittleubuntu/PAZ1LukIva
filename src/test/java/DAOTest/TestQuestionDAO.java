@@ -27,7 +27,7 @@ class TestQuestionDAO {
     List<Question> questions = List.of(q1, q2);
 
 
-    Quiz quiz = new Quiz(questions, "Test Quiz", "Test save of quiz");
+    Quiz quiz = new Quiz(1,questions, "Test Quiz", "Test save of quiz");
 
     @BeforeEach
     void setup() {

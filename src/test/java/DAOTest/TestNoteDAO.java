@@ -25,7 +25,7 @@ class TestNoteDAO {
     Question q2 = new Question(notes, QuestionDifficulty.MEDIUM, InstrumentType.VIOLIN, n1);
     List<Question> questions = List.of(q1, q2);
 
-    Quiz quiz = new Quiz(questions, "Test Quiz", "Test save of quiz");
+    Quiz quiz = new Quiz(1,questions, "Test Quiz", "Test save of quiz");
 
 
     @Test

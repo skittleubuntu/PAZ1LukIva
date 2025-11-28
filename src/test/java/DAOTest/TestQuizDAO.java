@@ -26,7 +26,7 @@ class TestQuizDAO {
     List<Question> questions = List.of(q1, q2);
 
 
-    Quiz quiz = new Quiz(questions, "Test Quiz", "Test save of quiz");
+    Quiz quiz = new Quiz(1,questions, "Test Quiz", "Test save of quiz");
 
 
 
@@ -59,7 +59,7 @@ class TestQuizDAO {
         Note n1 = new Note(1, 21, "A", 0);
         List<Note> notes = List.of(n1);
         Question q = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n1);
-        Quiz quiz = new Quiz(List.of(q), "Another Quiz", "Simple test quiz");
+        Quiz quiz = new Quiz(2,List.of(q), "Another Quiz", "Simple test quiz");
 
         QuizDAO.saveQuiz(quiz);
 

@@ -250,4 +250,33 @@ PLANY SU TAKY ISTY
 - QuizEditor zoznam podla settings
 - Snazili sme sa pridat metod "not used two time" v QuizEditor no to sa vobec nedari
 - NoteDAO.getNoteByName teraz vie najst aj notu ktora ma v nazov ♭
+- Vypysanie quizov v MainController a moznost ich vybera
+- Dark a Light tema (60%)
+- pridanie singleton triedy WindowManager
+- upravenie css suborov
+- vytvorenie dark_theme.css
+- pridavanie okien do WindowManager pri vytvarani stage
+
+PLAN NA NEXT DAY
+- Urobeniy stats
+- Moznost hrat quiz
+
+------------------------------------------------------------------------------------------------------------------------
+
+#28.11 (23 day)
+- Moznost hrania kvizu
+- Ked je freqNote, tak pred zaciatkom otazky hra najprv ona
+- Dynamicky update quizzov pri ich vytvoranii
+- Sounder hra noty podla question.InstrumentType
+- trieda Quiz ma instancnu premenu ID
+- Progress bar
+- Life system
+- Label na FreqNotu a Lives
+
+
+
+PLAN NA NEXT DAY
+- Intro quiz window
+- Stats
+
 
