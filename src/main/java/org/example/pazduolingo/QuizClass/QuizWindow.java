@@ -8,10 +8,16 @@ import org.example.pazduolingo.Utilites.WindowManager;
 public class QuizWindow {
 
 
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage, int id) throws Exception {
+
+
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pazduolingo/Quiz/QuizView.fxml"));
         Scene scene = new Scene(loader.load());
+
+        QuizController quizController = loader.getController();
+        quizController.setQuizId(id);
+
         stage.setTitle("Lesson");
         stage.setScene(scene);
 

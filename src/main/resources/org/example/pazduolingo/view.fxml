@@ -40,7 +40,7 @@
                 <Insets />
             </VBox.margin>
         </ComboBox>
-        <ListView maxWidth="250.0" minWidth="250.0" prefHeight="200.0" prefWidth="200.0" />
+        <ListView maxWidth="250.0" minWidth="250.0" prefHeight="200.0" prefWidth="200.0" fx:id="quizListView"/>
         <HBox alignment="TOP_CENTER" prefHeight="93.0" prefWidth="426.0">
             <children>
                 <Button minWidth="70.0" mnemonicParsing="false" text="%menu.add">
@@ -48,12 +48,12 @@
                         <Insets right="15.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.start">
+                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.start" fx:id="startButton">
                     <HBox.margin>
                         <Insets left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.delete">
+                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.delete" fx:id="deleteButton">
                     <HBox.margin>
                         <Insets left="15.0" top="5.0" />
                     </HBox.margin>

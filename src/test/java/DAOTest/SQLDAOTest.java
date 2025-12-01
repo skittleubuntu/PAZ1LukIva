@@ -19,7 +19,7 @@ class SQLDAOTest {
 
         Note n = new Note(1, 21, "A", 0);
         Question q = new Question(List.of(n), QuestionDifficulty.EASY, InstrumentType.GUITAR, n);
-        Quiz quiz = new Quiz(List.of(q), "Temporary Quiz", "To be deleted");
+        Quiz quiz = new Quiz(1,List.of(q), "Temporary Quiz", "To be deleted");
 
 
         QuizDAO.saveQuiz(quiz);

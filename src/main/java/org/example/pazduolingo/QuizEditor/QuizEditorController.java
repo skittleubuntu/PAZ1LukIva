@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.SettingsDAO;
+import org.example.pazduolingo.Main.MainSceneController;
 import org.example.pazduolingo.QuizClass.*;
 import org.example.pazduolingo.Settings.Settings;
 import org.example.pazduolingo.Utilites.Factory;
@@ -232,8 +233,10 @@ public class QuizEditorController {
 
         }
 
-        quizToSave = new Quiz(questions, name, desc);
+        quizToSave = new Quiz(1,questions, name, desc);
         QuizDAO.saveQuiz(quizToSave);
+        saveButton.getScene().getWindow().hide();
+        MainSceneController.reloadQuiz();
 
     }
 }

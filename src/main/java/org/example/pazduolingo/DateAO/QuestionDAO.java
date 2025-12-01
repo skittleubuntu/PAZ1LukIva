@@ -4,6 +4,7 @@ import org.example.pazduolingo.QuizClass.InstrumentType;
 import org.example.pazduolingo.QuizClass.Note;
 import org.example.pazduolingo.QuizClass.Question;
 import org.example.pazduolingo.QuizClass.QuestionDifficulty;
+import org.sqlite.core.DB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -99,6 +100,39 @@ public class QuestionDAO {
             NoteDAO.linkNotesToQuestion(conn, questionId, q);
         }
 
+
+    public static void deleteQuestionByQuizID(Connection conn, int quizId) {
+
+        String selectSql = "SELECT id FROM questions WHERE quizes_id = ?";
+        String deleteSql = "DELETE FROM questions WHERE quizes_id = ?";
+
+        try {
+
+            PreparedStatement selectStmt = conn.prepareStatement(selectSql);
+            selectStmt.setInt(1, quizId);
+            ResultSet rs = selectStmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                NoteDAO.deleteNoteByQuestionID(conn, id);
+
+            }
+            rs.close();
+            selectStmt.close();
+
+
+            PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
+            deleteStmt.setInt(1, quizId);
+            deleteStmt.executeUpdate();
+            deleteStmt.close();
+
+            conn.commit();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 
 

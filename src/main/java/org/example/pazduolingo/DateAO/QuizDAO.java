@@ -74,12 +74,38 @@ public class QuizDAO {
 
             List<Question> questions = QuestionDAO.loadQuestionForQuiz(quizId);
 
-            return new Quiz(questions, name, desc);
+            return new Quiz(id,questions, name, desc);
 
         } catch (SQLException e) {
           
             throw new RuntimeException();
         }
+    }
+
+    public static void deleteQuiz(Quiz quiz){
+        String sql = "DELETE FROM quizes WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL)){
+
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1,quiz.getID());
+                pstmt.executeUpdate();
+                conn.commit();
+
+            }
+            catch (SQLException e ){
+                conn.rollback();
+                throw e;
+            }
+            QuestionDAO.deleteQuestionByQuizID(conn,quiz.getID());
+
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
+        }
+
+
     }
 
 
@@ -89,7 +115,6 @@ public class QuizDAO {
         String getAllQuizes = "SELECT id, name , description FROM quizes";
 
 
-   
 
         try (Connection conn = DriverManager.getConnection(DB_URL)){
            
@@ -105,7 +130,7 @@ public class QuizDAO {
 
                 List<Question> questions = QuestionDAO.loadQuestionForQuiz(id);
 
-                quizzes.add(new Quiz(questions,name,desc));
+                quizzes.add(new Quiz(id,questions,name,desc));
 
             }
 

@@ -1,5 +1,8 @@
 package DAOTest;
 
+import com.sun.javafx.fxml.expression.LiteralExpression;
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.DateAO.QuestionDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.SqlDAO;
 import org.example.pazduolingo.QuizClass.*;
@@ -26,14 +29,13 @@ class TestQuizDAO {
     List<Question> questions = List.of(q1, q2);
 
 
-    Quiz quiz = new Quiz(questions, "Test Quiz", "Test save of quiz");
+    Quiz quiz = new Quiz(1,questions, "Test Quiz", "Test save of quiz");
 
 
 
     @BeforeEach
     void setup() {
         SqlDAO.dropTables();
-
     }
 
     @Test
@@ -41,8 +43,6 @@ class TestQuizDAO {
     @DisplayName("Save quiz")
     void testSaveQuiz() {
 
-
-        SqlDAO.dropTables();
         QuizDAO.saveQuiz(quiz);
         List<Quiz> quizzes = QuizDAO.loadQuiz();
 
@@ -59,7 +59,7 @@ class TestQuizDAO {
         Note n1 = new Note(1, 21, "A", 0);
         List<Note> notes = List.of(n1);
         Question q = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n1);
-        Quiz quiz = new Quiz(List.of(q), "Another Quiz", "Simple test quiz");
+        Quiz quiz = new Quiz(2,List.of(q), "Another Quiz", "Simple test quiz");
 
         QuizDAO.saveQuiz(quiz);
 
@@ -75,6 +75,9 @@ class TestQuizDAO {
 
 
 
+
+
+
     @Test
     @Order(3)
     void testLoadQuizByID(){
@@ -82,10 +85,50 @@ class TestQuizDAO {
         QuizDAO.saveQuiz(quiz);
         //cuz we have only 1 quiz
         Quiz quiz1 = QuizDAO.loadQuizByID(1);
-
-
             assertNotNull(quiz1);
             assertEquals(quiz1.getQuestions().getFirst().getNotes(), quiz.getQuestions().getFirst().getNotes());
+
+    }
+
+
+    @Test
+    void testDeleteQuiz(){
+
+        QuizDAO.saveQuiz(quiz);
+        List<Quiz> quiz1 = QuizDAO.loadQuiz();
+        assertEquals(1, quiz1.size());
+        List<Question> questions1 = QuestionDAO.loadQuestionForQuiz(1);
+
+        //for example only one note set
+        List<Note> notes1 = NoteDAO.loadNotesForQuestion(SqlDAO.getConnection(),1);
+
+
+        assertEquals(notes1.size(), 3);
+
+        //must be 2 questions
+        assertEquals(questions1.size(), 2);
+
+
+
+
+        //cuz rn we have only 1 quiz with id = 1
+        QuizDAO.deleteQuiz(quiz);
+
+
+
+        quiz1 = QuizDAO.loadQuiz();
+        questions1 = QuestionDAO.loadQuestionForQuiz(quiz.getID());
+        notes1 = NoteDAO.loadNotesForQuestion(SqlDAO.getConnection(), 1);
+
+
+        //must be 0 notes
+        assertEquals(notes1.size(), 0);
+
+        //must be 0 questions for this quiz
+        assertEquals(questions1.size(), 0);
+
+        //cuz we dont have any quizes
+        assertEquals(0, quiz1.size());
 
     }
 
