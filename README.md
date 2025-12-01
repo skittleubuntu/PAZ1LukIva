@@ -273,10 +273,20 @@ PLAN NA NEXT DAY
 - Life system
 - Label na FreqNotu a Lives
 
-
-
 PLAN NA NEXT DAY
 - Intro quiz window
 - Stats
 
+------------------------------------------------------------------------------------------------------------------------
 
+#1.12 (24 day winter)
+- Testy pre Functions
+- Dynamycke vymazanie quizu (vymazanie quizu, vsetkych otazok quizu a vsetko questions_has_notes)
+- Peknejse okienko quizu
+- Testy pre Functions a Factory
+
+PLAN NA NEXT DAY
+- Intro quiz window
+- Stats
+- ViacJazykovost
+- Pekny front-end

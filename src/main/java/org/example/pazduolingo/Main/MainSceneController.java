@@ -16,6 +16,8 @@ import org.example.pazduolingo.Stats.StatsWindow;
 import org.example.pazduolingo.Training.TrainingWindow;
 import org.example.pazduolingo.QuizEditor.QuizEditorWindow;
 
+import java.util.List;
+
 public class MainSceneController {
 
     @FXML
@@ -36,6 +38,11 @@ public class MainSceneController {
     @FXML
     private ComboBox<String> quizFilter;
 
+
+    @FXML
+    private Button deleteButton;
+
+
     private static MainSceneController instance;
 
     @FXML
@@ -50,6 +57,18 @@ public class MainSceneController {
 
         quizFilter.getItems().addAll("Default", "Custom");
         quizFilter.setValue("Default");
+
+
+        deleteButton.setOnAction(event -> {
+            Quiz selected = quizListView.getSelectionModel().getSelectedItem();
+            if (selected == null){
+                return;
+            }
+
+            removeQuiz(selected);
+
+
+        });
 
 
 
@@ -124,5 +143,16 @@ public class MainSceneController {
     public void loadQuiz(){
         quizzes = FXCollections.observableArrayList(QuizDAO.loadQuiz());
         quizListView.setItems(quizzes);
+    }
+
+
+    public void removeQuiz(Quiz quiz){
+        QuizDAO.deleteQuiz(quiz);
+        List<Quiz> quizes =  QuizDAO.loadQuiz();
+
+
+        quizzes = FXCollections.observableArrayList(quizes);
+        quizListView.setItems(quizzes);
+
     }
 }

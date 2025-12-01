@@ -82,6 +82,32 @@ public class QuizDAO {
         }
     }
 
+    public static void deleteQuiz(Quiz quiz){
+        String sql = "DELETE FROM quizes WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL)){
+
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1,quiz.getID());
+                pstmt.executeUpdate();
+                conn.commit();
+
+            }
+            catch (SQLException e ){
+                conn.rollback();
+                throw e;
+            }
+            QuestionDAO.deleteQuestionByQuizID(conn,quiz.getID());
+
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 
     public static List<Quiz> loadQuiz(){
         List<Quiz> quizzes = new ArrayList<>();

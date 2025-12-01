@@ -1,5 +1,7 @@
 package org.example.pazduolingo.Utilites;
 
+import org.example.pazduolingo.QuizClass.InstrumentType;
+
 import javax.sound.midi.*;
 
 public class Sounder {
@@ -25,5 +27,9 @@ public class Sounder {
         } catch (MidiUnavailableException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getInstrument(){
+        return instrument;
     }
 }

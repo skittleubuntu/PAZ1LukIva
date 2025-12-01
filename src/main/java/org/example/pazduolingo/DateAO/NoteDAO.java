@@ -125,6 +125,22 @@ public class NoteDAO {
     }
 
 
+    public static void deleteNoteByQuestionID(Connection conn, int id){
+        String sql =  "DELETE FROM questions_has_notes WHERE questions_id = ?";
+        try(PreparedStatement pstm = conn.prepareStatement(sql)){
+            pstm.setInt(1,id);
+            pstm.executeUpdate();
+            conn.commit();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
     private static void loadNotes() {
         notes.clear();
 

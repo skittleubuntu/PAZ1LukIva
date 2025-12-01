@@ -12,21 +12,21 @@
 <AnchorPane prefHeight="600" prefWidth="900" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pazduolingo.QuizClass.QuizController">
 
     <children>
-        <VBox alignment="CENTER" spacing="40" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="0.0">
-         <ProgressBar fx:id="accBar" prefWidth="1000.0" progress="0.0" />
+        <VBox alignment="CENTER" layoutX="31.0" layoutY="33.0" prefWidth="756.0" spacing="40" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="33.0">
+         <ProgressBar fx:id="accBar" minHeight="50.0" prefWidth="1000.0" progress="0.0" />
          <HBox fx:id="infoBox" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
             <children>
-               <Label fx:id="lifeInfo" prefHeight="55.0" prefWidth="302.0" text="Label">
+               <Label fx:id="lifeInfo" prefHeight="55.0" prefWidth="274.0" text="Label">
                   <HBox.margin>
                      <Insets right="200.0" />
                   </HBox.margin>
                   <font>
-                     <Font size="44.0" />
+                     <Font size="24.0" />
                   </font>
                </Label>
-               <Label fx:id="freqNoteLabel" prefHeight="55.0" prefWidth="431.0" text="Label">
+               <Label fx:id="freqNoteLabel" prefHeight="55.0" prefWidth="184.0" text="Label">
                   <font>
-                     <Font size="44.0" />
+                     <Font size="24.0" />
                   </font>
                   <HBox.margin>
                      <Insets right="100.0" />
@@ -34,12 +34,30 @@
                </Label>
             </children>
          </HBox>
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <Label fx:id="questionNumber" prefHeight="70.0" prefWidth="153.0" text="Question: " textAlignment="CENTER">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
+               <Label fx:id="instrumentLabel" text="Instrument: ">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
 
-            <Label fx:id="questionLabel" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="What is the note" />
+            <Label fx:id="questionLabel" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="What is the note">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
 
-            <Button fx:id="noteQuestionButton" prefHeight="57.0" prefWidth="173.0" style="-fx-font-size: 22px;" text="Play Question" />
+            <Button fx:id="noteQuestionButton" prefHeight="252.0" prefWidth="159.0" style="-fx-font-size: 22px;" text="Play Question" />
 
             <HBox fx:id="answersContainer" alignment="CENTER" spacing="30" />
+         <Button fx:id="nextButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="165.0" text="Next Question! -&gt;" />
         </VBox>
     </children>
 </AnchorPane>

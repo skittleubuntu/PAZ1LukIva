@@ -61,16 +61,6 @@ public class Functions {
         };
     }
 
-    public static List<Note> getListWithoutNote(List<Note> notes, Note removedNote){
-        List<Note> result = new ArrayList<>();
-        for(Note note : notes){
-            if(!note.equals(removedNote)){
-                result.add(note);
-            }
-        }
-
-        return result;
-    }
 
 
 
