@@ -1,4 +1,4 @@
-module org.example.pazduolingo {
+module org.example.hearo {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
@@ -6,26 +6,26 @@ module org.example.pazduolingo {
     requires org.xerial.sqlitejdbc;
 
 
-    opens org.example.pazduolingo to javafx.fxml;
+    opens org.example.hearo to javafx.fxml;
 
-    exports org.example.pazduolingo.QuizClass;
-    opens org.example.pazduolingo.QuizClass to javafx.fxml;
-    exports org.example.pazduolingo.DateAO;
-    opens org.example.pazduolingo.DateAO to javafx.fxml;
-    exports org.example.pazduolingo.Main;
-    opens org.example.pazduolingo.Main to javafx.fxml;
-    exports org.example.pazduolingo.Training;
-    opens org.example.pazduolingo.Training to javafx.fxml;
-    exports org.example.pazduolingo.Utilites;
-    opens org.example.pazduolingo.Utilites to javafx.fxml;
-    exports org.example.pazduolingo;
+    exports org.example.hearo.QuizClass;
+    opens org.example.hearo.QuizClass to javafx.fxml;
+    exports org.example.hearo.DateAO;
+    opens org.example.hearo.DateAO to javafx.fxml;
+    exports org.example.hearo.Main;
+    opens org.example.hearo.Main to javafx.fxml;
+    exports org.example.hearo.Training;
+    opens org.example.hearo.Training to javafx.fxml;
+    exports org.example.hearo.Utilites;
+    opens org.example.hearo.Utilites to javafx.fxml;
+    exports org.example.hearo;
 
-    opens org.example.pazduolingo.Quiz to javafx.fxml;
-    opens org.example.pazduolingo.Settings to javafx.fxml;
+    opens org.example.hearo.Quiz to javafx.fxml;
+    opens org.example.hearo.Settings to javafx.fxml;
 
-    exports org.example.pazduolingo.QuizEditor;
-    opens org.example.pazduolingo.QuizEditor to javafx.fxml;
+    exports org.example.hearo.QuizEditor;
+    opens org.example.hearo.QuizEditor to javafx.fxml;
 
-    opens  org.example.pazduolingo.Stats to javafx.fxml;
+    opens  org.example.hearo.Stats to javafx.fxml;
 
 }

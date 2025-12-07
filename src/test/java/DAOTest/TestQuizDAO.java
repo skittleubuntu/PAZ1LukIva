@@ -1,11 +1,10 @@
 package DAOTest;
 
-import com.sun.javafx.fxml.expression.LiteralExpression;
-import org.example.pazduolingo.DateAO.NoteDAO;
-import org.example.pazduolingo.DateAO.QuestionDAO;
-import org.example.pazduolingo.DateAO.QuizDAO;
-import org.example.pazduolingo.DateAO.SqlDAO;
-import org.example.pazduolingo.QuizClass.*;
+import org.example.hearo.DateAO.NoteDAO;
+import org.example.hearo.DateAO.QuestionDAO;
+import org.example.hearo.DateAO.QuizDAO;
+import org.example.hearo.DateAO.SqlDAO;
+import org.example.hearo.QuizClass.*;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
