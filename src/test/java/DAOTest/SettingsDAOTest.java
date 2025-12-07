@@ -1,8 +1,8 @@
 package DAOTest;
 
-import org.example.pazduolingo.DateAO.SettingsDAO;
-import org.example.pazduolingo.DateAO.SqlDAO;
-import org.example.pazduolingo.Settings.Settings;
+import org.example.hearo.DateAO.SettingsDAO;
+import org.example.hearo.DateAO.SqlDAO;
+import org.example.hearo.Settings.Settings;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
