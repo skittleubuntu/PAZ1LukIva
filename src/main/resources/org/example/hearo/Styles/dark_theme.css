@@ -47,6 +47,10 @@
     -fx-background-color: #1e1e1e;
 }
 
+.text-area{
+    -fx-text-fill: white;
+}
+
 .text-field{
     -fx-background-color: #1e1e1e;
     -fx-text-fill: white;
@@ -100,3 +104,35 @@
     -fx-background-color: #1e1e1e;
     -fx-text-fill: white;
 }
+
+.list-view .list-cell:selected{
+    -fx-background-color: #121212;
+    -fx-text-fill: white;
+}
+
+.progress-bar .track {
+    -fx-background-radius: 5em;
+    -fx-background-color: #1e1e1e;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 5em;
+    -fx-background-color: green;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: #1e1e1e;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #1e1e1e;
+}
+
+.questionBox{
+    -fx-background-color: #121212;
+    -fx-background-radius: 5px;
+}
+
+.trainingButton {
+     -fx-background-color: #121212;
+ }

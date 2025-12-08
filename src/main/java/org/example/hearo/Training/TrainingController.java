@@ -102,6 +102,7 @@ public class TrainingController {
 
         for (Note note : finalNotes) {
             Button button = new Button(note.getName());
+            button.getStyleClass().add("trainingButton");
             button.prefWidthProperty().bind(
                     scrollPane.widthProperty().subtract((MAX_COLUMNS + 1) * 10).divide(MAX_COLUMNS)
             );

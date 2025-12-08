@@ -25,7 +25,10 @@
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </VBox.margin>
          <content>
-            <VBox fx:id="questionContainer" prefHeight="249.0" prefWidth="489.0" />
+            <VBox fx:id="questionContainer" alignment="TOP_CENTER" prefHeight="249.0" prefWidth="489.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></VBox>
          </content>
       </ScrollPane>
       <HBox alignment="CENTER" maxWidth="350.0" prefHeight="4.0" prefWidth="300.0">
