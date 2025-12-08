@@ -289,6 +289,7 @@ PLAN NA NEXT DAY
 - Intro quiz window
 - Stats
 - ViacJazykovost
+- pridat prekladanie aj dynamicky generovaneho textu v kode
 - Pekny front-end
 - Osetrenie aby sa nedal vytvorit quiz s rovnakym nazvom
 - Pridat vyhladavanie not v QuizEditore cez combobox
