@@ -293,3 +293,4 @@ PLAN NA NEXT DAY
 - Osetrenie aby sa nedal vytvorit quiz s rovnakym nazvom
 - Pridat vyhladavanie not v QuizEditore cez combobox
 - Pridat Edit na uz vytvoreny Quiz namiesto Add buttonu (mozno)
+- Ked zle uhadnes notu v Question a potom spravne v tej istej Question tak to nema pridat progress
