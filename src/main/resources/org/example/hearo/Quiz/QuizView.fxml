@@ -24,7 +24,7 @@
                      <Font size="24.0" />
                   </font>
                </Label>
-               <Label fx:id="freqNoteLabel" prefHeight="55.0" prefWidth="184.0" text="Label">
+               <Label fx:id="refNoteLabel" prefHeight="55.0" prefWidth="184.0" text="Label">
                   <font>
                      <Font size="24.0" />
                   </font>

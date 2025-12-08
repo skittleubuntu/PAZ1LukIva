@@ -80,6 +80,7 @@ public class MainSceneController {
                 QuizController quizController = new QuizController();
                 quizController.setQuizId(selected.getID());
                 WindowManager.getInstance().openWindow(fxmlPath, quizController, "Quiz", Modality.APPLICATION_MODAL);
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

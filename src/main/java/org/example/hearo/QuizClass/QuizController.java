@@ -61,12 +61,11 @@ public class QuizController {
 
     public void setQuizId(int id) {
         this.quizId = id;
-        loadQuiz();
     }
 
     @FXML
     void initialize() {
-
+        loadQuiz();
         nextButton.setOnAction(event -> goToNextQuestion());
 
         noteQuestionButton.setOnAction(event -> {
