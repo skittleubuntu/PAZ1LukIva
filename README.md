@@ -295,3 +295,4 @@ PLAN NA NEXT DAY
 - Pridat vyhladavanie not v QuizEditore cez combobox
 - Pridat Edit na uz vytvoreny Quiz namiesto Add buttonu (mozno)
 - Ked zle uhadnes notu v Question a potom spravne v tej istej Question tak to nema pridat progress
+- opravit bug ked vyberies spravnu notu na zaciatku quizu a vypnes ho tak wrong answears je -1
