@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import org.example.hearo.DateAO.QuizDAO;
+import org.example.hearo.DateAO.StatsDAO;
 import org.example.hearo.QuizClass.Quiz;
 import org.example.hearo.QuizClass.QuizController;
 import org.example.hearo.QuizEditor.QuizEditorController;
@@ -146,6 +147,7 @@ public class MainSceneController {
 
     public void removeQuiz(Quiz quiz){
         QuizDAO.deleteQuiz(quiz);
+        StatsDAO.deleteQuizStats(quiz);
         List<Quiz> quizes =  QuizDAO.loadQuiz();
 
 

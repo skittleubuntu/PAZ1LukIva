@@ -92,6 +92,7 @@ public class QuizEditorController {
         int index = questionContainer.getChildren().size();
 
         VBox questionBox = new VBox(20);
+        questionBox.getStyleClass().add("questionBox");
         questionBox.setAlignment(Pos.CENTER);
         questionBox.setPadding(new Insets(10));
 //        questionBox.setStyle("-fx-border-color: gray; -fx-border-radius: 5; -fx-border-width: 1;");

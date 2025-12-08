@@ -8,6 +8,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import org.example.hearo.DateAO.QuizDAO;
 import org.example.hearo.DateAO.SettingsDAO;
+import org.example.hearo.DateAO.StatsDAO;
 import org.example.hearo.Settings.Settings;
 import org.example.hearo.Utilites.Factory;
 import org.example.hearo.Utilites.Sounder;
@@ -58,6 +59,7 @@ public class QuizController {
     private int quizId;
 
     private boolean questionComplete = false;
+    private boolean answeredWrong = false;
 
     public void setQuizId(int id) {
         this.quizId = id;
@@ -92,10 +94,10 @@ public class QuizController {
                 lives--;
 
                 if (lives > 10000){
-                    lifeInfo.setText("Lifes: ∞");
+                    lifeInfo.setText("Lives: ∞");
                 }
                 else {
-                    lifeInfo.setText("Lifes: " + lives);
+                    lifeInfo.setText("Lives: " + lives);
                 }
             } });
         }
@@ -186,6 +188,12 @@ public class QuizController {
 
             if (currentQuestion.checkAnswer(note)) {
 
+                if (!answeredWrong){
+                    StatsDAO.addCorrectAnswers(currentQuestion.getCorrectAnswer().getId(), quizId);
+                    System.out.println("CORRECT++");
+                }
+                answeredWrong = false;
+
                 questionComplete = true;
                 questionLabel.setText("Correct! Next question...");
                 progress += (double) 50 / quiz.getQuestions().size();
@@ -198,6 +206,9 @@ public class QuizController {
                 }
 
             } else {
+                answeredWrong = true;
+                System.out.println("SO BAD");
+
                 questionLabel.setStyle("-fx-background-color: red; -fx-background-radius: 10");
                 progress -= (double) 100 / quiz.getQuestions().size();
                 if (progress < 0) {
@@ -216,9 +227,12 @@ public class QuizController {
     private void goToNextQuestion() {
         currentIndex++;
         currentIndex = currentIndex % quiz.getQuestions().size();
-            currentQuestion = quiz.getQuestions().get(currentIndex);
+        currentQuestion = quiz.getQuestions().get(currentIndex);
         currentQuestion.setCorrectAnswer();
-            showQuiz();
+
+        StatsDAO.addRounds(currentQuestion.getCorrectAnswer().getId(), quizId);
+
+        showQuiz();
 
         if (progress >= 100.0) {
             questionLabel.setText("Quiz completed!");
@@ -239,7 +253,6 @@ public class QuizController {
         InstrumentType type = currentQuestion.getInstrumentType();
         Sounder sounder = Factory.createSounder(type);
 
-        //TODO: nastavit hlasitost podla settings
         Settings settings = SettingsDAO.loadSettings();
         new Thread(() -> sounder.play(note.getMidiNumber(), settings.Volume)).start();
     }
