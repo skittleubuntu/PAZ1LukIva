@@ -1,10 +1,10 @@
 package org.example.hearo.Utilities;
 
-import org.example.hearo.DateAO.NoteDAO;
-import org.example.hearo.QuizClass.InstrumentType;
-import org.example.hearo.QuizClass.Note;
-import org.example.hearo.Utilites.Factory;
-import org.example.hearo.Utilites.Sounder;
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.QuizClass.InstrumentType;
+import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.Utilites.Factory;
+import org.example.pazduolingo.Utilites.Sounder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
