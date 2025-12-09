@@ -1,8 +1,8 @@
 package org.example.hearo.Utilities;
 
-import org.example.hearo.DateAO.NoteDAO;
-import org.example.hearo.QuizClass.Note;
-import org.example.hearo.Utilites.Functions;
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.Utilites.Functions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
