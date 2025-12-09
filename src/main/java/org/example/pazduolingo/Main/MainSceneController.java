@@ -3,18 +3,19 @@ package org.example.pazduolingo.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
+import javafx.stage.Modality;
 import org.example.pazduolingo.DateAO.QuizDAO;
+import org.example.pazduolingo.DateAO.StatsDAO;
 import org.example.pazduolingo.QuizClass.Quiz;
-import org.example.pazduolingo.QuizClass.QuizWindow;
-import org.example.pazduolingo.Settings.SettingsWindow;
-import org.example.pazduolingo.Stats.StatsWindow;
-import org.example.pazduolingo.Training.TrainingWindow;
-import org.example.pazduolingo.QuizEditor.QuizEditorWindow;
+import org.example.pazduolingo.QuizClass.QuizController;
+import org.example.pazduolingo.QuizEditor.QuizEditorController;
+import org.example.pazduolingo.Settings.SettingsController;
+import org.example.pazduolingo.Stats.StatsController;
+import org.example.pazduolingo.Training.TrainingController;
+import org.example.pazduolingo.Utilites.WindowManager;
 
 import java.util.List;
 
@@ -67,22 +68,20 @@ public class MainSceneController {
 
             removeQuiz(selected);
 
-
         });
-
-
 
         startButton.setOnAction(event ->{
 
             Quiz selected = quizListView.getSelectionModel().getSelectedItem();
             if (selected == null) {
-
                 return;
             }
-           QuizWindow quizWindow = new QuizWindow();
-           Stage quizStage = new Stage();
             try {
-                quizWindow.start(quizStage, selected.getID());
+                String fxmlPath = "/org/example/pazduolingo/Quiz/QuizView.fxml";
+                QuizController quizController = new QuizController();
+                quizController.setQuizId(selected.getID());
+                WindowManager.getInstance().openWindow(fxmlPath, quizController, "Quiz", Modality.APPLICATION_MODAL);
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -92,9 +91,9 @@ public class MainSceneController {
 
         trainingButton.setOnAction(event -> {
             try {
-                TrainingWindow trainingApp = new TrainingWindow();
-                Stage trainingStage = new Stage();
-                trainingApp.start(trainingStage);
+                String fxmlPath = "/org/example/pazduolingo/Training/TrainingView.fxml";
+                TrainingController trainingController = new TrainingController();
+                WindowManager.getInstance().openWindow(fxmlPath, trainingController, "Training", Modality.APPLICATION_MODAL);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -102,9 +101,9 @@ public class MainSceneController {
 
         editorButton.setOnAction(event -> {
             try {
-                QuizEditorWindow quizEditor = new QuizEditorWindow();
-                Stage quizStage = new Stage();
-                quizEditor.start(quizStage);
+                String fxmlPath = "/org/example/pazduolingo/QuizEditor/QuizEditorView.fxml";
+                QuizEditorController  quizEditorController = new QuizEditorController();
+                WindowManager.getInstance().openWindow(fxmlPath, quizEditorController, "Quiz editor", Modality.APPLICATION_MODAL);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -112,9 +111,9 @@ public class MainSceneController {
 
         statsButton.setOnAction(event -> {
             try {
-                StatsWindow statsWindow = new StatsWindow();
-                Stage statsStage = new Stage();
-                statsWindow.start(statsStage);
+                String fxmlPath = "/org/example/pazduolingo/Stats/StatsView.fxml";
+                StatsController statsController = new StatsController();
+                WindowManager.getInstance().openWindow(fxmlPath, statsController, "Stats", Modality.APPLICATION_MODAL);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -122,9 +121,9 @@ public class MainSceneController {
 
         settingsButton.setOnAction(event -> {
             try {
-                SettingsWindow settingsWindow = new SettingsWindow();
-                Stage settingsStage = new Stage();
-                settingsWindow.start(settingsStage);
+                String fxmlPath = "/org/example/pazduolingo/Settings/SettingsView.fxml";
+                SettingsController settingsController = new SettingsController();
+                WindowManager.getInstance().openWindow(fxmlPath, settingsController, "Settings", Modality.APPLICATION_MODAL);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -148,6 +147,7 @@ public class MainSceneController {
 
     public void removeQuiz(Quiz quiz){
         QuizDAO.deleteQuiz(quiz);
+        StatsDAO.deleteQuizStats(quiz);
         List<Quiz> quizes =  QuizDAO.loadQuiz();
 
 

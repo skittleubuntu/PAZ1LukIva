@@ -1,13 +1,7 @@
 package org.example.pazduolingo.Main;
 
-import org.example.pazduolingo.DateAO.NoteDAO;
-import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.SqlDAO;
-import org.example.pazduolingo.QuizClass.*;
 import org.example.pazduolingo.Settings.Settings;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 

@@ -2,10 +2,8 @@ package org.example.pazduolingo.Utilites;
 
 import org.example.pazduolingo.QuizClass.InstrumentType;
 import org.example.pazduolingo.QuizClass.Note;
-import org.example.pazduolingo.Settings.Settings;
 
 import java.util.List;
-import java.util.Set;
 
 public class Factory {
 

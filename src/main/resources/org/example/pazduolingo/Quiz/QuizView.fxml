@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600" prefWidth="900" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pazduolingo.QuizClass.QuizController">
+<AnchorPane prefHeight="600" prefWidth="900" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <VBox alignment="CENTER" layoutX="31.0" layoutY="33.0" prefWidth="756.0" spacing="40" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="33.0">
-         <ProgressBar fx:id="accBar" minHeight="50.0" prefWidth="1000.0" progress="0.0" />
+         <ProgressBar fx:id="accBar" minHeight="28.0" prefWidth="840.0" progress="0.0" />
          <HBox fx:id="infoBox" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
             <children>
                <Label fx:id="lifeInfo" prefHeight="55.0" prefWidth="274.0" text="Label">
@@ -24,7 +20,7 @@
                      <Font size="24.0" />
                   </font>
                </Label>
-               <Label fx:id="freqNoteLabel" prefHeight="55.0" prefWidth="184.0" text="Label">
+               <Label fx:id="refNoteLabel" prefHeight="55.0" prefWidth="184.0" text="Label">
                   <font>
                      <Font size="24.0" />
                   </font>
@@ -54,7 +50,7 @@
                <Font size="18.0" />
             </font></Label>
 
-            <Button fx:id="noteQuestionButton" prefHeight="252.0" prefWidth="159.0" style="-fx-font-size: 22px;" text="Play Question" />
+            <Button fx:id="noteQuestionButton" prefHeight="252.0" prefWidth="159.0" style="-fx-font-size: 22px;" text="Play note" />
 
             <HBox fx:id="answersContainer" alignment="CENTER" spacing="30" />
          <Button fx:id="nextButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="165.0" text="Next Question! -&gt;" />

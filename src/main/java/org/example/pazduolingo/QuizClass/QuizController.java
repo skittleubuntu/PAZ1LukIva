@@ -8,6 +8,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.SettingsDAO;
+import org.example.pazduolingo.DateAO.StatsDAO;
+import org.example.pazduolingo.Settings.Settings;
 import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.Sounder;
 
@@ -20,11 +22,10 @@ public class QuizController {
     private Label questionLabel;
 
     @FXML
-    private Label freqNoteLabel;
+    private Label refNoteLabel;
 
     @FXML
     private HBox infoBox;
-
 
     @FXML
     private Button noteQuestionButton;
@@ -47,11 +48,9 @@ public class QuizController {
     @FXML
     private Label instrumentLabel;
 
+    private int lives;
 
-    private int lifes;
-
-    private double progres = 0;
-
+    private double progress = 0;
 
     private Quiz quiz;
     private Question currentQuestion;
@@ -60,26 +59,24 @@ public class QuizController {
     private int quizId;
 
     private boolean questionComplete = false;
+    private boolean answeredWrong = false;
 
     public void setQuizId(int id) {
         this.quizId = id;
-        loadQuiz();
     }
 
     @FXML
     void initialize() {
-
-
-
+        loadQuiz();
         nextButton.setOnAction(event -> goToNextQuestion());
 
         noteQuestionButton.setOnAction(event -> {
 
-            if (lifes > 0) {
+            if (lives > 0) {
                 new Thread(() -> {
-                    if (currentQuestion.getFreqNote() != null) {
-                        playNote(currentQuestion.getFreqNote());
-                        freqNoteLabel.setStyle("-fx-background-color: green; -fx-background-radius: 10;");
+                    if (currentQuestion.getRefNote() != null) {
+                        playNote(currentQuestion.getRefNote());
+                        refNoteLabel.setStyle("-fx-background-color: green; -fx-background-radius: 10;");
 
                         try {
                             Thread.sleep(700);
@@ -88,19 +85,19 @@ public class QuizController {
                         }
                     }
                     if (SettingsDAO.loadSettings().Theme.equals("Light")) {
-                        freqNoteLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
+                        refNoteLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
                     } else {
-                        freqNoteLabel.setStyle("-fx-background-color: black; -fx-background-radius: 10;");
+                        refNoteLabel.setStyle("-fx-background-color: black; -fx-background-radius: 10;");
                     }
                     playNote(currentQuestion.getCorrectAnswer());
                 }).start();
-                lifes --;
+                lives--;
 
-                if (lifes > 10000){
-                    lifeInfo.setText("Lifes: ∞");
+                if (lives > 10000){
+                    lifeInfo.setText("Lives: ∞");
                 }
                 else {
-                    lifeInfo.setText("Lifes: " + lifes);
+                    lifeInfo.setText("Lives: " + lives);
                 }
             } });
         }
@@ -121,9 +118,7 @@ public class QuizController {
 
     private void showQuiz() {
 
-
-
-        if (progres < 100) {
+        if (progress < 100) {
 
             instrumentLabel.setText("Instrument: "  + currentQuestion.getInstrumentType().toString());
             questionComplete = false;
@@ -132,11 +127,10 @@ public class QuizController {
             nextButton.setVisible(false);
             if (currentQuestion == null) return;
 
-
             new Thread(() -> {
-                if (currentQuestion.getFreqNote() != null) {
-                    playNote(currentQuestion.getFreqNote());
-                    freqNoteLabel.setStyle("-fx-background-color: green; -fx-background-radius: 10;");
+                if (currentQuestion.getRefNote() != null) {
+                    playNote(currentQuestion.getRefNote());
+                    refNoteLabel.setStyle("-fx-background-color: green; -fx-background-radius: 10;");
 
                     try {
                         Thread.sleep(700);
@@ -145,31 +139,30 @@ public class QuizController {
                     }
                 }
                 if (SettingsDAO.loadSettings().Theme.equals("Light")) {
-                    freqNoteLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
+                    refNoteLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
                 } else {
-                    freqNoteLabel.setStyle("-fx-background-color: black; -fx-background-radius: 10;");
+                    refNoteLabel.setStyle("-fx-background-color: black; -fx-background-radius: 10;");
                 }
                 playNote(currentQuestion.getCorrectAnswer());
             }).start();
 
-            if (currentQuestion.getFreqNote() != null) {
-                freqNoteLabel.setText("FreqNote: " + currentQuestion.getFreqNote().getName());
+            if (currentQuestion.getRefNote() != null) {
+                refNoteLabel.setText("Ref. note: " + currentQuestion.getRefNote().getName());
             } else {
-                freqNoteLabel.setText("FreqNote: None");
+                refNoteLabel.setText("Ref. note: None");
             }
 
             switch (currentQuestion.getDifficult()) {
-                case QuestionDifficulty.EASY -> lifes = Integer.MAX_VALUE;
-                case QuestionDifficulty.MEDIUM -> lifes = 3;
-                case QuestionDifficulty.HARD -> lifes = 0;
+                case QuestionDifficulty.EASY -> lives = Integer.MAX_VALUE;
+                case QuestionDifficulty.MEDIUM -> lives = 3;
+                case QuestionDifficulty.HARD -> lives = 0;
             }
 
-
-            if (lifes == Integer.MAX_VALUE || lifes > 100000) {
-                lifeInfo.setText("Lifes: ∞");
+            if (lives == Integer.MAX_VALUE || lives > 100000) {
+                lifeInfo.setText("Lives: ∞");
 
             } else {
-                lifeInfo.setText("Lifes: " + lifes);
+                lifeInfo.setText("Lives: " + lives);
             }
 
             questionNumber.setText("Question " + (currentIndex + 1));
@@ -195,30 +188,38 @@ public class QuizController {
 
             if (currentQuestion.checkAnswer(note)) {
 
+                if (!answeredWrong){
+                    StatsDAO.addCorrectAnswers(currentQuestion.getCorrectAnswer().getId(), quizId);
+                    System.out.println("CORRECT++");
+                }
+                answeredWrong = false;
+
                 questionComplete = true;
                 questionLabel.setText("Correct! Next question...");
-                progres += (double) 50 / quiz.getQuestions().size();
-                accBar.setProgress(progres / 100);
+                progress += (double) 50 / quiz.getQuestions().size();
+                accBar.setProgress(progress / 100);
                 nextButton.setVisible(true);
                 questionLabel.setStyle("-fx-background-color: green; -fx-background-radius: 10");
-                if (progres >= 100.0){
+                if (progress >= 100.0){
 
                     goToNextQuestion();
                 }
 
-
             } else {
+                answeredWrong = true;
+                System.out.println("SO BAD");
+
                 questionLabel.setStyle("-fx-background-color: red; -fx-background-radius: 10");
-                progres -= (double) 100 / quiz.getQuestions().size();
-                if (progres < 0) {
-                    progres = 0;
+                progress -= (double) 100 / quiz.getQuestions().size();
+                if (progress < 0) {
+                    progress = 0;
                 }
-                accBar.setProgress(progres / 100);
+                accBar.setProgress(progress / 100);
                 playNote(note);
                 questionLabel.setText("Wrong! Try again...");
             }
         }
-        else if (progres >= 100){
+        else if (progress >= 100){
             goToNextQuestion();
         }
     }
@@ -226,11 +227,14 @@ public class QuizController {
     private void goToNextQuestion() {
         currentIndex++;
         currentIndex = currentIndex % quiz.getQuestions().size();
-            currentQuestion = quiz.getQuestions().get(currentIndex);
+        currentQuestion = quiz.getQuestions().get(currentIndex);
         currentQuestion.setCorrectAnswer();
-            showQuiz();
 
-        if (progres >= 100.0) {
+        StatsDAO.addRounds(currentQuestion.getCorrectAnswer().getId(), quizId);
+
+        showQuiz();
+
+        if (progress >= 100.0) {
             questionLabel.setText("Quiz completed!");
             infoBox.getChildren().clear();
             answersContainer.getChildren().clear();
@@ -248,6 +252,8 @@ public class QuizController {
         if (note == null) return;
         InstrumentType type = currentQuestion.getInstrumentType();
         Sounder sounder = Factory.createSounder(type);
-        new Thread(() -> sounder.play(note.getMidiNumber(), 100)).start();
+
+        Settings settings = SettingsDAO.loadSettings();
+        new Thread(() -> sounder.play(note.getMidiNumber(), settings.Volume)).start();
     }
 }

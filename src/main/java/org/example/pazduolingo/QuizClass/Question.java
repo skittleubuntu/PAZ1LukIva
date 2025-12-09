@@ -5,18 +5,18 @@ import java.util.*;
 public class Question {
 
     private final List<Note> notes;
-    private  Note correctAnswer;
+    private Note correctAnswer;
     private QuestionDifficulty difficult;
     private InstrumentType instrumentType;
-    private Note freqNote;
+    private Note refNote;
 
 
-    public Question(List<Note> notes, QuestionDifficulty difficult, InstrumentType instrumentType, Note freqNote) {
+    public Question(List<Note> notes, QuestionDifficulty difficult, InstrumentType instrumentType, Note refNote) {
         this.notes = new ArrayList<>(notes);
         this.correctAnswer = pickRandomNote();
         this.difficult = difficult;
         this.instrumentType = instrumentType;
-        this.freqNote = freqNote;
+        this.refNote = refNote;
     }
 
 
@@ -46,8 +46,8 @@ public class Question {
     public InstrumentType getInstrumentType(){
         return instrumentType;
     }
-    public Note getFreqNote(){
-        return freqNote;
+    public Note getRefNote(){
+        return refNote;
     }
 
     public boolean checkAnswer(Note answer) {

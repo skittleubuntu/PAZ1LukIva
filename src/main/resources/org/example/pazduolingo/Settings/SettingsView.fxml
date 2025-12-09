@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pazduolingo.Settings.SettingsController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER" prefHeight="333.0" prefWidth="600.0">
          <children>
@@ -31,21 +31,21 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
-                        <RadioButton fx:id="darkRadioButton" mnemonicParsing="false" text="Dark">
+                        <RadioButton fx:id="darkRadioButton" mnemonicParsing="false" text="%settings.dark">
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin></RadioButton>
-                        <RadioButton fx:id="lightRadioButton" mnemonicParsing="false" text="Light" />
+                        <RadioButton fx:id="lightRadioButton" mnemonicParsing="false" text="%settings.light" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Theme:" />
+                        <Label text="%settings.theme" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Notation:" />
+                        <Label text="%settings.notation" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -59,7 +59,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                      <children>
-                        <Label text="Language:" />
+                        <Label text="%settings.language" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -69,7 +69,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
                      <children>
-                        <Label text="Volume:" />
+                        <Label text="%settings.volume" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -87,8 +87,8 @@
       <Region prefHeight="43.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
       <HBox alignment="TOP_CENTER" prefHeight="68.0" prefWidth="463.0" spacing="25.0">
          <children>
-            <Button fx:id="saveButton" minWidth="100.0" mnemonicParsing="false" text="Save" />
-            <Button fx:id="saveAndExitButton" minWidth="100.0" mnemonicParsing="false" text="Save &amp;  Exit" />
+            <Button fx:id="saveButton" minWidth="100.0" mnemonicParsing="false" text="%settings.save" />
+            <Button fx:id="saveAndExitButton" minWidth="100.0" mnemonicParsing="false" text="%settings.saveAndExit" />
          </children>
       </HBox>
    </children>

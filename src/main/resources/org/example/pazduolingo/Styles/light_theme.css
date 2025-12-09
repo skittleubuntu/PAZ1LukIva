@@ -66,3 +66,13 @@
 .scroll-bar .thumb{
     -fx-background-color: grey;
 }
+
+.progress-bar .track {
+    -fx-background-radius: 5em;
+    -fx-background-color: lightgrey;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 5em;
+    -fx-background-color: green;
+}

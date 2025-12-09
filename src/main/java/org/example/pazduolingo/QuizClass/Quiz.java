@@ -1,7 +1,5 @@
 package org.example.pazduolingo.QuizClass;
 
-import org.example.pazduolingo.DateAO.NoteDAO;
-
 import java.util.*;
 
 public class Quiz {

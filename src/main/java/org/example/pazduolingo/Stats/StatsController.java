@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import org.example.pazduolingo.DateAO.StatsDAO;
 
 public class StatsController {
 
@@ -20,7 +21,7 @@ public class StatsController {
     @FXML
     void initialize() {
         overallStatsList.setItems(overallStats);
-        setOverallStats(0,0,0,0);
+        setOverallStats(StatsDAO.getOverallAccuracy(), StatsDAO.getOverallRounds(), StatsDAO.getOverallCorrectAnswers(), StatsDAO.getOverallWrongAnswers());
 
     }
 

@@ -10,7 +10,7 @@ public class IntroQuizWindow {
 
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/pazduolingo/Settings/settings.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/hearo/Settings/SettingsView.fxml"));
         Parent rootPane = fxmlLoader.load();
 
 //        SettingsController controller = fxmlLoader.getController();
@@ -19,7 +19,6 @@ public class IntroQuizWindow {
         stage.setTitle("Intro");
         stage.setScene(scene);
 
-        WindowManager.getInstance().addStage(stage);
         WindowManager.getInstance().setTheme();
 
         stage.show();

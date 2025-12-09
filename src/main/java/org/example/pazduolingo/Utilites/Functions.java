@@ -1,7 +1,6 @@
 package org.example.pazduolingo.Utilites;
 
 import org.example.pazduolingo.QuizClass.Note;
-import org.example.pazduolingo.QuizClass.Quiz;
 
 import java.util.ArrayList;
 import java.util.Collections;

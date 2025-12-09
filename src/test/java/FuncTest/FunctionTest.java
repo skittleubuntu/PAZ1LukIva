@@ -1,4 +1,4 @@
-package org.example.pazduolingo.Utilities;
+package org.example.hearo.Utilities;
 
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.QuizClass.Note;

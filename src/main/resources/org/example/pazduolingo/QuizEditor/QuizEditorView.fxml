@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pazduolingo.QuizEditor.QuizEditorController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="quizTitle" maxWidth="350.0" promptText="Quiz name">
          <VBox.margin>
@@ -25,7 +25,10 @@
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </VBox.margin>
          <content>
-            <VBox fx:id="questionContainer" prefHeight="249.0" prefWidth="489.0" />
+            <VBox fx:id="questionContainer" alignment="TOP_CENTER" prefHeight="249.0" prefWidth="489.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></VBox>
          </content>
       </ScrollPane>
       <HBox alignment="CENTER" maxWidth="350.0" prefHeight="4.0" prefWidth="300.0">

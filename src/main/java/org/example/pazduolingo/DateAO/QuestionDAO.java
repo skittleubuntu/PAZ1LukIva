@@ -4,7 +4,6 @@ import org.example.pazduolingo.QuizClass.InstrumentType;
 import org.example.pazduolingo.QuizClass.Note;
 import org.example.pazduolingo.QuizClass.Question;
 import org.example.pazduolingo.QuizClass.QuestionDifficulty;
-import org.sqlite.core.DB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,8 +72,8 @@ public class QuestionDAO {
             try (PreparedStatement pstmtQ = conn.prepareStatement(insertQuestionSQL, Statement.RETURN_GENERATED_KEYS)) {
                 pstmtQ.setInt(1, quizId);
 
-                if (q.getFreqNote() != null) {
-                    pstmtQ.setInt(2, q.getFreqNote().getId());
+                if (q.getRefNote() != null) {
+                    pstmtQ.setInt(2, q.getRefNote().getId());
                 }
                 pstmtQ.setString(3, q.getDifficult().toString());
                 pstmtQ.setString(4, q.getInstrumentType().toString());

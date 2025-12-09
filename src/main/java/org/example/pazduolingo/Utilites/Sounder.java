@@ -1,7 +1,5 @@
 package org.example.pazduolingo.Utilites;
 
-import org.example.pazduolingo.QuizClass.InstrumentType;
-
 import javax.sound.midi.*;
 
 public class Sounder {

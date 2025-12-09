@@ -3,15 +3,8 @@ package org.example.pazduolingo.Settings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.example.pazduolingo.DateAO.SettingsDAO;
-import org.example.pazduolingo.Utilites.Factory;
+import org.example.pazduolingo.Utilites.LanguageManager;
 import org.example.pazduolingo.Utilites.WindowManager;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.util.Scanner;
-import java.util.Set;
 
 public class SettingsController {
 
@@ -69,6 +62,9 @@ public class SettingsController {
         sharpsRadioButton.setToggleGroup(notationGroup);
         flatsRadioButton.setToggleGroup(notationGroup);
 
+        darkRadioButton.setUserData("Dark");
+        lightRadioButton.setUserData("Light");
+
         loadSettings();
     }
 
@@ -90,7 +86,7 @@ public class SettingsController {
 
 
 
-        settings.Theme = selectedTheme.getText();
+        settings.Theme = (String) selectedTheme.getUserData();
         settings.Type = selectedNotation.getText();
         settings.Language = language;
         settings.Volume = volume;
@@ -99,6 +95,9 @@ public class SettingsController {
 
         WindowManager.getInstance().setTheme();
 
+        LanguageManager.getInstance().setLocale();
+
+        WindowManager.getInstance().reloadAllStages();
     }
 
     void loadSettings() {
