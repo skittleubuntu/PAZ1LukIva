@@ -296,3 +296,26 @@ PLAN NA NEXT DAY
 - Pridat Edit na uz vytvoreny Quiz namiesto Add buttonu (mozno)
 - Ked zle uhadnes notu v Question a potom spravne v tej istej Question tak to nema pridat progress
 - opravit bug ked vyberies spravnu notu na zaciatku quizu a vypnes ho tak wrong answears je -1
+
+------------------------------------------------------------------------------------------------------------------------
+
+#9.12 (25 day)
+- Pridanie zmeny Jazyka (nedokoncene)
+- Otvaranie okien cez WindowManager
+- StatsDAO a testy
+- Ukladanie statistik do databazy
+- Uprava dark theme
+
+PLAN NA NEXT DAY
+- Intro quiz window
+- Dokoncit Stats
+    - opravit bug ked vyberies spravnu notu na zaciatku quizu a vypnes ho tak wrong answears je -1
+      
+- Dokoncit zmenu jazyka
+    - pridat prekladanie aj dynamicky generovaneho textu v kode
+      
+- Pekny front-end
+- Osetrenie aby sa nedal vytvorit quiz s rovnakym nazvom
+- Pridat vyhladavanie not v QuizEditore cez combobox
+- Pridat Edit na uz vytvoreny Quiz namiesto Add buttonu (mozno)
+- Ked zle uhadnes notu v Question a potom spravne v tej istej Question tak to nema pridat progress
