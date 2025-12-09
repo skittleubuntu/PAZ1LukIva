@@ -30,7 +30,7 @@ public class App extends Application {
         Parent rootPane = fxmlLoader.load();
 
         Scene scene = new Scene(rootPane);
-        stage.setTitle("Application"); //nazov aplikacie
+        stage.setTitle("Application");
         stage.setScene(scene);
 
         windowManager.addStage(stage);
