@@ -31,13 +31,14 @@
                </padding></VBox>
          </content>
       </ScrollPane>
-      <HBox alignment="CENTER" maxWidth="350.0" prefHeight="4.0" prefWidth="300.0">
+      <HBox alignment="CENTER" maxWidth="447.0" prefHeight="36.0" prefWidth="447.0">
          <children>
             <Button fx:id="addQuestionButton" minWidth="90.0" mnemonicParsing="false" text="Add question">
                <HBox.margin>
                   <Insets bottom="10.0" right="85.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="saveAsButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="Save as..." />
             <Button fx:id="saveButton" minWidth="90.0" mnemonicParsing="false" text="Save">
                <HBox.margin>
                   <Insets bottom="10.0" left="85.0" />

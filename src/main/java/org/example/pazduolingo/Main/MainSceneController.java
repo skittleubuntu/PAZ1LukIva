@@ -6,7 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.example.pazduolingo.DateAO.FileDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.StatsDAO;
 import org.example.pazduolingo.QuizClass.Quiz;
@@ -17,7 +20,10 @@ import org.example.pazduolingo.Stats.StatsController;
 import org.example.pazduolingo.Training.TrainingController;
 import org.example.pazduolingo.Utilites.WindowManager;
 
+import java.io.File;
 import java.util.List;
+
+import javafx.scene.Node;
 
 public class MainSceneController {
 
@@ -38,6 +44,10 @@ public class MainSceneController {
 
     @FXML
     private ComboBox<String> quizFilter;
+
+
+    @FXML
+    private Button addButton;
 
 
     @FXML
@@ -129,8 +139,43 @@ public class MainSceneController {
             }
         });
 
+        addButton.setOnAction(e -> {
+
+            File file = getSelectedFilePath(addButton);
+            Quiz quiz = FileDAO.loadQuizFromFile(file);
+            QuizDAO.saveQuiz(quiz);
+            reloadQuiz();
 
 
+
+        });
+
+
+    }
+
+
+
+
+    private File getSelectedFilePath(Node sourceNode) {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose quiz");
+
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Quizzes", "*.quiz"),
+
+                new FileChooser.ExtensionFilter("All", "*.*")
+        );
+
+        // Отримання посилання на головне вікно (Stage)
+        // Це обов'язково для виклику showOpenDialog
+        Stage stage = (Stage) sourceNode.getScene().getWindow();
+
+        // Відображення діалогового вікна та очікування вибору
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        return selectedFile;
     }
 
     public static void reloadQuiz() {
