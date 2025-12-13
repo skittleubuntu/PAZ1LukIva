@@ -216,7 +216,9 @@ public class QuizEditorController {
 
     private void saveQuizAsFile(){
         Quiz quizToSave = getQuiz();
-        assert quizToSave != null;
+        if(quizToSave == null){
+            return;
+        }
         File fileToSave = getSelectedFilePath(saveButton,quizToSave.getName());
 
         if (fileToSave == null) {
