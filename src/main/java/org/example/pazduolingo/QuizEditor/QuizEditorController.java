@@ -6,6 +6,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.example.pazduolingo.DateAO.FileDAO;
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.SettingsDAO;
@@ -14,8 +17,11 @@ import org.example.pazduolingo.QuizClass.*;
 import org.example.pazduolingo.Settings.Settings;
 import org.example.pazduolingo.Utilites.Factory;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class QuizEditorController {
 
@@ -24,6 +30,11 @@ public class QuizEditorController {
     @FXML private VBox questionContainer;
     @FXML private Button addQuestionButton;
     @FXML private Button saveButton;
+
+    @FXML
+    private Button saveAsButton;
+
+
     private List<Note> notes;
 
     private Settings settings;
@@ -31,6 +42,7 @@ public class QuizEditorController {
     @FXML
     public void initialize() {
         addQuestionButton.setOnAction(e -> addQuestion());
+        saveAsButton.setOnAction(e -> saveQuizAsFile());
         saveButton.setOnAction(e -> onSave());
         settings = SettingsDAO.loadSettings();
         notes = NoteDAO.getAllNotes();
@@ -177,17 +189,62 @@ public class QuizEditorController {
 
     private void onSave() {
 
-        Quiz quizToSave;
+        Quiz quizToSave = getQuiz();
+
+        if (quizToSave == null){
+            return;
+        }
+
+        QuizDAO.saveQuiz(quizToSave);
+        saveButton.getScene().getWindow().hide();
+        MainSceneController.reloadQuiz();
+
+    }
+
+
+    private File getSelectedFilePath(Node sourceNode, String quizName) {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select place to save ");
+        fileChooser.setInitialFileName(quizName + ".quiz");
+
+        Stage stage = (Stage) sourceNode.getScene().getWindow();
+
+        return fileChooser.showSaveDialog(stage);
+    }
+
+
+    private void saveQuizAsFile(){
+        Quiz quizToSave = getQuiz();
+        assert quizToSave != null;
+        File fileToSave = getSelectedFilePath(saveButton,quizToSave.getName());
+
+        if (fileToSave == null) {
+          return;
+        }
+
+        FileDAO.saveQuizToFile(quizToSave, fileToSave);
+        QuizDAO.saveQuiz(quizToSave);
+        saveButton.getScene().getWindow().hide();
+        MainSceneController.reloadQuiz();
+
+    }
+
+
+
+    private Quiz getQuiz(){
+
+
         List<Question> questions = new ArrayList<>();
         String name = quizTitle.getText();
         String desc = quizDescription.getText();
 
         if (name.isEmpty()){
-            return;
+            return null;
         }
 
-        if(questionContainer.getChildren().size() == 0){
-            return;
+        if(questionContainer.getChildren().isEmpty()){
+            return null;
         }
 
         for (Node node : questionContainer.getChildren()) {
@@ -214,8 +271,21 @@ public class QuizEditorController {
 
 
             if (note1.getValue() == null || note2.getValue() == null || note3.getValue() == null || note4.getValue() == null ){
-                return;
+                return null;
             }
+
+            Set<String> uniqueNotes = new HashSet<>();
+            uniqueNotes.add(note1.getValue());
+            uniqueNotes.add(note2.getValue());
+            uniqueNotes.add(note3.getValue());
+            uniqueNotes.add(note4.getValue());
+
+
+            if (uniqueNotes.size() < 4) {
+
+                return null;
+            }
+
 
             notes.add(NoteDAO.getNoteByName(note1.getValue()));
             notes.add(NoteDAO.getNoteByName(note2.getValue()));
@@ -233,10 +303,8 @@ public class QuizEditorController {
 
         }
 
-        quizToSave = new Quiz(1,questions, name, desc);
-        QuizDAO.saveQuiz(quizToSave);
-        saveButton.getScene().getWindow().hide();
-        MainSceneController.reloadQuiz();
-
+        return new Quiz(1,questions,name,desc);
     }
+
+
 }

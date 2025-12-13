@@ -43,7 +43,7 @@
         <ListView maxWidth="250.0" minWidth="250.0" prefHeight="200.0" prefWidth="200.0" fx:id="quizListView"/>
         <HBox alignment="TOP_CENTER" prefHeight="93.0" prefWidth="426.0">
             <children>
-                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.add">
+                <Button minWidth="70.0" mnemonicParsing="false" text="%menu.add" fx:id="addButton">
                     <HBox.margin>
                         <Insets right="15.0" top="5.0" />
                     </HBox.margin>
