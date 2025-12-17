@@ -18,6 +18,7 @@ import org.example.pazduolingo.QuizEditor.QuizEditorController;
 import org.example.pazduolingo.Settings.SettingsController;
 import org.example.pazduolingo.Stats.StatsController;
 import org.example.pazduolingo.Training.TrainingController;
+import org.example.pazduolingo.Utilites.LanguageManager;
 import org.example.pazduolingo.Utilites.WindowManager;
 
 import java.io.File;
@@ -63,11 +64,13 @@ public class MainSceneController {
 
     @FXML
     void initialize() {
+        LanguageManager lm = LanguageManager.getInstance();
+
         instance = this;
         loadQuiz();
 
-        quizFilter.getItems().addAll("Default", "Custom");
-        quizFilter.setValue("Default");
+        quizFilter.getItems().addAll(lm.getTranslation("menu.default"), lm.getTranslation("menu.custom"));
+        quizFilter.setValue(lm.getTranslation("menu.default"));
 
 
         deleteButton.setOnAction(event -> {

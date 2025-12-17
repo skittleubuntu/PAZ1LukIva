@@ -16,6 +16,7 @@ import org.example.pazduolingo.Main.MainSceneController;
 import org.example.pazduolingo.QuizClass.*;
 import org.example.pazduolingo.Settings.Settings;
 import org.example.pazduolingo.Utilites.Factory;
+import org.example.pazduolingo.Utilites.LanguageManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -99,6 +100,7 @@ public class QuizEditorController {
 //    }
 
     private void addQuestion() {
+        LanguageManager lm = LanguageManager.getInstance();
 
         questionContainer.setSpacing(5);
         int index = questionContainer.getChildren().size();
@@ -110,7 +112,7 @@ public class QuizEditorController {
 //        questionBox.setStyle("-fx-border-color: gray; -fx-border-radius: 5; -fx-border-width: 1;");
         questionBox.setUserData(index);
 
-        Label questionLabel = new Label("Question " + (index + 1));
+        Label questionLabel = new Label(lm.getTranslation("quizEditor.question") + " " + (index + 1));
 
 
         ComboBox<String> note1Box = new ComboBox<>();
@@ -129,7 +131,7 @@ public class QuizEditorController {
 
         ComboBox<String> freqNoteBox = new ComboBox<>();
 
-        freqNoteBox.getItems().add("None");
+        freqNoteBox.getItems().add(lm.getTranslation("quizEditor.none"));
 
         for (Note n : notes) {
 
@@ -156,21 +158,28 @@ public class QuizEditorController {
 
 
 
-        Button remove = new Button("Remove");
+        Button remove = new Button(lm.getTranslation("quizEditor.remove"));
         remove.setMinWidth(80);
         remove.setOnAction(e -> removeQuestion(index));
 
 
         ComboBox<String> difficultyBox = new ComboBox<>();
-        difficultyBox.getItems().addAll("Easy", "Medium", "Hard");
-        difficultyBox.setValue("Easy");
+        difficultyBox.getItems().addAll(
+                lm.getTranslation("quizEditor.easy"),
+                lm.getTranslation("quizEditor.medium"),
+                lm.getTranslation("quizEditor.hard"));
+        difficultyBox.setValue(lm.getTranslation("quizEditor.easy"));
         difficultyBox.setMinWidth(80);
 
 
         ComboBox<String> instrumentBox = new ComboBox<>();
-        instrumentBox.getItems().addAll("Piano", "Guitar", "Violin", "Flute");
-        freqNoteBox.setPromptText("Freq note");
-        instrumentBox.setValue("Piano");
+        instrumentBox.getItems().addAll(
+                lm.getTranslation("training.piano"),
+                lm.getTranslation("training.guitar"),
+                lm.getTranslation("training.violin"),
+                lm.getTranslation("training.flute"));
+        freqNoteBox.setPromptText(lm.getTranslation("quizEditor.refNote"));
+        instrumentBox.setValue(lm.getTranslation("training.piano"));
         instrumentBox.setMinWidth(80);
 
 
@@ -267,6 +276,20 @@ public class QuizEditorController {
             ComboBox<String> instrument = (ComboBox<String>) options.getChildren().get(1);
             ComboBox<String> freqNoteBox = (ComboBox<String>) options.getChildren().get(2);
 
+            int index = difficulty.getSelectionModel().getSelectedIndex();
+            QuestionDifficulty diff = switch (index) {
+                case 1 -> QuestionDifficulty.MEDIUM;
+                case 2 -> QuestionDifficulty.HARD;
+                default -> QuestionDifficulty.EASY;
+            };
+
+            index = instrument.getSelectionModel().getSelectedIndex();
+            InstrumentType type = switch (index) {
+                case 1 -> InstrumentType.GUITAR;
+                case 2 -> InstrumentType.VIOLIN;
+                case 3 -> InstrumentType.FLUTE;
+                default -> InstrumentType.PIANO;
+            };
 
 
             List<Note> notes = new ArrayList<>();
@@ -299,7 +322,7 @@ public class QuizEditorController {
 
 
 
-            Question question = new Question(notes, QuestionDifficulty.valueOf(difficulty.getValue().toUpperCase()), InstrumentType.valueOf(instrument.getValue().toUpperCase()), freqNote);
+            Question question = new Question(notes, diff, type, freqNote);
 
             questions.add(question);
 

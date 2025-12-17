@@ -53,6 +53,52 @@ public class StatsDAO {
 
     }
 
+    public static int getQuizCorrectAnswers(int quizID){
+        String sql = "SELECT SUM(correct_answers) as quiz_corr_answ FROM note_stats WHERE quizes_id = ?";
+        int corr = -1;
+        try (Connection conn = DriverManager.getConnection(DB_URL)){
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, quizID);
+
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()){
+                corr = rs.getInt("quiz_corr_answ");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return corr;
+    }
+
+    public static int getQuizRounds(int quizID){
+        String sql = "SELECT SUM(rounds) as quiz_rounds FROM note_stats WHERE quizes_id = ?";
+        int corr = -1;
+        try (Connection conn = DriverManager.getConnection(DB_URL)){
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, quizID);
+
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()){
+                corr = rs.getInt("quiz_rounds");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return corr;
+
+    }
+
+    public static int getQuizAccuracy(int quizID){
+        double rounds = getQuizRounds(quizID);
+
+        if (rounds == 0) {
+            return 0;
+        }
+        return (int) Math.round((getQuizCorrectAnswers(quizID) / rounds)* 100);
+    }
+
     public static int getOverallRounds(){
         String sql = "SELECT SUM(rounds) as total_rounds FROM note_stats";
         int corr = -1;
