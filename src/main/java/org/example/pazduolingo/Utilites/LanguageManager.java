@@ -24,6 +24,7 @@ public class LanguageManager {
             switch (settings.Language) {
                 case "English" -> locale = new SimpleObjectProperty<Locale>(new Locale("en"));
                 case "Slovak" -> locale = new SimpleObjectProperty<Locale>(new Locale("sk"));
+                case "Ukrainian" -> locale = new SimpleObjectProperty<Locale>(new Locale("ua"));
             }
 
         }
@@ -42,10 +43,12 @@ public class LanguageManager {
 
     public void setLocale() {
         Settings settings = SettingsDAO.loadSettings();
-
+        System.out.println(settings.Language);
         switch(settings.Language) {
+
             case "English" -> getInstance().localeProperty().set(new Locale("en"));
             case "Slovak" -> getInstance().localeProperty().set(new Locale("sk"));
+            case "Ukrainian" -> getInstance().localeProperty().set(new Locale("ua"));
         }
 
     }

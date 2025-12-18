@@ -40,7 +40,7 @@ public class SettingsController {
     @FXML
     void initialize() {
 
-        languageComboBox.getItems().addAll("English", "Slovak");
+        languageComboBox.getItems().addAll("English", "Slovak","Ukrainian");
 
         saveButton.setOnAction(event -> {
             saveSettings();
@@ -102,7 +102,7 @@ public class SettingsController {
 
     void loadSettings() {
         Settings settings = SettingsDAO.loadSettings();
-        //todo
+
 
         switch(settings.Theme){
             case "Dark" -> themeGroup.selectToggle(darkRadioButton);

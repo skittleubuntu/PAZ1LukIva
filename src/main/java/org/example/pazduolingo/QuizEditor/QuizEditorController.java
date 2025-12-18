@@ -242,6 +242,15 @@ public class QuizEditorController {
     }
 
 
+    private void allert(String allerType){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(allerType);
+        alert.showAndWait();
+    }
+
+
 
     private Quiz getQuiz(){
 
@@ -250,16 +259,35 @@ public class QuizEditorController {
         String name = quizTitle.getText();
         String desc = quizDescription.getText();
 
+
+
+        if(name.length() > 60){
+
+            allert("String > 60");
+            return null;
+
+        }
+
+        if (desc.length() > 100){
+            allert("Desc > 100");
+            return null;
+        }
+
+
+
+
         if (name.isEmpty()){
+            allert("Quiz name is Empty");
             return null;
         }
 
         if(questionContainer.getChildren().isEmpty()){
+            allert("Must be at least 1 question");
             return null;
         }
-
+        int indexQ = 0;
         for (Node node : questionContainer.getChildren()) {
-
+            indexQ++;
 
 
             VBox questionBox = (VBox) node;
@@ -296,6 +324,7 @@ public class QuizEditorController {
 
 
             if (note1.getValue() == null || note2.getValue() == null || note3.getValue() == null || note4.getValue() == null ){
+                allert("Question must have 4 notes in question:"+indexQ);
                 return null;
             }
 
@@ -307,7 +336,7 @@ public class QuizEditorController {
 
 
             if (uniqueNotes.size() < 4) {
-
+                allert("All notes must be unique in question:" + indexQ);
                 return null;
             }
 

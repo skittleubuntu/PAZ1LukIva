@@ -90,10 +90,10 @@ public class MainSceneController {
                 return;
             }
             try {
-                String fxmlPath = "/org/example/pazduolingo/Quiz/QuizView.fxml";
-                QuizController quizController = new QuizController();
-                quizController.setQuizId(selected.getID());
-                WindowManager.getInstance().openWindow(fxmlPath, quizController, "Quiz", Modality.APPLICATION_MODAL);
+                String fxmlPath = "/org/example/pazduolingo/intro_quiz.fxml";
+                IntroWindowController introWindowController = new IntroWindowController();
+                introWindowController.setQuiz(selected);
+                WindowManager.getInstance().openWindow(fxmlPath, introWindowController, "Intro", Modality.APPLICATION_MODAL);
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
