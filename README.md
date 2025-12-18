@@ -315,10 +315,6 @@ PLAN NA NEXT DAY
     - pridat prekladanie aj dynamicky generovaneho textu v kode
       
 - Pekny front-end
-- Osetrenie aby sa nedal vytvorit quiz s rovnakym nazvom
-- Pridat vyhladavanie not v QuizEditore cez combobox
-- Pridat Edit na uz vytvoreny Quiz namiesto Add buttonu (mozno)
-- Ked zle uhadnes notu v Question a potom spravne v tej istej Question tak to nema pridat progress
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -327,6 +323,20 @@ PLAN NA NEXT DAY
 - Citanie kvizu zo subora
 - Trieda FileDAO a Testy pre nu
 - Zmenena logika v QuizEditore
-- Dobre veci
+- Drobne veci
 
-  
+------------------------------------------------------------------------------------------------------------------------
+
+#17.12 - 18.12 (27 - 28 day)
+- plna podpora slovenciny a ukrajinciny
+- zmena GUI
+- pridanie Quizzes Stats
+- Allert window
+- Intro window pre quizov
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+
+Dakujem
+Thanks
+Cпасибо
