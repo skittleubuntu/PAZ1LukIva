@@ -12,6 +12,7 @@ import org.example.pazduolingo.Settings.Settings;
 import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.Functions;
 import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.Utilites.LanguageManager;
 import org.example.pazduolingo.Utilites.Sounder;
 
 import java.util.*;
@@ -39,15 +40,25 @@ public class TrainingController {
 
     @FXML
     public void initialize() {
+        LanguageManager lm = LanguageManager.getInstance();
 
+        choiceOrder.getItems().setAll(
+                lm.getTranslation("training.frequency"),
+                lm.getTranslation("training.name"));
+        choiceOrder.setValue(lm.getTranslation("training.frequency"));
 
-        choiceOrder.setValue("By Octave");
+        choiceFilter.getItems().setAll(
+                lm.getTranslation("training.none"),
+                lm.getTranslation("training.natural"),
+                lm.getTranslation("training.accidental"));
+        choiceFilter.setValue(lm.getTranslation("training.none"));
 
-
-        choiceFilter.setValue("None");
-
-        choiceInstrument.getItems().addAll("Piano", "Guitar", "Violin", "Flute");
-        choiceInstrument.setValue("Piano");
+        choiceInstrument.getItems().addAll(
+                lm.getTranslation("training.piano"),
+                lm.getTranslation("training.guitar"),
+                lm.getTranslation("training.violin"),
+                lm.getTranslation("training.flute"));
+        choiceInstrument.setValue(lm.getTranslation("training.piano"));
 
         choiceOrder.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateNotes());
         choiceFilter.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateNotes());
@@ -57,22 +68,23 @@ public class TrainingController {
     }
 
     private void updateNotes() {
+        LanguageManager lm = LanguageManager.getInstance();
 
         List<Note> result = NoteDAO.getAllNotes();
 
 
         String sortType = choiceOrder.getValue();
-        if (sortType.equals("By Octave")) {
+        if (sortType.equals(lm.getTranslation("training.frequency"))) {
             Collections.sort(result);
-        } else if (sortType.equals("By Name")) {
+        } else if (sortType.equals(lm.getTranslation("training.name"))) {
             result = Functions.orderByName(result);
         }
 
 
         String filter = choiceFilter.getValue();
-        if (filter.equals("Standard")) {
+        if (filter.equals(lm.getTranslation("training.natural"))) {
             result = Functions.filterStandard(result);
-        } else if (filter.equals("Dies")) {
+        } else if (filter.equals(lm.getTranslation("training.accidental"))) {
             result = Functions.filterDies(result);
         }
 
@@ -120,8 +132,17 @@ public class TrainingController {
     }
 
     private void handleNoteClick(Note note) {
-        String selectedInstrument = choiceInstrument != null ? choiceInstrument.getValue() : "Piano";
-        InstrumentType type = InstrumentType.valueOf(selectedInstrument.toUpperCase());
+        LanguageManager lm = LanguageManager.getInstance();
+
+        int index = choiceInstrument.getSelectionModel().getSelectedIndex();
+
+        InstrumentType type = switch (index) {
+            case 1 -> InstrumentType.GUITAR;
+            case 2 -> InstrumentType.VIOLIN;
+            case 3 -> InstrumentType.FLUTE;
+            default -> InstrumentType.PIANO;
+        };
+
         Sounder sounder = Factory.createSounder(type);
         System.out.println("Played note: " + note.getName());
         new Thread(() -> sounder.play(note.getMidiNumber(), SettingsDAO.loadSettings().Volume)).start();

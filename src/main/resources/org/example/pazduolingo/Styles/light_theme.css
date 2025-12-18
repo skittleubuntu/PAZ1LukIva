@@ -5,17 +5,22 @@
 
 .root{
     -fx-font-family: "Gidole";
-    -fx-font-size: 14px;
+    -fx-font-size: 18px;
     -fx-background-color: #f3f3f3;
 }
 
 .button {
-  -fx-min-height: 30;
+  -fx-min-height: 35;
     -fx-background-color: lightgrey;
 }
 
+.trainingButton {
+    -fx-min-height: 50;
+    -fx-min-width: 60;
+}
+
 .button:hover{
-    -fx-background-color: gold;
+    -fx-background-color: skyblue;
 }
 
 .combo-box {
@@ -23,7 +28,7 @@
 }
 
 .combo-box:hover {
-    -fx-background-color: gold;
+    -fx-background-color: skyblue;
 }
 
 .text-area .content{
@@ -75,4 +80,17 @@
 .progress-bar .bar {
     -fx-background-radius: 5em;
     -fx-background-color: green;
+}
+
+.table-view .column-header-background {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.table-view .column-header {
+    -fx-padding: 0;
+}
+.valueColumn{
+    -fx-alignment: center;
 }
