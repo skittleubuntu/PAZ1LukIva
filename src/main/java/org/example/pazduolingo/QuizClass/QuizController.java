@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
+import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.SettingsDAO;
 import org.example.pazduolingo.DateAO.StatsDAO;
@@ -122,7 +123,13 @@ public class QuizController {
 
             instrumentLabel.setText("Instrument: "  + currentQuestion.getInstrumentType().toString());
             questionComplete = false;
-            questionLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10");
+
+            if (SettingsDAO.loadSettings().Theme.equals("Light")) {
+                questionLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10");;
+            } else {
+                questionLabel.setStyle("-fx-background-color: black; -fx-background-radius: 10");
+            }
+
             questionLabel.setText("what is the note?");
             nextButton.setVisible(false);
             if (currentQuestion == null) return;
@@ -170,7 +177,13 @@ public class QuizController {
 
             List<Note> noteList = new ArrayList<>(currentQuestion.getNotes());
             for (Note note : noteList) {
-                Button answerButton = new Button(note.getName());
+                Button answerButton = null;
+                if (SettingsDAO.loadSettings().Type.equals("#"))
+                {
+               answerButton = new Button(note.getName());}
+                else{
+                   answerButton = new Button(Factory.getFloatNote(note, NoteDAO.getAllNotes()).getName());
+                }
                 answerButton.setPrefWidth(150);
                 answerButton.setPrefHeight(70);
                 answerButton.setStyle("-fx-font-size: 18px;");
