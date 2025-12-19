@@ -6,10 +6,14 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.DateAO.SettingsDAO;
 import org.example.pazduolingo.DateAO.StatsDAO;
 import org.example.pazduolingo.QuizClass.Note;
 import org.example.pazduolingo.QuizClass.Question;
 import org.example.pazduolingo.QuizClass.Quiz;
+import org.example.pazduolingo.Settings.Settings;
+import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.Functions;
 import org.example.pazduolingo.Utilites.LanguageManager;
 
@@ -112,7 +116,8 @@ public class QuizStatsController {
 
 
     private void loadNoteStats() {
-
+        Settings sett = SettingsDAO.loadSettings();
+        List<Note> allnote = NoteDAO.getAllNotes();
         List<Note> notes = Functions.allNotesFromQuizList(quiz);
         List<NoteStatistic> noteStats = new ArrayList<>();
 
@@ -122,7 +127,14 @@ public class QuizStatsController {
             int wrong = StatsDAO.getWrongAnswers(n.getId(), quiz.getID());
             int accuracy = StatsDAO.getAccuracy(n.getId(), quiz.getID());
 
-            noteStats.add(new NoteStatistic(n.getName(), wrong, correct, rounds, accuracy + "%"));
+
+            if (sett.Type.equals("#")) {
+                noteStats.add(new NoteStatistic(n.getName(), wrong, correct, rounds, accuracy + "%"));
+            }
+            else{
+                noteStats.add(new NoteStatistic(Factory.getFloatNote(n,allnote).getName(), wrong, correct, rounds, accuracy + "%"));
+            }
+
         }
 
         noteStatsTable.setItems(FXCollections.observableList(noteStats));

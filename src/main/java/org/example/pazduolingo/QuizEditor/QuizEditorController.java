@@ -63,23 +63,21 @@ public class QuizEditorController {
             }));
     }
 
-    private void removeQuestion(int questionIndex) {
-        questionContainer.getChildren().remove(questionIndex);
+    private void removeQuestion(VBox questionBox) {
+        questionContainer.getChildren().remove(questionBox);
+        renumberQuestions();
+    }
+
+    private void renumberQuestions() {
+        LanguageManager lm = LanguageManager.getInstance();
 
         for (int i = 0; i < questionContainer.getChildren().size(); i++) {
-            VBox questionBox = (VBox) questionContainer.getChildren().get(i);
-            questionBox.setUserData(i);
-
-            Label label = (Label) questionBox.getChildren().get(0);
-            label.setText("Question " + (i + 1));
-
-            HBox options = (HBox) questionBox.getChildren().get(2);
-            Button removeBtn = (Button) options.getChildren().get(2);
-            int finalI = i;
-
-            removeBtn.setOnAction(e -> removeQuestion(finalI));
+            VBox box = (VBox) questionContainer.getChildren().get(i);
+            Label label = (Label) box.getChildren().get(0);
+            label.setText(lm.getTranslation("quizEditor.question") + " " + (i + 1));
         }
     }
+
 
 
 
@@ -113,6 +111,7 @@ public class QuizEditorController {
 //
 //    }
 
+
     private void addQuestion() {
         LanguageManager lm = LanguageManager.getInstance();
 
@@ -123,7 +122,8 @@ public class QuizEditorController {
         questionBox.getStyleClass().add("questionBox");
         questionBox.setAlignment(Pos.CENTER);
         questionBox.setPadding(new Insets(10));
-//        questionBox.setStyle("-fx-border-color: gray; -fx-border-radius: 5; -fx-border-width: 1;");
+
+
         questionBox.setUserData(index);
 
         Label questionLabel = new Label(lm.getTranslation("quizEditor.question") + " " + (index + 1));
@@ -167,7 +167,7 @@ public class QuizEditorController {
 
         Button remove = new Button(lm.getTranslation("quizEditor.remove"));
         remove.setMinWidth(80);
-        remove.setOnAction(e -> removeQuestion(index));
+        remove.setOnAction(e -> removeQuestion(questionBox));
 
 
         ComboBox<String> difficultyBox = new ComboBox<>();

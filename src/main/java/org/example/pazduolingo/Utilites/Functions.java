@@ -1,8 +1,11 @@
 package org.example.pazduolingo.Utilites;
 
+import org.example.pazduolingo.DateAO.NoteDAO;
+import org.example.pazduolingo.DateAO.SettingsDAO;
 import org.example.pazduolingo.QuizClass.Note;
 import org.example.pazduolingo.QuizClass.Question;
 import org.example.pazduolingo.QuizClass.Quiz;
+import org.example.pazduolingo.Settings.Settings;
 
 import java.util.*;
 
@@ -62,10 +65,17 @@ public class Functions {
     public static String allNotesFromQuiz(Quiz quiz){
         String result = "";
         Set<Note> notesSet = new HashSet<>();
-
+        Settings settings = SettingsDAO.loadSettings();
+        List<Note> allNotes = NoteDAO.getAllNotes();
         for (Question q : quiz.getQuestions()) {
             for (Note n : q.getNotes()) {
-                notesSet.add(n);
+
+                if(settings.Type.equals("#")) {
+                    notesSet.add(n);
+                }
+                else{
+                    notesSet.add(Factory.getFloatNote(n,allNotes));
+                }
             }
         }
 
@@ -80,7 +90,7 @@ public class Functions {
         }
 
         return result;
-    };
+    }
 
     public static List<Note> allNotesFromQuizList(Quiz quiz){
         Set<Note> notesSet = new HashSet<>();
