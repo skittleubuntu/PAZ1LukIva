@@ -13,7 +13,6 @@ import org.example.pazduolingo.DateAO.FileDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.StatsDAO;
 import org.example.pazduolingo.QuizClass.Quiz;
-import org.example.pazduolingo.QuizClass.QuizController;
 import org.example.pazduolingo.QuizEditor.QuizEditorController;
 import org.example.pazduolingo.Settings.SettingsController;
 import org.example.pazduolingo.Stats.StatsController;
@@ -44,16 +43,10 @@ public class MainSceneController {
     private ListView<Quiz> quizListView;
 
     @FXML
-    private ComboBox<String> quizFilter;
-
-
-    @FXML
     private Button addButton;
-
 
     @FXML
     private Button deleteButton;
-
 
     private static MainSceneController instance;
 
@@ -68,10 +61,6 @@ public class MainSceneController {
 
         instance = this;
         loadQuiz();
-
-        quizFilter.getItems().addAll(lm.getTranslation("menu.default"), lm.getTranslation("menu.custom"));
-        quizFilter.setValue(lm.getTranslation("menu.default"));
-
 
         deleteButton.setOnAction(event -> {
             Quiz selected = quizListView.getSelectionModel().getSelectedItem();
@@ -90,17 +79,15 @@ public class MainSceneController {
                 return;
             }
             try {
-                String fxmlPath = "/org/example/pazduolingo/intro_quiz.fxml";
+                String fxmlPath = "/org/example/pazduolingo/introQuiz.fxml";
                 IntroWindowController introWindowController = new IntroWindowController();
                 introWindowController.setQuiz(selected);
-                WindowManager.getInstance().openWindow(fxmlPath, introWindowController, "Intro", Modality.APPLICATION_MODAL);
+                WindowManager.getInstance().openWindow(fxmlPath, introWindowController, selected.getName(), Modality.APPLICATION_MODAL);
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
         });
-
 
         trainingButton.setOnAction(event -> {
             try {
@@ -143,27 +130,18 @@ public class MainSceneController {
         });
 
         addButton.setOnAction(e -> {
-
             File file = getSelectedFilePath(addButton);
             Quiz quiz = FileDAO.loadQuizFromFile(file);
             QuizDAO.saveQuiz(quiz);
             reloadQuiz();
-
-
-
         });
-
-
     }
 
-
-
-
     private File getSelectedFilePath(Node sourceNode) {
+        LanguageManager lm = LanguageManager.getInstance();
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose quiz");
-
+        fileChooser.setTitle(lm.getTranslation("menu.chooseQuizFile"));
 
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Quizzes", "*.quiz"),
@@ -192,12 +170,10 @@ public class MainSceneController {
         quizListView.setItems(quizzes);
     }
 
-
     public void removeQuiz(Quiz quiz){
         QuizDAO.deleteQuiz(quiz);
         StatsDAO.deleteQuizStats(quiz);
         List<Quiz> quizes =  QuizDAO.loadQuiz();
-
 
         quizzes = FXCollections.observableArrayList(quizes);
         quizListView.setItems(quizzes);

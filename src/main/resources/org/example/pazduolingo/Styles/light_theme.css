@@ -7,12 +7,23 @@
     -fx-font-family: "Gidole";
     -fx-font-size: 18px;
     -fx-background-color: #f3f3f3;
+    labelBackColor: transparent;
 }
 
 .button {
-  -fx-min-height: 35;
+    -fx-min-height: 35;
     -fx-background-color: lightgrey;
 }
+
+.text-field, .text-area {
+    -fx-background-color: white;
+    -fx-border-color: lightgrey;
+}
+
+.text-area .content {
+    -fx-background-color: white;
+}
+
 
 .trainingButton {
     -fx-min-height: 50;
@@ -31,21 +42,13 @@
     -fx-background-color: skyblue;
 }
 
-.text-area .content{
-    -fx-background-color: #e6e6e6;
-}
-
-.text-field{
-    -fx-background-color: #e6e6e6;
-}
-
 .radio-button > .radio{
     -fx-background-color: lightgrey;
     -fx-border-color: transparent;
 }
 
 .radio-button > .radio:hover{
-    -fx-background-color: gold;
+    -fx-background-color: skyblue;
 }
 
 .slider .track{
@@ -56,8 +59,14 @@
     -fx-background-color: grey;
 }
 
-.scroll-pane {
+.scroll-pane .viewport{
     -fx-background-color: white;
+}
+
+.questionBox{
+    -fx-background-color: #f3f3f3;
+    -fx-border-color: lightgrey;
+    -fx-background-radius: 5px;
 }
 
 .scroll-bar{
@@ -79,18 +88,35 @@
 
 .progress-bar .bar {
     -fx-background-radius: 5em;
-    -fx-background-color: green;
+    -fx-background-color: #00c100;
 }
 
-.table-view .column-header-background {
-    -fx-pref-height: 0;
-    -fx-opacity: 0;
-    -fx-padding: 0;
+.centerColumn{
+    -fx-alignment: CENTER;
 }
 
-.table-view .column-header {
-    -fx-padding: 0;
+.rightColumn{
+    -fx-alignment: CENTER-RIGHT;
 }
-.valueColumn{
-    -fx-alignment: center;
+
+.introQuizLabel{
+    -fx-font-size: 24px;
+}
+
+.default-color0.chart-pie {
+    -fx-pie-color: #00c100;
+}
+
+.default-color1.chart-pie {
+    -fx-pie-color: red;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.labelBack{
+    -fx-background-color: labelBackColor;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
 }

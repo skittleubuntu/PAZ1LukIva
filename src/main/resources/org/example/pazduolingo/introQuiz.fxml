@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="nameLabel" styleClass="introQuizLabel" text="">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="descLabel" alignment="TOP_CENTER" maxHeight="150.0" maxWidth="400.0" text="Label" wrapText="true" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label styleClass="introQuizLabel" text="%introWindow.notes">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="notesLabel" alignment="TOP_CENTER" maxHeight="100.0" maxWidth="400.0" prefHeight="77.0" prefWidth="400.0" text="" wrapText="true" />
+         </children>
+      </VBox>
+          <Button fx:id="startButton" minHeight="40" minWidth="140" text="%introWindow.start">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </Button>
+    </children>
+</VBox>

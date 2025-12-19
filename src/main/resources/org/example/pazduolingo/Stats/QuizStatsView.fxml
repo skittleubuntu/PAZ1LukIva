@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox maxWidth="300.0" prefHeight="500.0" prefWidth="272.0" HBox.hgrow="ALWAYS">
+         <children>
+            <TableView fx:id="quizStatsTable" maxWidth="300.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="statsName" prefWidth="75.0" text="%stats.statistic" />
+                <TableColumn fx:id="statsValue" maxWidth="70.0" prefWidth="75.0" text="%stats.value" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </VBox.margin>
+            </TableView>
+            <PieChart fx:id="accuracyPieChart" maxHeight="200.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" />
+               </VBox.margin>
+            </PieChart>
+         </children>
+      </VBox>
+      <TableView fx:id="noteStatsTable" maxWidth="450.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="noteName" prefWidth="75.0" text="%stats.note" />
+          <TableColumn fx:id="rounds" prefWidth="75.0" text="%stats.rounds" />
+            <TableColumn fx:id="correctAnswers" prefWidth="75.0" text="%stats.correct" />
+            <TableColumn fx:id="wrongAnswers" prefWidth="75.0" text="%stats.wrong" />
+            <TableColumn fx:id="accuracy" prefWidth="75.0" text="%stats.accuracy" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <HBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </HBox.margin>
+      </TableView>
+   </children>
+</HBox>

@@ -4,13 +4,10 @@ import java.util.*;
 
 public class Quiz {
 
-
     private int id;
     private List<Question> questions = new ArrayList<>();
     private String name;
     private String description;
-
-
 
     public Quiz(int id,List<Question> questions, String name, String description){
         this.id = id;
@@ -18,7 +15,6 @@ public class Quiz {
         this.name = name;
         this.description = description;
     }
-
 
     public int getID(){
         return id;
@@ -35,7 +31,6 @@ public class Quiz {
     public List<Question> getQuestions() {
         return new ArrayList<>(questions);
     }
-
 
     @Override
     public String toString() {
