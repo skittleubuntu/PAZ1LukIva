@@ -149,8 +149,13 @@ public class QuizController {
             }).start();
 
             if (currentQuestion.getRefNote() != null) {
-                refNoteLabel.setText("" + currentQuestion.getRefNote().getName());
-            } else {
+                if(SettingsDAO.loadSettings().Type.equals("#")) {
+                    refNoteLabel.setText("" + currentQuestion.getRefNote().getName());
+                }
+                else{
+                    refNoteLabel.setText("" + Factory.getFloatNote(currentQuestion.getRefNote(), NoteDAO.getAllNotes()).getName());
+                }
+                } else {
                 refNoteLabel.setText("");
 }
 
