@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -8,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_CENTER" maxWidth="300.0" prefHeight="200.0" prefWidth="85.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="TOP_CENTER" maxWidth="350.0" prefHeight="200.0" prefWidth="85.0" HBox.hgrow="ALWAYS">
          <children>
             <Label style="-fx-font-size: 28px" text="%stats.overallStats">
                <VBox.margin>
@@ -22,8 +23,8 @@
             </Label>
             <TableView fx:id="overallStatsTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="overallStatsName" minWidth="200.0" prefWidth="75.0" text="Statistic" />
-                <TableColumn fx:id="overallStatsValue" prefWidth="75.0" resizable="false" text="Value" />
+                <TableColumn fx:id="overallStatsName" minWidth="200.0" prefWidth="75.0" text="%stats.statistic" />
+                <TableColumn fx:id="overallStatsValue" prefWidth="75.0" resizable="false" text="%stats.value" />
               </columns>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
@@ -32,9 +33,10 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
+            <PieChart fx:id="accuracyPieChart" maxHeight="250.0" maxWidth="250.0" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" maxWidth="300.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="TOP_CENTER" maxWidth="350.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
          <children>
             <Label style="-fx-font-size: 28px" text="%stats.quizzesStats">
                <VBox.margin>
@@ -44,10 +46,10 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TableView fx:id="quizStatsTable" maxWidth="300.0" prefHeight="311.0" prefWidth="280.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="quizStatsTable" maxWidth="350.0" prefHeight="311.0" prefWidth="280.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="quizStatsName" minWidth="200.0" prefWidth="75.0" text="Quiz" />
-                <TableColumn fx:id="quizStatsValue" prefWidth="84.0" resizable="false" text="Accuracy" />
+                <TableColumn fx:id="quizStatsName" minWidth="200.0" prefWidth="75.0" text="%stats.quiz" />
+                <TableColumn fx:id="quizStatsValue" prefWidth="84.0" resizable="false" text="%stats.accuracy" />
               </columns>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />

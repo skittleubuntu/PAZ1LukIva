@@ -3,13 +3,16 @@ package org.example.pazduolingo.Stats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.StatsDAO;
 import org.example.pazduolingo.QuizClass.Quiz;
 import org.example.pazduolingo.Utilites.LanguageManager;
+import org.example.pazduolingo.Utilites.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +24,8 @@ public class StatsController {
 //    private ListView<String> overallStatsList;
 //
 //    private ObservableList<String> overallStats = FXCollections.observableArrayList();
+    @FXML
+    private PieChart accuracyPieChart;
 
     @FXML
     private TableView<Statistic> overallStatsTable;
@@ -49,13 +54,54 @@ public class StatsController {
         quizStatsName.setCellValueFactory(new PropertyValueFactory<>("name"));
         quizStatsValue.setCellValueFactory(new PropertyValueFactory<>("value"));
 
-        overallStatsValue.getStyleClass().add("valueColumn");
-        quizStatsValue.getStyleClass().add("valueColumn");
+        overallStatsValue.getStyleClass().add("centerColumn");
+        quizStatsValue.getStyleClass().add("centerColumn");
 
+        quizStatsTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                if(quizStatsTable.getSelectionModel().getSelectedIndex() == -1) {
+                    return;
+                }
+                Statistic selected = quizStatsTable.getSelectionModel().getSelectedItem();
+                handleQuizSelection(selected);
+            }
+        });
 
-        loadOverallStats(StatsDAO.getOverallAccuracy(), StatsDAO.getOverallRounds(), StatsDAO.getOverallCorrectAnswers(), StatsDAO.getOverallWrongAnswers());
+        int rounds = StatsDAO.getOverallRounds();
+        int correct = StatsDAO.getOverallCorrectAnswers();
+        int wrong = StatsDAO.getOverallWrongAnswers();
+        int accuracy = StatsDAO.getOverallAccuracy();
+
+        LanguageManager lm = LanguageManager.getInstance();
+
+        if (rounds > 0) {
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                    new PieChart.Data(lm.getTranslation("stats.correct"), correct),
+                    new PieChart.Data(lm.getTranslation("stats.wrong"), wrong)
+            );
+
+            accuracyPieChart.setData(pieChartData);
+
+        }
+
+        loadOverallStats(accuracy, rounds, correct, wrong);
         loadQuizStats();
 
+    }
+
+
+    private void handleQuizSelection(Statistic selectedStat) {
+
+        String quizName = selectedStat.getName();
+        Quiz quiz = selectedStat.getQuiz();
+
+        try {
+            String fxmlPath = "/org/example/pazduolingo/Stats/QuizStatsView.fxml";
+            QuizStatsController quizStatsController = new QuizStatsController(quiz);
+            WindowManager.getInstance().openWindow(fxmlPath, quizStatsController, quizName + " stats", null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void loadOverallStats(int accuracy, int rounds, int correctAnswers, int wrongAnswers) {
@@ -71,14 +117,6 @@ public class StatsController {
         ObservableList<Statistic> statistics = FXCollections.observableList(overallStats);
         overallStatsTable.setItems(statistics);
 
-
-//        overallStats.setAll(
-//                "Accuracy: " + accuracy + "%",
-//                "Rounds played: " + roundsPlayed,
-//
-//                "Correct answers: " + correctAnswers,
-//                "Wrong answers: " + wrongAnswers
-//        );
     }
 
     public void loadQuizStats() {
@@ -88,8 +126,9 @@ public class StatsController {
         for (Quiz quiz : quizzes) {
             String name = quiz.getName();
             String accuracy = StatsDAO.getQuizAccuracy(quiz.getID()) + "%";
+            String quizID = Integer.toString(quiz.getID());
 
-            quizStats.add(new Statistic(name, accuracy));
+            quizStats.add(new Statistic(name, accuracy, quiz));
         }
 
         ObservableList<Statistic> statistics = FXCollections.observableArrayList(quizStats);

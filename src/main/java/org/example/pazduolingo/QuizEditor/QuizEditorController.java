@@ -17,6 +17,7 @@ import org.example.pazduolingo.QuizClass.*;
 import org.example.pazduolingo.Settings.Settings;
 import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.LanguageManager;
+import org.example.pazduolingo.Utilites.WindowManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,7 +36,6 @@ public class QuizEditorController {
     @FXML
     private Button saveAsButton;
 
-
     private List<Note> notes;
 
     private Settings settings;
@@ -47,6 +47,20 @@ public class QuizEditorController {
         saveButton.setOnAction(e -> onSave());
         settings = SettingsDAO.loadSettings();
         notes = NoteDAO.getAllNotes();
+
+            quizTitle.setTextFormatter(new TextFormatter<>(change -> {
+                if (change.getControlNewText().length() > 40) {
+                    return null;
+                }
+                return change;
+            }));
+
+            quizDescription.setTextFormatter(new TextFormatter<>(change -> {
+                if (change.getControlNewText().length() > 100) {
+                    return null;
+                }
+                return change;
+            }));
     }
 
     private void removeQuestion(int questionIndex) {
@@ -114,15 +128,12 @@ public class QuizEditorController {
 
         Label questionLabel = new Label(lm.getTranslation("quizEditor.question") + " " + (index + 1));
 
-
         ComboBox<String> note1Box = new ComboBox<>();
         ComboBox<String> note2Box = new ComboBox<>();
         ComboBox<String> note3Box = new ComboBox<>();
         ComboBox<String> note4Box = new ComboBox<>();
 
-
         List<ComboBox<String>> comboBoxList = List.of(note1Box,note2Box,note3Box,note4Box);
-
 
         //note1Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateComboBox(notes, comboBoxList));
         //note2Box.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> updateComboBox(notes,comboBoxList));
@@ -152,11 +163,7 @@ public class QuizEditorController {
                 freqNoteBox.getItems().add(nFloat.getName());
             }
 
-
         }
-
-
-
 
         Button remove = new Button(lm.getTranslation("quizEditor.remove"));
         remove.setMinWidth(80);
@@ -193,9 +200,6 @@ public class QuizEditorController {
         questionContainer.getChildren().add(questionBox);
     }
 
-
-
-
     private void onSave() {
 
         Quiz quizToSave = getQuiz();
@@ -210,18 +214,17 @@ public class QuizEditorController {
 
     }
 
-
     private File getSelectedFilePath(Node sourceNode, String quizName) {
+        LanguageManager lm = LanguageManager.getInstance();
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select place to save ");
+        fileChooser.setTitle(lm.getTranslation("quizEditor.selectPlaceToSave"));
         fileChooser.setInitialFileName(quizName + ".quiz");
 
         Stage stage = (Stage) sourceNode.getScene().getWindow();
 
         return fileChooser.showSaveDialog(stage);
     }
-
 
     private void saveQuizAsFile(){
         Quiz quizToSave = getQuiz();
@@ -242,53 +245,25 @@ public class QuizEditorController {
     }
 
 
-    private void allert(String allerType){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(allerType);
-        alert.showAndWait();
-    }
-
-
-
     private Quiz getQuiz(){
-
+        LanguageManager lm = LanguageManager.getInstance();
 
         List<Question> questions = new ArrayList<>();
         String name = quizTitle.getText();
         String desc = quizDescription.getText();
 
-
-
-        if(name.length() > 60){
-
-            allert("String > 60");
-            return null;
-
-        }
-
-        if (desc.length() > 100){
-            allert("Desc > 100");
-            return null;
-        }
-
-
-
-
         if (name.isEmpty()){
-            allert("Quiz name is Empty");
+            WindowManager.openErrorWindow(lm.getTranslation("quizEditor.alert1"));
             return null;
         }
 
         if(questionContainer.getChildren().isEmpty()){
-            allert("Must be at least 1 question");
+            WindowManager.openErrorWindow(lm.getTranslation("quizEditor.alert2"));
             return null;
         }
         int indexQ = 0;
         for (Node node : questionContainer.getChildren()) {
             indexQ++;
-
 
             VBox questionBox = (VBox) node;
 
@@ -319,12 +294,10 @@ public class QuizEditorController {
                 default -> InstrumentType.PIANO;
             };
 
-
             List<Note> notes = new ArrayList<>();
 
-
             if (note1.getValue() == null || note2.getValue() == null || note3.getValue() == null || note4.getValue() == null ){
-                allert("Question must have 4 notes in question:"+indexQ);
+                WindowManager.openErrorWindow( lm.getTranslation("quizEditor.alert3") + " " + indexQ + "!");
                 return null;
             }
 
@@ -334,12 +307,10 @@ public class QuizEditorController {
             uniqueNotes.add(note3.getValue());
             uniqueNotes.add(note4.getValue());
 
-
             if (uniqueNotes.size() < 4) {
-                allert("All notes must be unique in question:" + indexQ);
+                WindowManager.openErrorWindow(lm.getTranslation("quizEditor.alert4") + " " + indexQ + "!");
                 return null;
             }
-
 
             notes.add(NoteDAO.getNoteByName(note1.getValue()));
             notes.add(NoteDAO.getNoteByName(note2.getValue()));
@@ -347,9 +318,6 @@ public class QuizEditorController {
             notes.add(NoteDAO.getNoteByName(note4.getValue()));
 
             Note freqNote = NoteDAO.getNoteByName(freqNoteBox.getValue());
-
-
-
 
             Question question = new Question(notes, diff, type, freqNote);
 

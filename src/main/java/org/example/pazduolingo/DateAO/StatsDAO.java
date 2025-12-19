@@ -11,7 +11,7 @@ public class StatsDAO {
 
     public static int getRounds(int noteID, int quizID){
         String sql = "SELECT rounds FROM note_stats WHERE notes_id = ? and quizes_id = ?";
-        int rounds = -1;
+        int rounds = 0;
         try (Connection conn = DriverManager.getConnection(DB_URL)){
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1,noteID);
@@ -33,7 +33,7 @@ public class StatsDAO {
 
     public static int getCorrectAnswers(int noteID, int quizID){
         String sql = "SELECT correct_answers FROM note_stats WHERE notes_id = ? and quizes_id = ?";
-        int corr = -1;
+        int corr = 0;
         try (Connection conn = DriverManager.getConnection(DB_URL)){
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1,noteID);
@@ -55,7 +55,7 @@ public class StatsDAO {
 
     public static int getQuizCorrectAnswers(int quizID){
         String sql = "SELECT SUM(correct_answers) as quiz_corr_answ FROM note_stats WHERE quizes_id = ?";
-        int corr = -1;
+        int corr = 0;
         try (Connection conn = DriverManager.getConnection(DB_URL)){
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, quizID);
@@ -73,7 +73,7 @@ public class StatsDAO {
 
     public static int getQuizRounds(int quizID){
         String sql = "SELECT SUM(rounds) as quiz_rounds FROM note_stats WHERE quizes_id = ?";
-        int corr = -1;
+        int corr = 0;
         try (Connection conn = DriverManager.getConnection(DB_URL)){
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, quizID);
@@ -101,7 +101,7 @@ public class StatsDAO {
 
     public static int getOverallRounds(){
         String sql = "SELECT SUM(rounds) as total_rounds FROM note_stats";
-        int corr = -1;
+        int corr = 0;
         try (Connection conn = DriverManager.getConnection(DB_URL)){
             PreparedStatement pstm = conn.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
@@ -117,7 +117,7 @@ public class StatsDAO {
 
     public static int getOverallCorrectAnswers(){
         String sql = "SELECT SUM(correct_answers) as total_correct_answers FROM note_stats";
-        int corr = -1;
+        int corr = 0;
         try (Connection conn = DriverManager.getConnection(DB_URL)){
             PreparedStatement pstm = conn.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();

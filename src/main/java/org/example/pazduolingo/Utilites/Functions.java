@@ -1,11 +1,10 @@
 package org.example.pazduolingo.Utilites;
 
 import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.QuizClass.Question;
+import org.example.pazduolingo.QuizClass.Quiz;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Functions {
 
@@ -60,15 +59,41 @@ public class Functions {
         };
     }
 
+    public static String allNotesFromQuiz(Quiz quiz){
+        String result = "";
+        Set<Note> notesSet = new HashSet<>();
 
+        for (Question q : quiz.getQuestions()) {
+            for (Note n : q.getNotes()) {
+                notesSet.add(n);
+            }
+        }
 
+        List<Note> notesList = new ArrayList<>(notesSet);
 
+        for (int i = 0; i < notesList.size(); i++) {
+            if (i < notesList.size() - 1) {
+                result += notesList.get(i).getName() + ", ";
+                continue;
+            }
+            result += notesList.get(i).getName();
+        }
 
+        return result;
+    };
 
+    public static List<Note> allNotesFromQuizList(Quiz quiz){
+        Set<Note> notesSet = new HashSet<>();
 
+        for (Question q : quiz.getQuestions()) {
+            for (Note n : q.getNotes()) {
+                notesSet.add(n);
+            }
+        }
 
+        List<Note> notesList = new ArrayList<>(notesSet);
 
-
-
-
+        return notesList;
+    };
+    
 }
