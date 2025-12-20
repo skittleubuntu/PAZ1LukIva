@@ -109,6 +109,7 @@ public class WindowManager {
         stage.setScene(scene);
 
         if (modality != null) {
+            stage.initOwner(stages.get(0).stage());
             stage.initModality(modality);
             stage.showAndWait();
         }

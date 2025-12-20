@@ -205,12 +205,12 @@ public class QuizController {
                 if (!answeredWrong){
                     StatsDAO.addCorrectAnswers(currentQuestion.getCorrectAnswer().getId(), quizId);
                     StatsDAO.addRounds(currentQuestion.getCorrectAnswer().getId(), quizId);
+                    progress += (double) 50 / quiz.getQuestions().size();
                 }
                 answeredWrong = false;
 
                 questionComplete = true;
                 questionLabel.setText(lm.getTranslation("quiz.correct"));
-                progress += (double) 50 / quiz.getQuestions().size();
                 accBar.setProgress(progress / 100);
                 nextButton.setVisible(true);
                 questionLabel.setStyle("labelBackColor: #00c100");
@@ -220,8 +220,12 @@ public class QuizController {
                 }
 
             } else {
+
+                if(!answeredWrong) {
+                    StatsDAO.addRounds(currentQuestion.getCorrectAnswer().getId(), quizId);
+                }
                 answeredWrong = true;
-                StatsDAO.addRounds(currentQuestion.getCorrectAnswer().getId(), quizId);
+
 
                 questionLabel.setStyle("labelBackColor: red");
                 progress -= (double) 100 / quiz.getQuestions().size();
