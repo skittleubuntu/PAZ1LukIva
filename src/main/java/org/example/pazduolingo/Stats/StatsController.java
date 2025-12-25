@@ -112,7 +112,7 @@ public class StatsController {
         LanguageManager lm = LanguageManager.getInstance();
 
         List<Statistic> overallStats = Arrays.asList(
-                new Statistic(lm.getTranslation("stats.accuracy"), accuracy + "%"),
+                new Statistic(lm.getTranslation("stats.accuracy") + ":" , accuracy + "%"),
                 new Statistic(lm.getTranslation("stats.roundsPlayed"), Integer.toString(rounds)),
                 new Statistic(lm.getTranslation("stats.correctAnswers"), Integer.toString(correctAnswers)),
                 new Statistic(lm.getTranslation("stats.wrongAnswers"), Integer.toString(wrongAnswers))
