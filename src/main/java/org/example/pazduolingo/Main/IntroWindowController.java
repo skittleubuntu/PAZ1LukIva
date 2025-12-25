@@ -45,8 +45,8 @@ public class IntroWindowController {
                 String fxmlPath = "/org/example/pazduolingo/Quiz/QuizView.fxml";
                 QuizController quizController = new QuizController();
                 quizController.setQuizId(quiz.getID());
+                startButton.getScene().getWindow().hide();
                 WindowManager.getInstance().openWindow(fxmlPath, quizController, quiz.getName(), Modality.APPLICATION_MODAL);
-                WindowManager.closeWindow(startButton);
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
