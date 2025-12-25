@@ -1,6 +1,7 @@
 package org.example.pazduolingo.DateAO;
 
 import org.example.pazduolingo.QuizClass.*;
+import org.example.pazduolingo.Utilites.Factory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileDAO {
-
+    private static NoteDAO NoteDAO = Factory.getNoteDao();
     public static void saveQuizToFile(Quiz quiz, File file) {
         if (file == null || quiz == null) return;
 

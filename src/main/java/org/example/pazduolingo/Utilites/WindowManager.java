@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WindowManager {
-
+    private SettingsDAO settingsDAO = Factory.getSettingsDao();
 
     private static WindowManager instance;
 
@@ -40,7 +40,7 @@ public class WindowManager {
     }
 
     public void setTheme() {
-        Settings settings = SettingsDAO.loadSettings();
+        Settings settings = settingsDAO.loadSettings();
         String themeFile = "/org/example/pazduolingo/Styles/" + (settings.Theme).toLowerCase() + "_theme.css";
         String cssUrl = Factory.class.getResource(themeFile).toExternalForm();
 
@@ -98,7 +98,7 @@ public class WindowManager {
 
         Scene scene = new Scene(root);
 
-        Settings settings =  SettingsDAO.loadSettings();
+        Settings settings =  settingsDAO.loadSettings();
         String themeFile = "/org/example/pazduolingo/Styles/" + (settings.Theme).toLowerCase() + "_theme.css";
         String cssUrl = Factory.class.getResource(themeFile).toExternalForm();
 

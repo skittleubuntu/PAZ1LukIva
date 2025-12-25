@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizController {
-
+    private StatsDAO StatsDAO = Factory.getStatsDao();
+    private NoteDAO NoteDAO = Factory.getNoteDao();
+    private SettingsDAO settingsDAO = Factory.getSettingsDao();
+    private QuizDAO QuizDAO = Factory.getQuizDao();
     @FXML
     private Label questionLabel;
 
@@ -149,7 +152,7 @@ public class QuizController {
             }).start();
 
             if (currentQuestion.getRefNote() != null) {
-                if(SettingsDAO.loadSettings().Type.equals("#")) {
+                if(settingsDAO.loadSettings().Type.equals("#")) {
                     refNoteLabel.setText("" + currentQuestion.getRefNote().getName());
                 }
                 else{
@@ -178,7 +181,7 @@ public class QuizController {
             List<Note> noteList = new ArrayList<>(currentQuestion.getNotes());
             for (Note note : noteList) {
                 Button answerButton = null;
-                if (SettingsDAO.loadSettings().Type.equals("#"))
+                if (settingsDAO.loadSettings().Type.equals("#"))
                 {
                answerButton = new Button(note.getName());}
                 else{
@@ -273,7 +276,7 @@ public class QuizController {
         InstrumentType type = currentQuestion.getInstrumentType();
         Sounder sounder = Factory.createSounder(type);
 
-        Settings settings = SettingsDAO.loadSettings();
+        Settings settings = settingsDAO.loadSettings();
         new Thread(() -> sounder.play(note.getMidiNumber(), settings.Volume)).start();
     }
 

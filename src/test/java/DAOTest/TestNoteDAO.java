@@ -1,8 +1,6 @@
 package DAOTest;
 
-import org.example.pazduolingo.DateAO.NoteDAO;
-import org.example.pazduolingo.DateAO.QuizDAO;
-import org.example.pazduolingo.DateAO.SqlDAO;
+import org.example.pazduolingo.DateAO.*;
 import org.example.pazduolingo.QuizClass.*;
 import org.example.pazduolingo.Utilites.Factory;
 import org.junit.jupiter.api.*;
@@ -14,18 +12,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TestNoteDAO {
 
-    //test data
-    Note n1 = new Note(1, 21, "A", 0);
-    Note n2 = new Note(2, 22, "A#", 0);
-    Note n3 = new Note(3, 23, "B", 0);
-    List<Note> notes = List.of(n1, n2, n3);
-    Note n4 = Factory.getFloatNote(n2, NoteDAO.getAllNotes());
 
-    Question q1 = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n2);
-    Question q2 = new Question(notes, QuestionDifficulty.MEDIUM, InstrumentType.VIOLIN, n1);
-    List<Question> questions = List.of(q1, q2);
 
-    Quiz quiz = new Quiz(1,questions, "Test Quiz", "Test save of quiz");
+
+
+    private NoteDAO NoteDAO;
+    private QuizDAO QuizDAO;
+    private Note n1;
+    private Note n2;
+    private Note n3;
+    private Note n4;
+    private List<Note> notes;
+    private Quiz quiz;
+    private SqlDAO sqlDAO;
+
+    @BeforeEach
+    void setUp() {
+        Factory.setDatabaseMode(DatabaseProfile.TEST);
+        NoteDAO = Factory.getNoteDao();
+
+        QuizDAO = Factory.getQuizDao();
+        sqlDAO = Factory.getSQLDao();
+        sqlDAO.dropTables();
+
+        n1 = new Note(1, 21, "A", 0);
+        n2 = new Note(2, 22, "A#", 0);
+        n3 = new Note(3, 23, "B", 0);
+
+
+        NoteDAO.getAllNotes().clear();
+        NoteDAO.getAllNotes().addAll(List.of(n1, n2, n3));
+
+        notes = List.of(n1, n2, n3);
+        n4 = Factory.getFloatNote(n2, NoteDAO.getAllNotes());
+        Question q1 = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n2);
+        Question q2 = new Question(notes, QuestionDifficulty.MEDIUM, InstrumentType.VIOLIN, n1);
+        List<Question> questions = List.of(q1, q2);
+        quiz = new Quiz(1,questions, "Test Quiz", "Test save of quiz");
+    }
+
 
 
     @Test
@@ -80,10 +105,10 @@ class TestNoteDAO {
     @Test
     void testGetNotesFromQuiz() {
 
-            SqlDAO.dropTables();
+            sqlDAO.dropTables();
             QuizDAO.saveQuiz(quiz);
-            Connection conn = SqlDAO.getConnection();
-            List<Note> notes = NoteDAO.loadNotesForQuestion(conn, 1);
+
+            List<Note> notes = NoteDAO.loadNotesForQuestion(1);
             assertEquals(notes, this.notes);
 
     }

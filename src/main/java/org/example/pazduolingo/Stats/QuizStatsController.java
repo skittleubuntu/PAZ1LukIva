@@ -23,6 +23,9 @@ import java.util.List;
 
 public class QuizStatsController {
 
+    private NoteDAO NoteDAO = Factory.getNoteDao();
+    private SettingsDAO settingsDAO = Factory.getSettingsDao();
+    private StatsDAO StatsDAO = Factory.getStatsDao();
     @FXML
     private PieChart accuracyPieChart;
 
@@ -116,7 +119,7 @@ public class QuizStatsController {
 
 
     private void loadNoteStats() {
-        Settings sett = SettingsDAO.loadSettings();
+        Settings sett = settingsDAO.loadSettings();
         List<Note> allnote = NoteDAO.getAllNotes();
         List<Note> notes = Functions.allNotesFromQuizList(quiz);
         List<NoteStatistic> noteStats = new ArrayList<>();

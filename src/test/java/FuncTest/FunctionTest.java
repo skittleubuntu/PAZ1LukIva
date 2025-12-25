@@ -1,8 +1,11 @@
 package org.example.hearo.Utilities;
 
+import org.example.pazduolingo.DateAO.DatabaseProfile;
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.QuizClass.Note;
+import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.Functions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,6 +14,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FunctionsTest {
 
+
+
+
+    private NoteDAO NoteDAO;
+
+
+
+    @BeforeEach
+    void setUp() {
+
+        Factory.setDatabaseMode(DatabaseProfile.TEST);
+        this.NoteDAO = Factory.getNoteDao();
+    }
     @Test
     void testOrderByName() {
 

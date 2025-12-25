@@ -1,15 +1,31 @@
 package org.example.hearo.Utilities;
 
+import org.example.pazduolingo.DateAO.DatabaseProfile;
 import org.example.pazduolingo.DateAO.NoteDAO;
 import org.example.pazduolingo.QuizClass.InstrumentType;
 import org.example.pazduolingo.QuizClass.Note;
 import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.Sounder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FactoryTest {
+
+
+
+
+    private NoteDAO NoteDAO;
+
+
+
+    @BeforeEach
+    void setUp() {
+
+        Factory.setDatabaseMode(DatabaseProfile.TEST);
+        this.NoteDAO = Factory.getNoteDao();
+    }
 
     @Test
     void testNewTypeSounder() {

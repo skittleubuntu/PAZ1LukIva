@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.pazduolingo.DateAO.QuizDAO;
 import org.example.pazduolingo.DateAO.StatsDAO;
 import org.example.pazduolingo.QuizClass.Quiz;
+import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.LanguageManager;
 import org.example.pazduolingo.Utilites.WindowManager;
 
@@ -23,7 +24,10 @@ public class StatsController {
 //    @FXML
 //    private ListView<String> overallStatsList;
 //
-//    private ObservableList<String> overallStats = FXCollections.observableArrayList();
+
+    //    private ObservableList<String> overallStats = FXCollections.observableArrayList();\
+    private QuizDAO QuizDAO = Factory.getQuizDao();
+    private StatsDAO StatsDAO = Factory.getStatsDao();
     @FXML
     private PieChart accuracyPieChart;
 

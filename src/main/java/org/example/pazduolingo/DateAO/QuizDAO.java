@@ -2,151 +2,73 @@ package org.example.pazduolingo.DateAO;
 
 import org.example.pazduolingo.QuizClass.Question;
 import org.example.pazduolingo.QuizClass.Quiz;
+import org.example.pazduolingo.Utilites.Factory;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 public class QuizDAO {
 
+    private final JdbcOperations jdbc;
+    private  QuestionDAO questionDAO;
 
-    private static final String DB_URL = "jdbc:sqlite:database.db";
+    public QuizDAO(JdbcOperations jdbc) {
+        this.jdbc = jdbc;
+        this.questionDAO = Factory.getQuestionDao();
+    }
 
+    private final RowMapper<Quiz> quizRowMapper = (rs, rowNum) -> {
+        Integer quizId = rs.getObject("id", Integer.class);
+        String name = rs.getString("name");
+        String description = rs.getString("description");
 
-    public static void saveQuiz(Quiz quiz) {
-        String insertQuizSQL = "INSERT INTO quizes (name, description) VALUES (?, ?)";
+        List<Question> questions = questionDAO.loadQuestionForQuiz(quizId);
+        return new Quiz(quizId, questions, name, description);
+    };
 
+    public void saveQuiz(Quiz quiz) {
+        String sql = "INSERT INTO quizes (name, description) VALUES (?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL)) {
-  
-            conn.setAutoCommit(false);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-            int quizId;
-            try (PreparedStatement pstmt = conn.prepareStatement(insertQuizSQL, Statement.RETURN_GENERATED_KEYS)) {
-                pstmt.setString(1, quiz.getName());
-                pstmt.setString(2, quiz.getDescription());
-                pstmt.executeUpdate();
+        jdbc.update(connection -> {
+            PreparedStatement ps =
+                    connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, quiz.getName());
+            ps.setString(2, quiz.getDescription());
+            return ps;
+        }, keyHolder);
 
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        quizId = rs.getInt(1);
-                    } else {
-                        throw new SQLException("");
-                    }
-                }
-            }
+        int quizId = keyHolder.getKey().intValue();
 
-
-            for (Question q : quiz.getQuestions()) {
-                QuestionDAO.saveQuestion(conn, q, quizId);
-            }
-
-            conn.commit();
-
-
-        } catch (SQLException e) {
-          
-
+        for (Question q : quiz.getQuestions()) {
+            questionDAO.saveQuestion(quizId, q);
         }
     }
 
-    public static Quiz loadQuizByID(int id){
-
+    public Quiz loadQuizByID(int id) {
         String sql = "SELECT id, name, description FROM quizes WHERE id = ?";
-        
-   
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-
-            if (!rs.next()) {
-
-                return null;
-            }
-
-            int quizId = rs.getInt("id");
-            String name = rs.getString("name");
-            String desc = rs.getString("description");
-
-
-            List<Question> questions = QuestionDAO.loadQuestionForQuiz(quizId);
-
-            return new Quiz(id,questions, name, desc);
-
-        } catch (SQLException e) {
-          
-            throw new RuntimeException();
-        }
-    }
-
-    public static void deleteQuiz(Quiz quiz){
-        String sql = "DELETE FROM quizes WHERE id = ?";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL)){
-
-            conn.setAutoCommit(false);
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setInt(1,quiz.getID());
-                pstmt.executeUpdate();
-                conn.commit();
-
-            }
-            catch (SQLException e ){
-                conn.rollback();
-                throw e;
-            }
-            QuestionDAO.deleteQuestionByQuizID(conn,quiz.getID());
-
-        } catch (SQLException e) {
-
-            throw new RuntimeException(e);
-        }
-
-
+        List<Quiz> quizzes = jdbc.query(sql, quizRowMapper, id);
+        return quizzes.isEmpty() ? null : quizzes.get(0);
     }
 
 
-    public static List<Quiz> loadQuiz(){
-        List<Quiz> quizzes = new ArrayList<>();
-
-        String getAllQuizes = "SELECT id, name , description FROM quizes";
-
-
-
-        try (Connection conn = DriverManager.getConnection(DB_URL)){
-           
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(getAllQuizes);
-
-            while (rs.next()){
-
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String desc = rs.getString("description");
-
-
-                List<Question> questions = QuestionDAO.loadQuestionForQuiz(id);
-
-                quizzes.add(new Quiz(id,questions,name,desc));
-
-            }
-
-
-        } catch (SQLException e) {
-          
-            throw new RuntimeException(e);
-        }
-
-        return quizzes;
+    public List<Quiz> loadQuiz() {
+        String sql = "SELECT id, name, description FROM quizes";
+        return jdbc.query(sql, quizRowMapper);
     }
 
 
-
-
-
-
-
+    public void deleteQuiz(Quiz quiz) {
+        List<Question> questions = quiz.getQuestions();
+        for (Question q : questions) {
+            questionDAO.deleteQuestionByQuizID(quiz.getID());
+        }
+        jdbc.update("DELETE FROM quizes WHERE id = ?", quiz.getID());
+    }
 }

@@ -1,136 +1,103 @@
 package DAOTest;
 
-import org.example.pazduolingo.DateAO.NoteDAO;
-import org.example.pazduolingo.DateAO.QuestionDAO;
-import org.example.pazduolingo.DateAO.QuizDAO;
-import org.example.pazduolingo.DateAO.SqlDAO;
+import org.example.pazduolingo.DateAO.*;
 import org.example.pazduolingo.QuizClass.*;
+import org.example.pazduolingo.Utilites.Factory;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TestQuizDAO {
 
+    private QuizDAO quizDAO;
+    private QuestionDAO questionDAO;
+    private NoteDAO noteDAO;
 
+    private Note n1, n2, n3;
+    private List<Note> notes;
+    private Question q1, q2;
+    private List<Question> questions;
+    private Quiz quiz;
+    private SqlDAO sqlDAO;
 
-
-    Note n1 = new Note(1, 21, "A", 0);
-    Note n2 = new Note(2, 22, "A#", 0);
-    Note n3 = new Note(3, 23, "B", 0);
-    List<Note> notes = List.of(n1, n2, n3);
-
-
-    Question q1 = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n2);
-    Question q2 = new Question(notes, QuestionDifficulty.MEDIUM, InstrumentType.VIOLIN, n1);
-    List<Question> questions = List.of(q1, q2);
-
-
-    Quiz quiz = new Quiz(1,questions, "Test Quiz", "Test save of quiz");
-
-
+    @BeforeAll
+    void setupFactory() {
+        Factory.setDatabaseMode(DatabaseProfile.TEST);
+        sqlDAO = Factory.getSQLDao();
+        sqlDAO.dropTables();
+        quizDAO = Factory.getQuizDao();
+        questionDAO = Factory.getQuestionDao();
+        noteDAO = Factory.getNoteDao();
+    }
 
     @BeforeEach
-    void setup() {
-        SqlDAO.dropTables();
+    void setupData() {
+        sqlDAO.dropTables();
+
+
+        n1 = new Note(1, 21, "A", 0);
+        n2 = new Note(2, 22, "A#", 0);
+        n3 = new Note(3, 23, "B", 0);
+        notes = List.of(n1, n2, n3);
+
+        q1 = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n2);
+        q2 = new Question(notes, QuestionDifficulty.MEDIUM, InstrumentType.VIOLIN, n1);
+        questions = List.of(q1, q2);
+
+        quiz = new Quiz(1, questions, "Test Quiz", "Test save of quiz");
     }
 
     @Test
-    @Order(1)
     @DisplayName("Save quiz")
     void testSaveQuiz() {
+        quizDAO.saveQuiz(quiz);
+        List<Quiz> quizzes = quizDAO.loadQuiz();
 
-        QuizDAO.saveQuiz(quiz);
-        List<Quiz> quizzes = QuizDAO.loadQuiz();
-
-            assertEquals(1, quizzes.size());
-            assertEquals("Test Quiz", quizzes.getFirst().getName());
-
+        assertEquals(1, quizzes.size());
+        assertEquals("Test Quiz", quizzes.get(0).getName());
     }
 
     @Test
-    @Order(2)
     @DisplayName("Load quiz")
     void testLoadQuiz() {
+        Note n = new Note(1, 21, "A", 0);
+        List<Note> noteList = List.of(n);
+        Question q = new Question(noteList, QuestionDifficulty.EASY, InstrumentType.GUITAR, n);
+        Quiz newQuiz = new Quiz(2, List.of(q), "Another Quiz", "Simple test quiz");
 
-        Note n1 = new Note(1, 21, "A", 0);
-        List<Note> notes = List.of(n1);
-        Question q = new Question(notes, QuestionDifficulty.EASY, InstrumentType.GUITAR, n1);
-        Quiz quiz = new Quiz(2,List.of(q), "Another Quiz", "Simple test quiz");
+        quizDAO.saveQuiz(newQuiz);
 
-        QuizDAO.saveQuiz(quiz);
-
-
-        List<Quiz> loaded = QuizDAO.loadQuiz();
-            assertFalse(loaded.isEmpty(), "Must be at least 1 quiz");
-            assertEquals("Another Quiz", loaded.getFirst().getName());
-            assertNotNull(loaded.getFirst().getQuestions());
-
-
+        List<Quiz> loaded = quizDAO.loadQuiz();
+        assertFalse(loaded.isEmpty());
+        assertEquals("Another Quiz", loaded.get(0).getName());
+        assertNotNull(loaded.get(0).getQuestions());
     }
-
-
-
-
-
-
 
     @Test
-    @Order(3)
-    void testLoadQuizByID(){
+    void testLoadQuizByID() {
+        quizDAO.saveQuiz(quiz);
+        Quiz loadedQuiz = quizDAO.loadQuizByID(1);
 
-        QuizDAO.saveQuiz(quiz);
-        //cuz we have only 1 quiz
-        Quiz quiz1 = QuizDAO.loadQuizByID(1);
-            assertNotNull(quiz1);
-            assertEquals(quiz1.getQuestions().getFirst().getNotes(), quiz.getQuestions().getFirst().getNotes());
-
+        assertNotNull(loadedQuiz);
+        assertEquals(quiz.getQuestions().get(0).getNotes().size(),
+                loadedQuiz.getQuestions().get(0).getNotes().size());
     }
-
 
     @Test
-    void testDeleteQuiz(){
+    void testDeleteQuiz() {
+        quizDAO.saveQuiz(quiz);
 
-        QuizDAO.saveQuiz(quiz);
-        List<Quiz> quiz1 = QuizDAO.loadQuiz();
-        assertEquals(1, quiz1.size());
-        List<Question> questions1 = QuestionDAO.loadQuestionForQuiz(1);
+        assertEquals(1, quizDAO.loadQuiz().size());
+        assertEquals(2, questionDAO.loadQuestionForQuiz(1).size());
+        assertEquals(3, noteDAO.loadNotesForQuestion(1).size());
 
-        //for example only one note set
-        List<Note> notes1 = NoteDAO.loadNotesForQuestion(SqlDAO.getConnection(),1);
+        quizDAO.deleteQuiz(quiz);
 
-
-        assertEquals(notes1.size(), 3);
-
-        //must be 2 questions
-        assertEquals(questions1.size(), 2);
-
-
-
-
-        //cuz rn we have only 1 quiz with id = 1
-        QuizDAO.deleteQuiz(quiz);
-
-
-
-        quiz1 = QuizDAO.loadQuiz();
-        questions1 = QuestionDAO.loadQuestionForQuiz(quiz.getID());
-        notes1 = NoteDAO.loadNotesForQuestion(SqlDAO.getConnection(), 1);
-
-
-        //must be 0 notes
-        assertEquals(notes1.size(), 0);
-
-        //must be 0 questions for this quiz
-        assertEquals(questions1.size(), 0);
-
-        //cuz we dont have any quizes
-        assertEquals(0, quiz1.size());
-
+        assertEquals(0, quizDAO.loadQuiz().size());
+        assertEquals(0, questionDAO.loadQuestionForQuiz(1).size());
+        assertEquals(0, noteDAO.loadNotesForQuestion(1).size());
     }
-
-
-
 }

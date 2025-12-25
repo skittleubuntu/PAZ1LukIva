@@ -4,6 +4,8 @@ module org.example.pazduolingo {
     requires java.desktop;
     requires javafx.graphics;
     requires org.xerial.sqlitejdbc;
+    requires spring.jdbc;
+    requires spring.tx;
 
     exports org.example.pazduolingo.QuizClass;
     opens org.example.pazduolingo.QuizClass to javafx.fxml;

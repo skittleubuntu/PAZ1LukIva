@@ -1,138 +1,97 @@
 package org.example.pazduolingo.DateAO;
 
-import org.example.pazduolingo.QuizClass.InstrumentType;
-import org.example.pazduolingo.QuizClass.Note;
-import org.example.pazduolingo.QuizClass.Question;
-import org.example.pazduolingo.QuizClass.QuestionDifficulty;
+import org.example.pazduolingo.QuizClass.*;
+import org.example.pazduolingo.Utilites.Factory;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDAO {
 
+    private final JdbcOperations jdbc;
+    private NoteDAO noteDAO;
 
-    private static final String DB_URL = "jdbc:sqlite:database.db";
-
-
-    public static List<Question> loadQuestionForQuiz(int quizId) {
-        List<Question> questions = new ArrayList<>();
-        String sql = "SELECT id, idFreq, question_duficult, instrumentType FROM questions WHERE quizes_id = ?;";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL)) {
-
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-           
-            pstmt.setInt(1, quizId);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                int questionId = rs.getInt("id");
-                Integer idFreq = rs.getInt("idFreq");
-                if (rs.wasNull()) {
-                    idFreq = null;
-                }
-                String difficultText = rs.getString("question_duficult");
-                String instrumentText = rs.getString("instrumentType");
-
-
-                Note freqNote = null;
-                if (idFreq != null) {
-                    freqNote = NoteDAO.getNoteByID(idFreq);
-                }
-
-                List<Note> notes = NoteDAO.loadNotesForQuestion(conn, questionId);
-
-                QuestionDifficulty difficult = QuestionDifficulty.valueOf(difficultText);
-                InstrumentType instrumentType = InstrumentType.valueOf(instrumentText);
-
-                Question question = new Question(notes, difficult, instrumentType, freqNote);
-                questions.add(question);
-
-            }
-
-
-        } catch (SQLException e) {
-          
-            throw new RuntimeException(e);
-        }
-
-        return questions;
+    public QuestionDAO(JdbcOperations jdbc) {
+        this.jdbc = jdbc;
+        this.noteDAO = Factory.getNoteDao();
     }
 
+    private final RowMapper<Question> questionRowMapper = (rs, rowNum) -> {
 
+        int qidRaw = rs.getInt("id");
+        Integer questionId = rs.wasNull() ? null : qidRaw;
 
+        int freqRaw = rs.getInt("idFreq");
+        Integer idFreq = rs.wasNull() ? null : freqRaw;
 
+        String difficultText = rs.getString("question_duficult");
+        String instrumentText = rs.getString("instrumentType");
 
-        public static void saveQuestion (Connection conn, Question q,int quizId) throws SQLException {
-            String insertQuestionSQL = "INSERT INTO questions (quizes_id, idFreq, question_duficult, instrumentType) VALUES (?, ?, ?, ?)";
-            int questionId;
+        QuestionDifficulty difficult = QuestionDifficulty.valueOf(difficultText);
+        InstrumentType instrumentType = InstrumentType.valueOf(instrumentText);
 
+        Note freqNote = (idFreq != null)
+                ? noteDAO.getNoteByID(idFreq)
+                : null;
 
-            try (PreparedStatement pstmtQ = conn.prepareStatement(insertQuestionSQL, Statement.RETURN_GENERATED_KEYS)) {
-                pstmtQ.setInt(1, quizId);
+        List<Note> notes = noteDAO.loadNotesForQuestion(questionId);
 
-                if (q.getRefNote() != null) {
-                    pstmtQ.setInt(2, q.getRefNote().getId());
-                }
-                pstmtQ.setString(3, q.getDifficult().toString());
-                pstmtQ.setString(4, q.getInstrumentType().toString());
-                pstmtQ.executeUpdate();
+        return new Question(notes, difficult, instrumentType, freqNote);
+    };
 
-                try (ResultSet rs = pstmtQ.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        questionId = rs.getInt(1);
-                    } else {
-
-                        throw new SQLException();
-                    }
-                }
-                catch (
-                        SQLException e
-                ){
-                  
-                    throw e;
-                }
-            }
-
-
-            NoteDAO.linkNotesToQuestion(conn, questionId, q);
-        }
-
-
-    public static void deleteQuestionByQuizID(Connection conn, int quizId) {
-
-        String selectSql = "SELECT id FROM questions WHERE quizes_id = ?";
-        String deleteSql = "DELETE FROM questions WHERE quizes_id = ?";
-
-        try {
-
-            PreparedStatement selectStmt = conn.prepareStatement(selectSql);
-            selectStmt.setInt(1, quizId);
-            ResultSet rs = selectStmt.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                NoteDAO.deleteNoteByQuestionID(conn, id);
-
-            }
-            rs.close();
-            selectStmt.close();
-
-
-            PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
-            deleteStmt.setInt(1, quizId);
-            deleteStmt.executeUpdate();
-            deleteStmt.close();
-
-            conn.commit();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
+    public List<Question> loadQuestionForQuiz(int quizId) {
+        String sql = "SELECT id, idFreq, question_duficult, instrumentType FROM questions WHERE quizes_id = ?";
+        return jdbc.query(sql, questionRowMapper, quizId);
     }
 
+    public void saveQuestion(int quizId, Question q) {
 
+        String sql = """
+        INSERT INTO questions (quizes_id, idFreq, question_duficult, instrumentType)
+        VALUES (?, ?, ?, ?)
+        """;
 
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbc.update(connection -> {
+            PreparedStatement ps =
+                    connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, quizId);
+
+            if (q.getRefNote() != null) {
+                ps.setInt(2, q.getRefNote().getId());
+            } else {
+                ps.setNull(2, Types.INTEGER);
+            }
+
+            ps.setString(3, q.getDifficult().toString());
+            ps.setString(4, q.getInstrumentType().toString());
+
+            return ps;
+        }, keyHolder);
+
+        int questionId = keyHolder.getKey().intValue();
+        System.out.println("Qid = " + questionId);
+
+        noteDAO.linkNotesToQuestion(questionId, q);
+    }
+
+    public void deleteQuestionByQuizID(int quizId) {
+        List<Integer> questionIds = jdbc.queryForList(
+                "SELECT id FROM questions WHERE quizes_id = ?",
+                Integer.class,
+                quizId
+        );
+
+        for (int id : questionIds) {
+            noteDAO.deleteNoteByQuestionID(id);
+        }
+
+        jdbc.update("DELETE FROM questions WHERE quizes_id = ?", quizId);
+    }
 }

@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
-import org.example.pazduolingo.DateAO.StatsDAO;
+
 import org.example.pazduolingo.QuizClass.Quiz;
 import org.example.pazduolingo.QuizClass.QuizController;
 import org.example.pazduolingo.Utilites.Functions;
@@ -34,7 +34,6 @@ public class IntroWindowController {
 
     @FXML
     void initialize(){
-
         nameLabel.setText(quiz.getName());
         descLabel.setText(quiz.getDescription());
         notesLabel.setText(Functions.allNotesFromQuiz(quiz));
