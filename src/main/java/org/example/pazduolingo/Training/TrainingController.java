@@ -18,9 +18,11 @@ import org.example.pazduolingo.Utilites.Sounder;
 import java.util.*;
 
 public class TrainingController {
-
+    private SettingsDAO settingsDAO = Factory.getSettingsDao();
     @FXML
     private GridPane buttonGrid;
+
+    private NoteDAO NoteDAO = Factory.getNoteDao();
 
     @FXML
     private ScrollPane scrollPane;
@@ -94,7 +96,7 @@ public class TrainingController {
 
     private void createButtons() {
         buttonGrid.getChildren().clear();
-        Settings settings = SettingsDAO.loadSettings();
+        Settings settings = settingsDAO.loadSettings();
         List<Note> allNotes = NoteDAO.getAllNotes();
         List<Note> finalNotes = new ArrayList<>();
 
@@ -145,6 +147,6 @@ public class TrainingController {
 
         Sounder sounder = Factory.createSounder(type);
         System.out.println("Played note: " + note.getName());
-        new Thread(() -> sounder.play(note.getMidiNumber(), SettingsDAO.loadSettings().Volume)).start();
+        new Thread(() -> sounder.play(note.getMidiNumber(), settingsDAO.loadSettings().Volume)).start();
     }
 }

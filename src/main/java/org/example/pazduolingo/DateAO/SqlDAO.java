@@ -1,55 +1,27 @@
 package org.example.pazduolingo.DateAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.example.pazduolingo.Utilites.Factory;
+import org.springframework.jdbc.core.JdbcOperations;
 
 public class SqlDAO {
 
-    private static final String DB_URL = "jdbc:sqlite:database.db";
+    private final JdbcOperations jdbc;
 
-    public static void dropTables(){
-        //command found on stackoverflow
-
-        String[] sql = {
-                "PRAGMA foreign_keys = OFF;",
-                "BEGIN TRANSACTION;",
-                "DELETE FROM questions_has_notes;",
-                "DELETE FROM note_stats;",
-                "DELETE FROM questions;",
-                "DELETE FROM quizes;",
-                "DELETE FROM sqlite_sequence;",
-                "COMMIT;",
-                "PRAGMA foreign_keys = ON;"
-        };
-   
-        try(Connection conn = DriverManager.getConnection(DB_URL)){
-           
-            Statement stmt = conn.createStatement();
-            for (String query : sql) {
-                stmt.executeUpdate(query);
-            }
-
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+    public SqlDAO(JdbcOperations jdbc) {
+        this.jdbc = jdbc;
     }
 
-    public static Connection getConnection() {
+    public void dropTables() {
+        // Окремо видаляємо таблиці та скидаємо sequence
+        jdbc.execute("PRAGMA foreign_keys = OFF");
 
-   
-        try {
+        jdbc.execute("DELETE FROM questions_has_notes");
+        jdbc.execute("DELETE FROM note_stats");
+        jdbc.execute("DELETE FROM questions");
+        jdbc.execute("DELETE FROM quizes");
+        jdbc.execute("DELETE FROM sqlite_sequence");
 
-            return DriverManager.getConnection(DB_URL);
-
-        } catch (SQLException e) {
-          
-            throw new RuntimeException();
-        }
+        jdbc.execute("PRAGMA foreign_keys = ON");
     }
 
 

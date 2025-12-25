@@ -1,17 +1,28 @@
 package DAOTest;
 
-import org.example.pazduolingo.DateAO.SqlDAO;
+import org.example.pazduolingo.DateAO.DatabaseProfile;
 import org.example.pazduolingo.DateAO.StatsDAO;
+import org.example.pazduolingo.DateAO.SqlDAO;
+import org.example.pazduolingo.Utilites.Factory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.JdbcOperations;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StatsDAOTest {
 
+    private StatsDAO statsDAO;
+    private SqlDAO sqlDAO;
     @BeforeEach
     void setup() {
-        SqlDAO.dropTables();
+
+
+        Factory.setDatabaseMode(DatabaseProfile.TEST);
+        sqlDAO = Factory.getSQLDao();
+        sqlDAO.dropTables();
+        statsDAO = Factory.getStatsDao();
+
     }
 
     @Test
@@ -19,11 +30,10 @@ public class StatsDAOTest {
         int quizID = 1;
         int noteID = 67;
 
-        StatsDAO.addRounds(noteID, quizID);
-        StatsDAO.addRounds(noteID, quizID);
+        statsDAO.addRounds(noteID, quizID);
+        statsDAO.addRounds(noteID, quizID);
 
-        int rounds = StatsDAO.getRounds(noteID, quizID);
-
+        int rounds = statsDAO.getRounds(noteID, quizID);
         assertEquals(2, rounds);
     }
 
@@ -32,11 +42,10 @@ public class StatsDAOTest {
         int quizID = 1;
         int noteID = 67;
 
-        StatsDAO.addCorrectAnswers(noteID, quizID);
-        StatsDAO.addCorrectAnswers(noteID, quizID);
+        statsDAO.addCorrectAnswers(noteID, quizID);
+        statsDAO.addCorrectAnswers(noteID, quizID);
 
-        int correct = StatsDAO.getCorrectAnswers(noteID, quizID);
-
+        int correct = statsDAO.getCorrectAnswers(noteID, quizID);
         assertEquals(2, correct);
     }
 
@@ -45,12 +54,11 @@ public class StatsDAOTest {
         int quizID = 1;
         int noteID = 67;
 
-        StatsDAO.addRounds(noteID, quizID);
-        StatsDAO.addRounds(noteID, quizID);
-        StatsDAO.addCorrectAnswers(noteID, quizID);
+        statsDAO.addRounds(noteID, quizID);
+        statsDAO.addRounds(noteID, quizID);
+        statsDAO.addCorrectAnswers(noteID, quizID);
 
-        int accuracy = StatsDAO.getAccuracy(noteID, quizID);
-
+        int accuracy = statsDAO.getAccuracy(noteID, quizID);
         assertEquals(50, accuracy);
     }
 
@@ -59,12 +67,11 @@ public class StatsDAOTest {
         int quizID = 1;
         int noteID = 67;
 
-        StatsDAO.addRounds(noteID, quizID);
-        StatsDAO.addRounds(noteID, quizID);
-        StatsDAO.addCorrectAnswers(noteID, quizID);
+        statsDAO.addRounds(noteID, quizID);
+        statsDAO.addRounds(noteID, quizID);
+        statsDAO.addCorrectAnswers(noteID, quizID);
 
-        int wrong = StatsDAO.getWrongAnswers(noteID, quizID);
-
+        int wrong = statsDAO.getWrongAnswers(noteID, quizID);
         assertEquals(1, wrong);
     }
 
@@ -72,42 +79,41 @@ public class StatsDAOTest {
     void testQuizRoundsAndCorrectAnswers() {
         int quizID = 1;
 
-        StatsDAO.addRounds(60, quizID);
-        StatsDAO.addRounds(61, quizID);
-        StatsDAO.addRounds(61, quizID);
+        statsDAO.addRounds(60, quizID);
+        statsDAO.addRounds(61, quizID);
+        statsDAO.addRounds(61, quizID);
 
-        StatsDAO.addCorrectAnswers(60, quizID);
-        StatsDAO.addCorrectAnswers(61, quizID);
+        statsDAO.addCorrectAnswers(60, quizID);
+        statsDAO.addCorrectAnswers(61, quizID);
 
-        assertEquals(3, StatsDAO.getQuizRounds(quizID));
-        assertEquals(2, StatsDAO.getQuizCorrectAnswers(quizID));
+        assertEquals(3, statsDAO.getQuizRounds(quizID));
+        assertEquals(2, statsDAO.getQuizCorrectAnswers(quizID));
     }
 
     @Test
     void testQuizAccuracy() {
         int quizID = 1;
 
-        StatsDAO.addRounds(60, quizID);
-        StatsDAO.addRounds(61, quizID);
-        StatsDAO.addCorrectAnswers(60, quizID);
+        statsDAO.addRounds(60, quizID);
+        statsDAO.addRounds(61, quizID);
+        statsDAO.addCorrectAnswers(60, quizID);
 
-        int accuracy = StatsDAO.getQuizAccuracy(quizID);
-
+        int accuracy = statsDAO.getQuizAccuracy(quizID);
         assertEquals(50, accuracy);
     }
 
     @Test
     void testOverallStats() {
-        StatsDAO.addRounds(60, 1);
-        StatsDAO.addRounds(61, 1);
-        StatsDAO.addRounds(62, 2);
+        statsDAO.addRounds(60, 1);
+        statsDAO.addRounds(61, 1);
+        statsDAO.addRounds(62, 2);
 
-        StatsDAO.addCorrectAnswers(60, 1);
-        StatsDAO.addCorrectAnswers(62, 2);
+        statsDAO.addCorrectAnswers(60, 1);
+        statsDAO.addCorrectAnswers(62, 2);
 
-        assertEquals(3, StatsDAO.getOverallRounds());
-        assertEquals(2, StatsDAO.getOverallCorrectAnswers());
-        assertEquals(67, StatsDAO.getOverallAccuracy());
+        assertEquals(3, statsDAO.getOverallRounds());
+        assertEquals(2, statsDAO.getOverallCorrectAnswers());
+        assertEquals(67, statsDAO.getOverallAccuracy());
     }
 
     @Test
@@ -115,8 +121,8 @@ public class StatsDAOTest {
         int quizID = 1;
         int noteID = 99;
 
-        assertEquals(0, StatsDAO.getAccuracy(noteID, quizID));
-        assertEquals(0, StatsDAO.getQuizAccuracy(quizID));
-        assertEquals(0, StatsDAO.getOverallAccuracy());
+        assertEquals(0, statsDAO.getAccuracy(noteID, quizID));
+        assertEquals(0, statsDAO.getQuizAccuracy(quizID));
+        assertEquals(0, statsDAO.getOverallAccuracy());
     }
 }

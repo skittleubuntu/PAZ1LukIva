@@ -10,7 +10,8 @@ import org.example.pazduolingo.Settings.Settings;
 import java.util.*;
 
 public class Functions {
-
+    private static NoteDAO NoteDAO = Factory.getNoteDao();
+    private static SettingsDAO settingsDAO = Factory.getSettingsDao();
 
     public static List<Note> orderByName(List<Note> notes) {
         if (notes == null) return Collections.emptyList();
@@ -65,7 +66,7 @@ public class Functions {
     public static String allNotesFromQuiz(Quiz quiz){
         String result = "";
         Set<Note> notesSet = new HashSet<>();
-        Settings settings = SettingsDAO.loadSettings();
+        Settings settings = settingsDAO.loadSettings();
         List<Note> allNotes = NoteDAO.getAllNotes();
         for (Question q : quiz.getQuestions()) {
             for (Note n : q.getNotes()) {

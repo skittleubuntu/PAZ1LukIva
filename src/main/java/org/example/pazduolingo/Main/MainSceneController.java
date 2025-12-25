@@ -11,12 +11,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.pazduolingo.DateAO.FileDAO;
 import org.example.pazduolingo.DateAO.QuizDAO;
-import org.example.pazduolingo.DateAO.StatsDAO;
+import org.example.pazduolingo.DateAO.*;
 import org.example.pazduolingo.QuizClass.Quiz;
 import org.example.pazduolingo.QuizEditor.QuizEditorController;
 import org.example.pazduolingo.Settings.SettingsController;
 import org.example.pazduolingo.Stats.StatsController;
 import org.example.pazduolingo.Training.TrainingController;
+import org.example.pazduolingo.Utilites.Factory;
 import org.example.pazduolingo.Utilites.LanguageManager;
 import org.example.pazduolingo.Utilites.WindowManager;
 
@@ -26,6 +27,11 @@ import java.util.List;
 import javafx.scene.Node;
 
 public class MainSceneController {
+
+
+    private QuizDAO QuizDAO = Factory.getQuizDao();
+
+    private StatsDAO StatsDAO = Factory.getStatsDao();
 
     @FXML
     private Button editorButton;
@@ -149,11 +155,10 @@ public class MainSceneController {
                 new FileChooser.ExtensionFilter("All", "*.*")
         );
 
-        // Отримання посилання на головне вікно (Stage)
-        // Це обов'язково для виклику showOpenDialog
+
         Stage stage = (Stage) sourceNode.getScene().getWindow();
 
-        // Відображення діалогового вікна та очікування вибору
+
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         return selectedFile;

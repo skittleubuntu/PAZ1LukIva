@@ -13,13 +13,13 @@ public class LanguageManager {
     private static LanguageManager instance;
 
     private static ObjectProperty<Locale> locale;
-
+    private static SettingsDAO settingsDAO = Factory.getSettingsDao();
 
     public static void initialize() {
         if (instance == null) {
             instance = new LanguageManager();
 
-            Settings settings = SettingsDAO.loadSettings();
+            Settings settings = settingsDAO.loadSettings();
 
             switch (settings.Language) {
                 case "English" -> locale = new SimpleObjectProperty<Locale>(new Locale("en"));
@@ -42,7 +42,7 @@ public class LanguageManager {
     }
 
     public void setLocale() {
-        Settings settings = SettingsDAO.loadSettings();
+        Settings settings = settingsDAO.loadSettings();
         System.out.println(settings.Language);
         switch(settings.Language) {
 
@@ -61,7 +61,7 @@ public class LanguageManager {
         return ResourceBundle.getBundle("language", getLocale());
     }
 
-    //TODO: dokoncit
+
     public String getTranslation(String key) {
         return getResourceBundle().getString(key);
     }

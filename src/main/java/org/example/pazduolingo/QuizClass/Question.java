@@ -22,7 +22,13 @@ public class Question {
 
 
     public Note pickRandomNote() {
-        return notes.get(new Random().nextInt(notes.size()));
+        if (notes == null || notes.isEmpty()) {
+            throw new IllegalStateException("Notes list is empty");
+        }
+
+        Random random = new Random();
+        int index = random.nextInt(notes.size());
+        return notes.get(index);
     }
 
 

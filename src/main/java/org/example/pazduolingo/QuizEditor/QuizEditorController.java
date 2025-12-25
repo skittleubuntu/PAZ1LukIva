@@ -26,7 +26,9 @@ import java.util.List;
 import java.util.Set;
 
 public class QuizEditorController {
-
+    private QuizDAO QuizDAO = Factory.getQuizDao();
+    private SettingsDAO settingsDAO = Factory.getSettingsDao();
+    private NoteDAO NoteDAO = Factory.getNoteDao();
     @FXML private TextField quizTitle;
     @FXML private TextArea quizDescription;
     @FXML private VBox questionContainer;
@@ -45,7 +47,7 @@ public class QuizEditorController {
         addQuestionButton.setOnAction(e -> addQuestion());
         saveAsButton.setOnAction(e -> saveQuizAsFile());
         saveButton.setOnAction(e -> onSave());
-        settings = SettingsDAO.loadSettings();
+        settings = settingsDAO.loadSettings();
         notes = NoteDAO.getAllNotes();
 
             quizTitle.setTextFormatter(new TextFormatter<>(change -> {
